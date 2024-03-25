@@ -1,4 +1,5 @@
-import HomePage from "@/components/HomePage/HomePage";
+import React from "react";
+import MedicineForm from "@/components/Forms/MedicineForm";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
@@ -8,12 +9,12 @@ export const metadata: Metadata = {
   description: "This is app for managing a hospital",
 };
 
-export default function Home() {
+const MedicineFormPage = () => {
   return (
-    <>
-      <DefaultLayout>
-        <HomePage/>
-      </DefaultLayout>
-    </>
+    <DefaultLayout>
+      <MedicineForm />
+    </DefaultLayout>
   );
-}
+};
+
+export default MedicineFormPage;

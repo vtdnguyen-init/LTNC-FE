@@ -1,19 +1,20 @@
-import HomePage from "@/components/HomePage/HomePage";
+import React from "react";
 import { Metadata } from "next";
+import ECommerce from "@/components/Dashboard/E-commerce"
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title:
+    title:
     "Hospital Management | BK Hospital",
   description: "This is app for managing a hospital",
 };
 
-export default function Home() {
+const StatDashPage = () => {
   return (
-    <>
-      <DefaultLayout>
-        <HomePage/>
-      </DefaultLayout>
-    </>
+    <DefaultLayout>
+      <ECommerce/>
+    </DefaultLayout>
   );
-}
+};
+
+export default StatDashPage;

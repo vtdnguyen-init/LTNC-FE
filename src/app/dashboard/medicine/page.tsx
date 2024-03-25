@@ -1,19 +1,20 @@
-import HomePage from "@/components/HomePage/HomePage";
+import React from "react";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import Medicine from "@/components/Dashboard/Medicine";
 
 export const metadata: Metadata = {
-  title:
+    title:
     "Hospital Management | BK Hospital",
   description: "This is app for managing a hospital",
 };
 
-export default function Home() {
+const MedicineDashPage = () => {
   return (
-    <>
-      <DefaultLayout>
-        <HomePage/>
-      </DefaultLayout>
-    </>
+    <DefaultLayout>
+      <Medicine/>
+    </DefaultLayout>
   );
-}
+};
+
+export default MedicineDashPage;

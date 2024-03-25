@@ -64,8 +64,8 @@ const Header = (props: {
           </Link>
         </div>
 
-        <div className="hidden sm:block">
-          <h1>HOSPITAL MANAGEMENT</h1>
+        <div className="hidden sm:block ">
+          <h1 className="font-bold antialiased"><span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">HOSPITAL</span> MANAGEMENT</h1>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">

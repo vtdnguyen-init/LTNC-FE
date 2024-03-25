@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 const Doctor : React.FC = () => {
     return(
         <div className="flex flex-wrap">
@@ -10,16 +11,18 @@ const Doctor : React.FC = () => {
           <h4 className="mb-2 text-2xl font-medium card-title dark:text-black">Doctor Datatables</h4>
         </div>
         <div className="">
+        <Link href="/forms/doctor">
         <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-9 
         py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-full w-full">ADD NEW</button>
+        </Link>
         </div>
       </div>
       <div className="flex-auto p-6">
         <p className="mb-4 text-gray-500 text-base dark:text-yellow-900">Be careful when editing, or <span className="text-pink-500">deleting</span> anything because it can't be undone</p>
         <div className="flex flex-wrap justify-between">
         <div className="flex justify-center items-center">
-            <label className="inline-block mb-2 text-gray-600 rtl:ml-2" htmlFor="email">Search:</label>
-            <input type="email" className="block w-full px-4 py-1 ml-2 text-base font-normal bg-white border rounded outline-none focus:border-blue-500 focus:shadow dark:bg-dark-card dark:border-gray-600" id="email1"/>
+            <label className="inline-block mb-2 text-gray-600 rtl:ml-2" htmlFor="search">Search:</label>
+            <input type="string" className="block w-full px-4 py-1 ml-2 text-base font-normal bg-white border rounded outline-none focus:border-blue-500 focus:shadow dark:bg-dark-card dark:border-gray-600" id="email1"/>
           </div>
           <div className="flex justify-center items-center">
             <label className="inline-block text-gray-600" htmlFor="email">Show</label>

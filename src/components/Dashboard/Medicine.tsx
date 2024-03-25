@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 const Medicine : React.FC = () => {
     return(
         <div className="flex flex-wrap">
@@ -11,8 +12,10 @@ const Medicine : React.FC = () => {
           <h4 className="mb-2 text-2xl font-medium card-title dark:text-black">Patient Datatables</h4>
         </div>
         <div className="">
+          <Link href="/forms/medicine">
         <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-9 
         py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-full w-full">ADD NEW</button>
+        </Link>
         </div>
       </div>
       <div className="flex-auto p-6">

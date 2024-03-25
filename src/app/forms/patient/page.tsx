@@ -1,5 +1,5 @@
 import React from "react";
-import FormElements from "@/components/FormElements";
+import PatientForm from "@/components/Forms/PatientForm";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   description: "This is app for managing a hospital",
 };
 
-const FormElementsPage = () => {
+const PatientFormPage = () => {
   return (
     <DefaultLayout>
-      <FormElements />
+      <PatientForm />
     </DefaultLayout>
   );
 };
 
-export default FormElementsPage;
+export default PatientFormPage;

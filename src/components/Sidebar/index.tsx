@@ -352,26 +352,38 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
-                              href="/forms/form-elements"
+                              href="/forms/doctor"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/forms/form-elements" &&
+                                pathname === "/forms/doctor" &&
                                 "text-white"
                               }`}
                             >
-                              Form Elements
+                              Doctor
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/forms/form-layout"
+                              href="/forms/patient"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/forms/form-layout" &&
+                                pathname === "/forms/patient" &&
                                 "text-white"
-                              } `}
+                              }`}
                             >
-                              Form Layout
+                              Patient
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/forms/medicine"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                pathname === "/forms/medicine" &&
+                                "text-white"
+                              }`}
+                            >
+                              Medicine
+                            </Link>
+                          </li>
+
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}

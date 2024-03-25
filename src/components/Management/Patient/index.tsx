@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import Breadcrumb from "../Breadcrumbs/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 const Doctor: React.FC = () => {
   return (
     <div className="mx-auto max-w-7xl">
-      <Breadcrumb pageName="Doctor" />
+      <Breadcrumb pageName="Patient" />
       <div className="w-full flex-auto">
         <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
           <div className="flex flex-wrap justify-between p-6 pb-0">
@@ -15,7 +15,7 @@ const Doctor: React.FC = () => {
               </h4>
             </div>
             <div className="">
-              <Link href="/forms/doctor">
+              <Link href="/forms/patient">
                 <button
                   type="button"
                   className="mb-2 me-2 h-full w-full rounded-full bg-blue-700 px-9 py-2.5 text-center text-sm 
@@ -36,16 +36,17 @@ const Doctor: React.FC = () => {
               <div className="flex items-center justify-center">
                 <label
                   className="text-gray-600 mb-2 inline-block rtl:ml-2"
-                  htmlFor="search"
+                  htmlFor="email"
                 >
                   Search:
                 </label>
                 <input
-                  type="string"
+                  type="email"
                   className="dark:bg-dark-card dark:border-gray-600 ml-2 block w-full rounded border bg-white px-4 py-1 text-base font-normal outline-none focus:border-blue-500 focus:shadow"
                   id="email1"
                 />
               </div>
+
               <div className="flex items-center justify-center">
                 <label className="text-gray-600 inline-block" htmlFor="email">
                   Show
@@ -72,19 +73,19 @@ const Doctor: React.FC = () => {
                       NAME
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      POSITION
+                      Gender
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      OFFICE
+                      ORIGIN
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
                       AGE
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      START DATE
+                      LASTEST
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      SALARY
+                      CONTACT
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
                       EDIT
@@ -102,9 +103,7 @@ const Doctor: React.FC = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
-                        <h6 className="dark: text-base text-blue-950">
-                          Surgeon Doctor
-                        </h6>
+                        <h6 className="dark: text-base text-blue-950">Male</h6>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 ">
@@ -129,7 +128,7 @@ const Doctor: React.FC = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
                         <h6 className="dark: text-base text-blue-950">
-                          $162,700
+                          38-345-2343
                         </h6>
                       </div>
                     </td>
@@ -164,7 +163,7 @@ const Doctor: React.FC = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
-                        <h6 className="dark: text-base text-blue-950">Nurse</h6>
+                        <h6 className="dark: text-base text-blue-950">Male</h6>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 ">
@@ -189,7 +188,7 @@ const Doctor: React.FC = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
                         <h6 className="dark: text-base text-blue-950">
-                          $90,000
+                          23-456-789
                         </h6>
                       </div>
                     </td>
@@ -225,7 +224,7 @@ const Doctor: React.FC = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
                         <h6 className="dark: text-base text-blue-950">
-                          Psychologist
+                          Pigeon
                         </h6>
                       </div>
                     </td>
@@ -251,7 +250,7 @@ const Doctor: React.FC = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
                         <h6 className="dark: text-base text-blue-950">
-                          $86,000
+                          87-874-9872
                         </h6>
                       </div>
                     </td>
@@ -278,24 +277,24 @@ const Doctor: React.FC = () => {
                   </tr>
                 </tbody>
                 <tfoot>
-                  <tr className="dark:bg-dark-strip bg-white ">
+                  <tr className="bg-gray-100 dark:bg-dark-bg">
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
                       NAME
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      POSITION
+                      Gender
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      OFFICE
+                      ORIGIN
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
                       AGE
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      START DATE
+                      LASTEST
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
-                      SALARY
+                      CONTACT
                     </th>
                     <th className="text-gray-500 whitespace-nowrap px-6 py-4 text-left dark:text-slate-900">
                       EDIT

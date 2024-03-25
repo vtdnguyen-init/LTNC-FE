@@ -52,20 +52,15 @@ const Header = (props: {
               </span>
             </span>
           </button>
-          {/* <!-- Hamburger Toggle BTN --> */}
-
-          <Link className="block flex-shrink-0 lg:hidden" href="/">
-            <Image
-              width={32}
-              height={32}
-              src={"/images/logo/logo-icon.svg"}
-              alt="Logo"
-            />
-          </Link>
         </div>
 
         <div className="hidden sm:block ">
-          <h1 className="font-bold antialiased"><span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">HOSPITAL</span> MANAGEMENT</h1>
+          <a className="font-bold antialiased" href="/">
+            <span className="bg-gradient-to-r from-sky-400 to-emerald-600 bg-clip-text text-transparent">
+              HOSPITAL
+            </span>{" "}
+            MANAGEMENT
+          </a>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">

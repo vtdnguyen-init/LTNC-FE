@@ -1,19 +1,19 @@
-import Calendar from "@/components/Calender";
+import React from "react";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import Patient from "@/components/Management/Patient";
 
 export const metadata: Metadata = {
-  title:
-    "Hospital Management | BK Hospital",
+  title: "Patient Care | BK Hospital",
   description: "This is app for managing a hospital",
 };
 
-const CalendarPage = () => {
+const PatientDashPage = () => {
   return (
     <DefaultLayout>
-      <Calendar />
+      <Patient />
     </DefaultLayout>
   );
 };
 
-export default CalendarPage;
+export default PatientDashPage;

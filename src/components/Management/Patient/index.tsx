@@ -2,31 +2,30 @@
 import React from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import DemoPage from "./export";
+import { useEffect, useState } from "react";
+
 const Doctor: React.FC = () => {
+  const [demoPage, setDemoPage] = useState(
+    <div className="text-center">Loading...</div>,
+  );
+
+  useEffect(() => {
+    const fetchDemoPage = async () => {
+      const result = await DemoPage();
+      setDemoPage(result);
+    };
+
+    fetchDemoPage();
+  }, []);
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Patient" />
       <div className="w-full flex-auto">
         <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
-          <div className="flex flex-wrap justify-between p-6 pb-0">
-            <div className="header-title">
-              <h4 className="card-title mb-2 text-2xl font-medium dark:text-black">
-                Doctor Datatables
-              </h4>
-            </div>
-            <div className="">
-              <Link href="/forms/patient">
-                <button
-                  type="button"
-                  className="mb-2 me-2 h-full w-full rounded-full bg-blue-700 px-9 py-2.5 text-center text-sm 
-        font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  ADD NEW
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="flex-auto p-6">
+          {demoPage}
+        </div>
+        {/* <div className="flex-auto p-6">
             <p className="text-gray-500 mb-4 text-base dark:text-yellow-900">
               Be careful when editing, or{" "}
               <span className="text-pink-500">deleting</span> anything because
@@ -303,8 +302,7 @@ const Doctor: React.FC = () => {
                 </tfoot>
               </table>
             </div>
-          </div>
-        </div>
+          </div> */}
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ const Footer = () => {
         </div>
         <div className="bg-gray-100 dark:bg-gray-700 flex place-content-center items-center px-4 py-2 ">
           <span className="text-gray-500 dark:text-gray-300 text-sm sm:text-center">
-            Form HCMUT with ❤️
+            From HCMUT with ❤️
           </span>
           {/* <div className="mt-4 flex space-x-5 sm:justify-center md:mt-0 rtl:space-x-reverse">
             <a

@@ -185,7 +185,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         {!isEditing ? (
           <button
             className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
-              bg-transparent   py-3 text-white drop-shadow-md
+                 py-3 text-white drop-shadow-md
               transition
               duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
@@ -196,7 +196,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         ) : (
           <button
             className=" delay-50  w-full rounded-b-lg border-2 border-black bg-green-500
-    bg-transparent py-3   text-white  drop-shadow-md
+     py-3   text-white  drop-shadow-md
     transition duration-200 
     ease-in-out hover:-translate-y-1 hover:scale-110 
     hover:bg-emerald-400 hover:shadow-md

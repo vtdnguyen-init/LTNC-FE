@@ -4,15 +4,22 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
+import { DetailPatient } from "./DetailPatient/detailpatient";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
-export type FileData = {
-  ID: number;
-  fileName: string;
-  date: Date;
-  complete: boolean;
+export type PatientData = {
+  id: number;
+  Name: string;
+  Room: string;
+  Gender: string;
+  Date: string;
+  Age: string;
+  CCCD: string;
+  SDT: string;
+  MedicalHistory: string;
+  InditialDis: string;
 };
 
-export const columns: ColumnDef<FileData>[] = [
+export const columns: ColumnDef<PatientData>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -103,12 +110,12 @@ export const columns: ColumnDef<FileData>[] = [
       );
     },
     cell: ({ row }) => {
-      return new Date(row.original.date).toLocaleDateString();
+      return new Date(row.original.Date).toLocaleDateString();
     },
   },
 
   {
-    accessorKey: "Tải xuống",
+    accessorKey: "Chi tiết",
     header: ({ column }) => {
       return "Chi tiết";
     },
@@ -126,11 +133,14 @@ export const columns: ColumnDef<FileData>[] = [
       return (
         <div className="relative rounded-lg ">
           <button
-            onClick={openModal}
+            onClick={() => openModal()}
             className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-black"
           >
             +
           </button>
+          {modalIsOpen && (
+            <DetailPatient onclose={closeModal} data={row.original} />
+          )}
         </div>
       );
     },

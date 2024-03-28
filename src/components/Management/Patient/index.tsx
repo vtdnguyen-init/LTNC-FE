@@ -5,9 +5,12 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DemoPage from "./export";
 import { useEffect, useState } from "react";
 
+import Loader from "@/components/common/Loader";
 const Doctor: React.FC = () => {
   const [demoPage, setDemoPage] = useState(
-    <div className="text-center">Loading...</div>,
+    <div className="h-auto">
+      <Loader />
+    </div>,
   );
 
   useEffect(() => {

@@ -43,17 +43,20 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
     >
-      <div className="relative z-50 mt-10 h-3/4 w-3/4 flex-col place-content-between overflow-x-hidden overflow-y-scroll rounded-t-xl  border-l-2 border-r-2 border-t-2 border-black bg-white  dark:bg-[#14141a] sm:w-3/4 lg:ml-52 lg:w-1/2">
-        <div className="relative flex h-10 w-full flex-col items-center justify-center rounded-xl border-b-2 border-[#545e7b]">
-          <div className="w-full pb-2 text-center text-lg font-bold  sm:text-2xl">
-            Thông tin bệnh nhân
+      <div className="hide-scrollbar relative z-50 mt-10 h-3/4 w-3/4 flex-col place-content-between overflow-x-hidden overflow-y-scroll rounded-t-xl  border-l-2 border-r-2 border-t-2 border-black bg-white  dark:bg-[#14141a] sm:w-3/4 lg:ml-52 lg:w-1/2">
+        <div className="sticky my-2 flex h-10 w-full flex-row items-center justify-center  border-b-2 border-[#545e7b]">
+          <div className="w-full  text-center text-lg font-bold  sm:text-2xl">
+            Detail Patient
           </div>
           <button
-            className=" absolute right-0 top-0 mb-2 h-10 w-10 rounded-xl border-2 font-extrabold text-red hover:border-red 
-            hover:bg-red hover:text-white dark:border-red   dark:text-red dark:hover:bg-red dark:hover:text-white"
+            className=" absolute right-2 top-0 mb-2 h-8 w-10 rounded-xl
+            border-2 font-extrabold 
+            text-red drop-shadow-md transition duration-200 ease-in-out 
+            hover:bg-red hover:text-white   dark:text-red dark:hover:bg-red dark:hover:text-white"
+            id="exit"
             onClick={onclose}
           >
-            X
+            <label htmlFor="exit">X</label>
           </button>
         </div>
         <div className="mt-5 grid gap-3 px-4 md:grid-cols-2">
@@ -82,7 +85,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         <div className="grid md:grid-cols-2">
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">Medical history</div>
-            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
               {data.MedicalHistory}
             </div>
           </div>
@@ -91,7 +94,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             <div className="text-center text-xl font-bold">
               Treatment process
             </div>
-            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
               {data.InditialDis}
             </div>
           </div>
@@ -191,11 +194,11 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
               "
             onClick={() => setEditing(true)}
           >
-            <span className="font-bold">Edit</span>
+            <span className="font-bold">Update</span>
           </button>
         ) : (
           <button
-            className=" delay-50  w-full rounded-b-lg border-2 border-black bg-green-500
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
      py-3   text-white  drop-shadow-md
     transition duration-200 
     ease-in-out hover:-translate-y-1 hover:scale-110 
@@ -206,7 +209,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
      "
             onClick={handleSave}
           >
-            <span className="font-bold">Save</span>
+            <span className="font-bold">Complete</span>
           </button>
         )}
       </div>

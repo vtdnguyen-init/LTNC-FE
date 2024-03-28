@@ -185,14 +185,14 @@ export function DataTable<TData, TValue>({
               </DropdownMenu>
             </Dropdown>
           </div>
-          <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
+          {/* <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
             <Button
               className="border-gray-600 h-full w-full rounded border text-center text-xs sm:ml-2 sm:w-32 md:text-sm"
               onClick={openModal}
             >
               Thêm mới
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="border-gray-700 rounded-md border">

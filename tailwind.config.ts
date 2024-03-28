@@ -2,12 +2,14 @@ import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
+
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite/**/*.js",
   ],
+  
   darkMode: "class",
   theme: {
     fontFamily: {
@@ -71,6 +73,7 @@ const config: Config = {
         "title-sm2": ["22px", "28px"],
         "title-xsm": ["18px", "24px"],
       },
+      
       spacing: {
         4.5: "1.125rem",
         5.5: "1.375rem",
@@ -334,6 +337,19 @@ const config: Config = {
   plugins: [
     require('flowbite/plugin'),
     require('@tailwindcss/forms'),
+    function({ addUtilities }: { addUtilities: any }) {
+      const newUtilities = {
+        '.hide-scrollbar': {
+          'scrollbar-width': 'none', /* Firefox */
+          '-ms-overflow-style': 'none', /* Internet Explorer 10+ */
+        },
+        '.hide-scrollbar::-webkit-scrollbar': {
+          display: 'none', /* Safari and Chrome */
+        },
+      }
+      addUtilities(newUtilities)
+    }
   ],
 };
+
 export default config;

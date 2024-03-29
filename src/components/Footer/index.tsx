@@ -1,11 +1,11 @@
 import React from "react";
-
+import Image from "next/image";
 const Footer = () => {
   return (
     <>
       <footer className="dark:bg-gray-900 bg-white dark:bg-boxdark">
         <div className="mx-auto w-full max-w-screen-xl">
-          <div className="grid grid-cols-8 gap-2 px-4 pt-4 md:grid-cols-8 lg:pt-4">
+          <div className="grid grid-cols-1 gap-2 px-4 pt-4 md:grid-cols-4 lg:grid-cols-8">
             <div className="col-span-4">
               <div className="col-span-4 pb-3 text-center italic">
                 This project is driven by{" "}
@@ -15,7 +15,9 @@ const Footer = () => {
               <div className="grid grid-cols-3 gap-3">
                 <div className="col-span-1 px-5 pb-2">
                   <div className="flex items-center gap-4 pb-3 pt-2">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/ava.jpg"
                       alt=""
@@ -25,7 +27,9 @@ const Footer = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 pb-3">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/nha.jpg"
                       alt=""
@@ -37,7 +41,9 @@ const Footer = () => {
                 </div>
                 <div className="col-span-1 px-5 pb-2">
                   <div className="flex items-center gap-4 pb-3 pt-2">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/nhan.jpg"
                       alt=""
@@ -47,7 +53,9 @@ const Footer = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 pb-3">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/download.jpg"
                       alt=""
@@ -59,7 +67,9 @@ const Footer = () => {
                 </div>
                 <div className="col-span-1 px-5 pb-2">
                   <div className="flex items-center gap-4 pb-3 pt-2">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/hoang.jpg"
                       alt=""
@@ -69,7 +79,9 @@ const Footer = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 pb-3">
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       className="h-10 w-10 rounded-full"
                       src="/images/user/download.jpg"
                       alt=""

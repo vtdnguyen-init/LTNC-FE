@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
         <div className="col-span-1"></div>
         <div className="col-span-3">
-          <div className="font-bold dark:text-white pb-1">Project's Description</div>
+          <div className="font-bold dark:text-white pb-1">Project&#39;s Description</div>
           <div className="pt-3 font-medium">In this time, we have tried to bring a platform to meet the diverse requirements of hospitals,
                  ranging from small clinics to large medical centers, with <a className="italic font-semibold text-gray-900 underline dark:text-white decoration-blue-500">
                   special features</a>,

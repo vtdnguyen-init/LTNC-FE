@@ -160,8 +160,8 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                     Quantity
                   </span>
                 </div>
-                {medicine?.map((med) => (
-                  <div className="flex items-center gap-2 px-4">
+                {medicine?.map((med, index) => (
+                  <div key={index} className="flex items-center gap-2 px-4">
                     <span className="h-full w-1/2 border-r-2 border-indigo-400    text-center text-xs font-bold">
                       {med.name}
                     </span>

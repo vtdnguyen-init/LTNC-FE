@@ -1,8 +1,8 @@
-import { FileData, columns } from "./column";
+import { PatientData, columns } from "./column";
 import { DataTable } from "./datatable";
 import https from "https";
 
-async function getData(): Promise<FileData[]> {
+async function getData(): Promise<PatientData[]> {
   // Fetch data from your API here.
 
   const res = await fetch(

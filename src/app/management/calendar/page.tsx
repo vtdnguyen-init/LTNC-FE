@@ -1,4 +1,4 @@
-import Calendar from "@/components/Management/Calender";
+import Calendar from "@/components/Management/Calendar";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 export const metadata: Metadata = {

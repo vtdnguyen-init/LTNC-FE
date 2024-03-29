@@ -7,7 +7,7 @@ export default function Example() {
         <div className="lg:px20 xl:px space-y-6 px-10 md:px-30 lg:px-30 xl:px-60">
           <div className="border-gray-900/10 border-b pb-3">
             <h2 className="text-gray-900 text-base font-semibold leading-7">
-              Medicine's Management
+              Medicine&apos;s Management
             </h2>
           </div>
           <div className="pb-5">

@@ -30,7 +30,7 @@ const Doctor: React.FC = () => {
             <p className="text-gray-500 mb-4 text-base dark:text-yellow-900">
               Be careful when editing, or{" "}
               <span className="text-pink-500">deleting</span> anything because
-              it can't be undone
+              it can&apos;t be undone
             </p>
             <div className="flex flex-wrap justify-between">
               <div className="flex items-center justify-center">

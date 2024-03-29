@@ -5,6 +5,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
 import { DetailPatient } from "./DetailPatient/detailpatient";
+import DetailCell from "@/components/common/OpenDetail/DetailShow";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type PatientData = {
   id: number;
@@ -119,30 +120,6 @@ export const columns: ColumnDef<PatientData>[] = [
     header: ({ column }) => {
       return "Chi tiết";
     },
-    cell: ({ row }) => {
-      const [modalIsOpen, setModalIsOpen] = useState(false);
-
-      const openModal = () => {
-        setModalIsOpen(true);
-      };
-
-      const closeModal = () => {
-        setModalIsOpen(false);
-      };
-
-      return (
-        <div className="relative rounded-lg ">
-          <button
-            onClick={() => openModal()}
-            className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-black"
-          >
-            +
-          </button>
-          {modalIsOpen && (
-            <DetailPatient onclose={closeModal} data={row.original} />
-          )}
-        </div>
-      );
-    },
+    cell: ({ row }) => <DetailCell row={row} Detail={DetailPatient} />,
   },
 ];

@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 const Footer = () => {
   return (
     <>
@@ -11,13 +11,13 @@ const Footer = () => {
         <div className="grid grid-cols-3 gap-3">
         <div className="col-span-1 px-5 pb-2">
         <div className="flex items-center gap-4 pb-3 pt-2">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/ava.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/ava.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Duy Nguyen</div>
                   </div>
         </div>
         <div className="flex items-center gap-4 pb-3">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/nha.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/nha.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Thanh Nha</div>
                   </div>
@@ -25,13 +25,13 @@ const Footer = () => {
         </div>
         <div className="col-span-1 px-5 pb-2">
         <div className="flex items-center gap-4 pb-3 pt-2">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/nhan.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/nhan.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Thanh Nhan</div>
                   </div>
         </div>
         <div className="flex items-center gap-4 pb-3">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/download.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/download.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Tan Phat</div>
                   </div>
@@ -39,13 +39,13 @@ const Footer = () => {
         </div>
         <div className="col-span-1 px-5 pb-2">
         <div className="flex items-center gap-4 pb-3 pt-2">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/hoang.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/hoang.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Huy Hoang</div>
                   </div>
         </div>
         <div className="flex items-center gap-4 pb-3">
-                  <img className="w-10 h-10 rounded-full" src="/images/user/download.jpg" alt=""/>
+                  <Image className="w-10 h-10 rounded-full" width={32} height={32} src="/images/user/download.jpg" alt=""/>
                   <div className="font-medium dark:text-white">
                       <div>Lam Nguyen</div>
                   </div>

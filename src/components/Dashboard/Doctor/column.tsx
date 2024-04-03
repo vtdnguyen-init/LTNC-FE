@@ -4,9 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
-import DetailCell from "@/components/common/OpenDetail/DetailShow";
 import { Button } from "@nextui-org/react";
 import { DetailDoctor } from "./DetailDoctor/detaildoctor";
+import DetailCell from "./DetailButton";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type DoctorData = {
   id: number;
@@ -98,36 +98,9 @@ export async function createColumns(
       header: ({ column }) => {
         return "Chi tiết";
       },
-      cell: ({ row }) => {
-        const [modalIsOpen, setModalIsOpen] = useState(false);
-
-        const openModal = () => {
-          setModalIsOpen(true);
-        };
-
-        const closeModal = () => {
-          setModalIsOpen(false);
-        };
-
-        return (
-          <div className="relative mr-2  flex">
-            <Button
-              onClick={openModal}
-              className="border-gray-600 rounded-full border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-white hover:text-black"
-            >
-              +
-            </Button>
-            {modalIsOpen && (
-              <DetailDoctor
-                onclose={closeModal}
-                dataInitial={row.original}
-                reloadData={reloadData}
-                info={info}
-              />
-            )}
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <DetailCell row={row} reloadData={reloadData} info={info} />
+      ),
     },
   ];
 }

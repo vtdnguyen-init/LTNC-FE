@@ -140,10 +140,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("fileName")?.getFilterValue() as string) ?? ""
+                (table.getColumn("Name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("fileName")?.setFilterValue(event.target.value)
+                table.getColumn("Name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-black`}

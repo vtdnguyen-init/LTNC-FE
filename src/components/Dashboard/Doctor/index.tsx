@@ -28,9 +28,17 @@ const Doctor: React.FC = () => {
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Doctor" />
+
       <div className="w-full flex-auto">
-        <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
-          {demoPage}
+        <div className=" mb-8 flex flex-col overflow-hidden rounded-lg bg-white shadow-lg dark:border-strokedark dark:bg-boxdark">
+          <div className="flex-auto p-6">
+            {demoPage}
+            <p className="text-gray-500 mb-4 text-base dark:text-yellow-900">
+              Be careful when editing, or{" "}
+              <span className="text-pink-500">deleting</span> anything because
+              it can&apos;t be undone
+            </p>
+          </div>
         </div>
       </div>
     </div>

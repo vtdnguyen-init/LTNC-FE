@@ -4,21 +4,19 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
-import { DetailPatient } from "./DetailPatient/detailpatient";
-import DetailCell from "@/components/common/OpenDetail/DetailShow";
 import { Button } from "@nextui-org/react";
+import { DetailDoctor } from "./DetailDoctor/detaildoctor";
+import DetailCell from "./DetailButton";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
-export type PatientData = {
+export type DoctorData = {
   id: number;
   Name: string;
-  Room: string;
   Gender: string;
-  Date: string;
-  Age: string;
   CCCD: string;
   SDT: string;
-  MedicalHistory: string;
-  InditialDis: string;
+  Position: string;
+  Age: string;
+  Salary: string;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -28,7 +26,7 @@ type MyColumnDef<T> = ColumnDef<T> & {
 export async function createColumns(
   reloadData: () => void,
   info: any,
-): Promise<MyColumnDef<PatientData>[]> {
+): Promise<MyColumnDef<DoctorData>[]> {
   return [
     {
       id: "select",
@@ -80,19 +78,7 @@ export async function createColumns(
         );
       },
     },
-    {
-      accessorKey: "Room",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Room
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
+
     {
       accessorKey: "Gender",
       header: ({ column }) => {
@@ -106,59 +92,15 @@ export async function createColumns(
         );
       },
     },
-    {
-      accessorKey: "Date",
-
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-      cell: ({ row }) => {
-        return new Date(row.original.Date).toLocaleDateString();
-      },
-    },
 
     {
       accessorKey: "Chi tiết",
       header: ({ column }) => {
         return "Chi tiết";
       },
-      cell: ({ row }) => {
-        const [modalIsOpen, setModalIsOpen] = useState(false);
-
-        const openModal = () => {
-          setModalIsOpen(true);
-        };
-
-        const closeModal = () => {
-          setModalIsOpen(false);
-        };
-
-        return (
-          <div className="relative mr-2  flex">
-            <Button
-              onClick={openModal}
-              className="border-gray-600 rounded-full border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-white hover:text-black"
-            >
-              +
-            </Button>
-            {modalIsOpen && (
-              <DetailPatient
-                onclose={closeModal}
-                dataInitial={row.original}
-                reloadData={reloadData}
-                info={info}
-              />
-            )}
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <DetailCell row={row} reloadData={reloadData} info={info} />
+      ),
     },
   ];
 }

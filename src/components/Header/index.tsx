@@ -54,7 +54,7 @@ const Header = (props: {
           </button>
         </div>
 
-        <div className="hidden sm:block ">
+        <div className="animate-infinite hidden animate-bounce sm:block">
           <a className="font-bold antialiased" href="/">
             <span className="bg-gradient-to-r from-sky-400 to-emerald-600 bg-clip-text text-transparent">
               HOSPITAL

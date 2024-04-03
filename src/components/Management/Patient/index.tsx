@@ -3,8 +3,8 @@ import React from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DemoPage from "./export";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext, useCallback } from "react";
+import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
 const Doctor: React.FC = () => {
   const [demoPage, setDemoPage] = useState(
@@ -12,15 +12,19 @@ const Doctor: React.FC = () => {
       <Loader />
     </div>,
   );
+  const { info } = useContext(UserContext);
+  const reloadData = useCallback(() => {
+    fetchDemoPage();
+  }, [info]);
+
+  const fetchDemoPage = async () => {
+    const result = await DemoPage(reloadData, info);
+    setDemoPage(result);
+  };
 
   useEffect(() => {
-    const fetchDemoPage = async () => {
-      const result = await DemoPage();
-      setDemoPage(result);
-    };
-
     fetchDemoPage();
-  }, []);
+  }, [info]);
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Patient" />

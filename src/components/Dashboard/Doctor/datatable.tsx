@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
+import Link from "next/link";
 import {
   ColumnDef,
   SortingState,
@@ -109,7 +110,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="px-4 ">
       <div className="flex items-center px-4 py-4">
-        <div className="flex w-full flex-col sm:flex-row">
+        <div className="flex w-full flex-col items-center justify-between sm:flex-row">
           <div className="relative flex h-full w-full sm:w-1/2 lg:w-1/3">
             <svg
               viewBox="0 0 24 24"
@@ -140,10 +141,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("fileName")?.getFilterValue() as string) ?? ""
+                (table.getColumn("Name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("fileName")?.setFilterValue(event.target.value)
+                table.getColumn("Name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-black`}
@@ -188,6 +189,17 @@ export function DataTable<TData, TValue>({
                 ))}
               </DropdownMenu>
             </Dropdown>
+          </div>
+          <div>
+            <Link href="/forms/doctor">
+              <button
+                type="button"
+                className=" me-2 h-full w-full rounded-full bg-blue-700 px-9 py-2.5 text-center text-sm 
+        font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                ADD NEW
+              </button>
+            </Link>
           </div>
           {/* <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
             <Button
@@ -251,21 +263,21 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
+      <div className="flex items-center  justify-center space-x-2 py-4">
         <button
           className={`
-          mb-0.5 me-2 w-12 rounded-md border border-black 
-           bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
-          text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base
-          ${
-            table.getFilteredSelectedRowModel().rows.length > 0
-              ? "border-red-500"
-              : "border-gray-600"
-          }`}
+            mb-0.5 me-2 h-10 w-16 rounded-md border border-black 
+            bg-transparent px-2 py-[0.15rem] text-center  text-xs font-normal
+            text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
+            hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-32 md:text-base
+            ${
+              table.getFilteredSelectedRowModel().rows.length > 0
+                ? "border-red-500"
+                : "border-gray-600"
+            }`}
           onClick={deleteRows}
         >
-          {table.getFilteredSelectedRowModel().rows.length}/
+          Delete {table.getFilteredSelectedRowModel().rows.length}/
           {table.getFilteredRowModel().rows.length}
         </button>
         <Button
@@ -273,7 +285,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="mb-0.5 me-2 w-12 rounded-md border border-black 
+          className="mb-0.5 me-2 h-10 w-12 rounded-md border border-black 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
           text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
           hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base"
@@ -295,7 +307,7 @@ export function DataTable<TData, TValue>({
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className="border-gray-500 w-8 rounded border bg-transparent px-1 py-0.5 sm:w-16"
+            className="border-gray-500 h-10 w-8 rounded border bg-transparent px-1 py-0.5 sm:w-16"
           />
         </span>
         <Button
@@ -303,7 +315,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="mb-0.5 me-2 w-12 rounded-md border border-black 
+          className="mb-0.5 me-2 h-10 w-12 rounded-md border border-black 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
           text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
           hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base"

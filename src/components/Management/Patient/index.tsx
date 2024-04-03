@@ -6,7 +6,7 @@ import DemoPage from "./export";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
-const Doctor: React.FC = () => {
+const Patient: React.FC = () => {
   const [demoPage, setDemoPage] = useState(
     <div className="h-auto">
       <Loader />
@@ -29,7 +29,7 @@ const Doctor: React.FC = () => {
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Patient" />
       <div className="w-full flex-auto">
-        <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
+        <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg shadow-lg dark:border-strokedark dark:bg-boxdark">
           {demoPage}
         </div>
         {/* <div className="flex-auto p-6">
@@ -315,4 +315,4 @@ const Doctor: React.FC = () => {
   );
 };
 
-export default Doctor;
+export default Patient;

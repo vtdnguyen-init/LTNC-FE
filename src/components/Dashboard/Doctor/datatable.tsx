@@ -147,14 +147,14 @@ export function DataTable<TData, TValue>({
                 table.getColumn("Name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
-              pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-black`}
+              pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}
               placeholder=""
             />
             <label
               htmlFor="consSearch"
-              className={`text-xxs text-gray-500 peer-placeholder-shown:text-gray-500 absolute -top-0 pl-10 leading-5 
-              transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm 
-              peer-focus:-top-0.5 peer-focus:text-xs peer-focus:leading-5 peer-focus:text-blue-500`}
+              className={`text-gray-500 peer-placeholder-shown:text-gray-500 absolute -top-0 pl-10 text-xs leading-5 text-black transition-all 
+              peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-focus:-top-0.5 
+              peer-focus:text-xs peer-focus:leading-5 peer-focus:text-blue-500 dark:text-blue-600 `}
             >
               Search by name
             </label>

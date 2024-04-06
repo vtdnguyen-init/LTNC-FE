@@ -199,7 +199,7 @@ export function DataTable<TData, TValue>({
                               `}
             >
               <Button variant="light" size="sm" className="text-white">
-                Add Patient
+                Add Tools
               </Button>
             </Link>
           </div>

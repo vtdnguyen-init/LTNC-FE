@@ -178,7 +178,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </Link>
-                      
+
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && "hidden"
@@ -198,8 +198,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
-
-                      
                     </React.Fragment>
                   );
                 }}
@@ -278,13 +276,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }`}
                       >
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                          
                           <li>
                             <Link
                               href="/admin/patient"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/admin/patient" &&
-                                "text-white"
+                                pathname === "/admin/patient" && "text-white"
                               }`}
                             >
                               Patient
@@ -294,8 +290,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/admin/medicine"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/admin/medicine" &&
-                                "text-white"
+                                pathname === "/admin/medicine" && "text-white"
                               }`}
                             >
                               Medicine
@@ -303,10 +298,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                           <li>
                             <Link
+                              href="/admin/tools"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                pathname === "/admin/tools" && "text-white"
+                              }`}
+                            >
+                              Tools
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
                               href="/admin/doctor"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/admin/doctor" &&
-                                "text-white"
+                                pathname === "/admin/doctor" && "text-white"
                               }`}
                             >
                               Doctor
@@ -421,6 +425,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Medicine
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/forms/tools"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                pathname === "/forms/tools" && "text-white"
+                              }`}
+                            >
+                              Tools
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
@@ -428,7 +442,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 }}
               </SidebarLinkGroup>
-              
+
               <SidebarLinkGroup
                 activeCondition={
                   pathname === "/management" || pathname.includes("management")

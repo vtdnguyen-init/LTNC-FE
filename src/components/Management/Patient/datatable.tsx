@@ -146,14 +146,14 @@ export function DataTable<TData, TValue>({
                 table.getColumn("Name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
-              pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-black`}
+              pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}
               placeholder=""
             />
             <label
               htmlFor="consSearch"
-              className={`text-xxs text-gray-500 peer-placeholder-shown:text-gray-500 absolute -top-0 pl-10 leading-5 
-              transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm 
-              peer-focus:-top-0.5 peer-focus:text-xs peer-focus:leading-5 peer-focus:text-blue-500`}
+              className={`text-gray-500 peer-placeholder-shown:text-gray-500 absolute -top-0 pl-10 text-xs leading-5 text-black transition-all 
+              peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-focus:-top-0.5 
+              peer-focus:text-xs peer-focus:leading-5 peer-focus:text-blue-500 dark:text-blue-600 `}
             >
               Search by name
             </label>
@@ -254,14 +254,14 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-center space-x-2 py-4">
         <button
           className={`
-          mb-0.5 me-2 w-12 rounded-md border border-black 
+          mb-0.5 me-2 w-12 rounded-md border 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
           text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base
+          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none dark:text-white sm:w-16 md:text-base
           ${
             table.getFilteredSelectedRowModel().rows.length > 0
-              ? "border-red-500"
-              : "border-gray-600"
+              ? "border-red"
+              : "border-black dark:border-gray-2"
           }`}
           onClick={deleteRows}
         >
@@ -275,8 +275,9 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanPreviousPage()}
           className="mb-0.5 me-2 w-12 rounded-md border border-black 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
-          text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base"
+           text-black drop-shadow-md
+          hover:bg-black hover:bg-opacity-30 hover:text-black hover:shadow-md
+          hover:drop-shadow-xl focus:outline-none dark:border-gray-2 dark:text-white sm:w-16 md:text-base"
         >
           <span>Prev</span>
         </Button>
@@ -295,7 +296,11 @@ export function DataTable<TData, TValue>({
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className="border-gray-500 w-8 rounded border bg-transparent px-1 py-0.5 sm:w-16"
+            className="mb-0.5 me-2 w-12 rounded-md border border-black 
+            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
+            text-black drop-shadow-md
+           hover:bg-black hover:bg-opacity-30 hover:text-black hover:shadow-md
+           hover:drop-shadow-xl focus:outline-none dark:border-gray-2 dark:text-white sm:w-16 md:text-base"
           />
         </span>
         <Button
@@ -305,8 +310,9 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
           className="mb-0.5 me-2 w-12 rounded-md border border-black 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
-          text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none sm:w-16 md:text-base"
+           text-black drop-shadow-md
+          hover:bg-black hover:bg-opacity-30 hover:text-black hover:shadow-md
+          hover:drop-shadow-xl focus:outline-none dark:border-gray-2 dark:text-white sm:w-16 md:text-base"
         >
           <span>Next</span>
         </Button>

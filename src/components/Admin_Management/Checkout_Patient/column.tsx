@@ -4,19 +4,21 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
-import { DetailMedicine } from "./DetailMedicine/detailmedicine";
+import { DetailPatient } from "./DetailPatient/detailpatient";
 import DetailCell from "./DetailButton";
 import { Button } from "@nextui-org/react";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
-export type MedicineData = {
+export type PatientData = {
   id: number;
   Name: string;
-  ImportDate: string,
-  Brand: string,
-  Origin: string,
-  Amount: string,
-  Price: string,
-  ExpiredDate: string,
+  Room: string;
+  Gender: string;
+  Date: string;
+  Age: string;
+  CCCD: string;
+  SDT: string;
+  MedicalHistory: string;
+  InditialDis: string;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -26,7 +28,7 @@ type MyColumnDef<T> = ColumnDef<T> & {
 export async function createColumns(
   reloadData: () => void,
   info: any,
-): Promise<MyColumnDef<MedicineData>[]> {
+): Promise<MyColumnDef<PatientData>[]> {
   return [
     {
       id: "select",
@@ -78,57 +80,42 @@ export async function createColumns(
         );
       },
     },
+    
     {
-      accessorKey: "Brand",
+      accessorKey: "Gender",
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Brand
+            Gender
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
     },
     {
-      accessorKey: "ImportDate",
+      accessorKey: "Date",
 
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Imported Date
+            Date
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
       cell: ({ row }) => {
-        return new Date(row.original.ImportDate).toLocaleDateString();
-      },
-    },
-    {
-      accessorKey: "ExpiredDate",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Expired Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-      cell: ({ row }) => {
-        return new Date(row.original.ExpiredDate).toLocaleDateString();
+        return new Date(row.original.Date).toLocaleDateString();
       },
     },
 
     {
-      accessorKey: "Chi tiết",
+      accessorKey: "Rate",
       header: ({ column }) => {
-        return "Chi tiết";
+        return "Rate";
       },
       cell: ({ row }) => (
         <DetailCell row={row} reloadData={reloadData} info={info} />

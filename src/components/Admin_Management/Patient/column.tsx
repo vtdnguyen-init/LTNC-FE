@@ -80,19 +80,7 @@ export async function createColumns(
         );
       },
     },
-    {
-      accessorKey: "Room",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Room
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
+    
     {
       accessorKey: "Gender",
       header: ({ column }) => {
@@ -125,9 +113,9 @@ export async function createColumns(
     },
 
     {
-      accessorKey: "Chi tiết",
+      accessorKey: "Detail",
       header: ({ column }) => {
-        return "Chi tiết";
+        return "Detail";
       },
       cell: ({ row }) => (
         <DetailCell row={row} reloadData={reloadData} info={info} />

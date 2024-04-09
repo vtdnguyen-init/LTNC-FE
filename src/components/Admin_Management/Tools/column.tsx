@@ -4,21 +4,17 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
-import { DetailPatient } from "./DetailTools/detailpatient";
 import DetailCell from "./DetailButton";
-import { Button } from "@nextui-org/react";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type ToolsData = {
   id: number;
   Name: string;
-  Room: string;
-  Gender: string;
-  Date: string;
-  Age: string;
-  CCCD: string;
-  SDT: string;
-  MedicalHistory: string;
-  InditialDis: string;
+  ExpiredDate: string;
+  ImportedDate: string;
+  Amount: string;
+  Origin: string;
+  Brand: string;
+  Price: string;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -81,46 +77,34 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Room",
+      accessorKey: "Amount",
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Room
+            Amount
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
     },
+    
     {
-      accessorKey: "Gender",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Gender
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Date",
+      accessorKey: "ExpriredDate",
 
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Date
+            Expired Date
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
       cell: ({ row }) => {
-        return new Date(row.original.Date).toLocaleDateString();
+        return new Date(row.original.ExpiredDate).toLocaleDateString();
       },
     },
 

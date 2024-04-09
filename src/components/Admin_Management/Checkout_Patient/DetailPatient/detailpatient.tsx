@@ -1,5 +1,8 @@
-import React, { ReactEventHandler } from "react";
+import React, { ReactEventHandler,useEffect } from "react";
 import { useState } from "react";
+import { ImCool } from "react-icons/im";
+import { Rating ,RoundedStar} from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 interface PatientData {
   id: number;
   Name: string;
@@ -18,9 +21,10 @@ interface PropsDetailPatient {
   reloadData: () => void;
   info: any;
 }
-interface Medicine {
-  name: string;
-  quantity: number;
+const myStyles = {
+  itemShapes: RoundedStar,
+  activeFillColor: '#ffb700',
+  inactiveFillColor: '#f1f1f2'
 }
 export const DetailPatient: React.FC<PropsDetailPatient> = ({
   onclose,
@@ -28,11 +32,36 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   reloadData,
   info,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isClicked, setClicked] = useState(false);
+  const [state, setState] = useState({
+    review: '',
+    rating: 0 // Initial value
+  })
+  
   const handleClick = () => {
     // Update the state when the button is clicked
+    setIsModalOpen(true);
     setClicked(true);
   };
+  const handleConfirm = () => {
+    console.log("This rating is: " ,state.rating);
+    // Send data to the API here :
+    
+    // Close the modal
+    setIsModalOpen(false);
+    setClicked(true);
+  };
+  const handleChange = (selectedValue : number) => {
+
+    // 2. Do something with or without the value...
+
+    // 3. Update Rating UI
+    setState((prevState) => ({
+      ...prevState,
+      rating: selectedValue
+    }))
+  }
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -96,19 +125,47 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             </div>
           </div>
         </div>
-        
+        {isModalOpen && (
+          <>
+        <div className="pt-10">
+          <p className="italic font-light text-center">(Give this screen to customer)</p>
+          <div className="text-3xl font-semibold text-center justify-center pb-6">
+            <h1  className="inline text-slate-600">LEAVE US A RATE {" "}</h1>
+            <ImCool className="inline pb-1 h-full" />
+          </div>
+        </div>
+        <div className="flex justify-center">
+        <Rating onChange={handleChange} value={state.rating} style={{ maxWidth: 400 }}
+        itemStyles={myStyles}  />
+        </div>
+        </>
+      )}
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
           { isClicked ? (
-            <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
-                 py-3 text-white drop-shadow-md
-              transition
-              duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
-              "
-          >
-            <span className="font-bold">Sent to doctor!</span>
-          </button>
+             isModalOpen ? (
+                <button
+                  className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
+                  py-3 text-white drop-shadow-md
+                  transition
+                  duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
+                  "
+                  onClick={handleConfirm}
+                >
+                  <span className="font-bold">Confirm</span>
+                </button>
+             ):(
+              <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-pink-400
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-pink-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+            >
+              <span className="font-bold">Thank you!</span>
+            </button>
+             )
           ):(
             <button
             className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
@@ -119,10 +176,11 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                       hover:drop-shadow-xl "
             onClick={handleClick}
           >
-            <span className="font-bold">Re-Examine</span>
+            <span className="font-bold">Give feedback</span>
           </button>
           )
           }
+
       </div>
     </div>
   );

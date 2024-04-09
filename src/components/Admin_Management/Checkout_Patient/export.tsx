@@ -1,12 +1,12 @@
-import { MedicineData,  createColumns } from "./column";
+import { PatientData, createColumns } from "./column";
 import { DataTable } from "./datatable";
 import https from "https";
 
-async function getData(): Promise<MedicineData[]> {
+async function getData(): Promise<PatientData[]> {
   // Fetch data from your API here.
 
   const res = await fetch(
-    "https://660e53926ddfa2943b366751.mockapi.io/hospital/Medicine",
+    "https://65a8eb68219bfa371867ef13.mockapi.io/fakeapi/Patient",
   );
   const data = await res.json();
   return data;

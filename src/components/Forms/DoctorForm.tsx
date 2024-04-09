@@ -208,7 +208,7 @@ export default function Example() {
                         htmlFor="bachelor"
                         className="text-gray-900 font-medium"
                       >
-                        Bachelor
+                        Bachelor or equivelent
                       </label>
                     </div>
                   </div>
@@ -244,7 +244,7 @@ export default function Example() {
                         htmlFor="doctorate"
                         className="text-gray-900 font-medium"
                       >
-                        Doctorate
+                        Doctorate / PhD
                       </label>
                     </div>
                   </div>
@@ -253,77 +253,43 @@ export default function Example() {
             </div>
             <div>
               <fieldset>
-                <legend className="text-gray-900 text-sm font-semibold leading-6">
-                  Years of Experience
-                </legend>
-                <div className="mt-2 space-y-6">
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="Less than 2 years"
-                      name="exp"
-                      type="radio"
-                      value=""
-                      className="border-gray-300 h-4 w-4 text-indigo-600 focus:ring-indigo-600"
-                    />
-                    <label
-                      htmlFor="Less than 2 years"
-                      className="text-gray-900 block text-sm font-medium leading-6"
-                    >
-                      Less than 2 years
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="Less than 4 years (More than 2)"
-                      name="exp"
-                      type="radio"
-                      value=""
-                      className="border-gray-300 h-4 w-4 text-indigo-600 focus:ring-indigo-600"
-                    />
-                    <label
-                      htmlFor="Less than 4 years (More than 2)"
-                      className="text-gray-900 block text-sm font-medium leading-6"
-                    >
-                      Less than 4 years (More than 2)
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="More than 4 years"
-                      name="exp"
-                      type="radio"
-                      value=""
-                      className="border-gray-300 h-4 w-4 text-indigo-600 focus:ring-indigo-600"
-                    />
-                    <label
-                      htmlFor="More than 4 years"
-                      className="text-gray-900 block text-sm font-medium leading-6"
-                    >
-                      More than 4 years
-                    </label>
-                  </div>
+              <label
+                  htmlFor="year"
+                  className="text-gray-900 text-sm font-semibold leading-6"
+                >
+                  Experience (Year):
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="number"
+                    name="experience"
+                    id="experience"
+                    autoComplete="number"
+                    className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
+                  />
                 </div>
               </fieldset>
             </div>
             <div>
               <fieldset>
                 <label
-                  htmlFor="country"
+                  htmlFor="specialty"
                   className=" text-gray-900 text-sm font-semibold leading-6"
                 >
                   Specialty:
                 </label>
                 <div className="mt-2">
                   <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
-                    className="text-gray-900 ring-gray-300 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:max-w-xs sm:text-sm sm:leading-6"
+                    id="specialty"
+                    name="specialty"
+                    className="text-slate-900 ring-gray-300 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>Attending</option>
-                    <option>Surgeon</option>
-                    <option>Nurse</option>
-                    <option>Internist</option>
+                    <option>General (Da Khoa)</option>
+                    <option>Otorhinolaryngology (Tai mui hong)</option>
+                    <option>Ophthalmologist (Mat)</option>
+                    <option>Dermatology (Da Lieu)</option>
+                    <option>Cardiology (Tim mach)</option>
+                    <option>Pediatrician (Nhi)</option>
                   </select>
                 </div>
               </fieldset>

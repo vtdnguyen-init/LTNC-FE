@@ -1,12 +1,11 @@
 import { ToolsData, createColumns } from "./column";
 import { DataTable } from "./datatable";
-import https from "https";
 
 async function getData(): Promise<ToolsData[]> {
   // Fetch data from your API here.
 
   const res = await fetch(
-    "https://65a8eb68219bfa371867ef13.mockapi.io/fakeapi/Patient",
+    "https://66152b5c2fc47b4cf27e2ef6.mockapi.io/Tools",
   );
   const data = await res.json();
   return data;

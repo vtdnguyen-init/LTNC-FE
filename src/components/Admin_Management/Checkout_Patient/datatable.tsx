@@ -72,10 +72,10 @@ export function DataTable<TData, TValue>({
   const openModal = () => {
     setModalIsOpen(true);
   };
-
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  const addPatient = () => {};
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons.push(
@@ -190,19 +190,7 @@ export function DataTable<TData, TValue>({
               </DropdownMenu>
             </Dropdown>
           </div>
-          <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
-            <Link
-              href="/forms/doctor"
-              className={` flex items-center gap-2.5 bg-sky-700 rounded-xl px-4 font-medium  text-bodydark2 
-              transition duration-200
-              ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500  hover:text-white
-                              `}
-            >
-              <Button variant="light" size="sm" className="text-white">
-                Add Doctor
-              </Button>
-            </Link>
-          </div>
+          
         </div>
       </div>
       <div className="border-gray-700 rounded-md border">

@@ -1,4 +1,4 @@
-import React, { ReactEventHandler } from "react";
+import React, { ReactEventHandler,useEffect } from "react";
 import { useState } from "react";
 interface PatientData {
   id: number;
@@ -28,11 +28,36 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   reloadData,
   info,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isClicked, setClicked] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [isDelete, setDelete] = useState(false);
+  const handleDelete = async () => {
+    setDelete(true);
+    setClicked(true);
+  }
+
+  const handleOptionSelect = (option: number) => {
+    setSelectedOption(option);
+  };
   const handleClick = () => {
-    // Update the state when the button is clicked
+    setIsModalOpen(true);
     setClicked(true);
   };
+  const handleConfirm = () => {
+   
+    // Send data to the API here : Gui thong tin benh nhan cho bac si o day ->>>>>
+    console.log("Selected option:", selectedOption);
+    
+    // Close the modal
+    setIsModalOpen(false);
+    setClicked(true);
+  };
+  const DeletePatient = () => {
+    //Xoa benh nhan khoi database o day ->>>> 
+
+    setClicked(false);
+  }
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -96,33 +121,134 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             </div>
           </div>
         </div>
-        
+        {isModalOpen && (
+        <div className="">
+            <div className="pt-3"></div>
+            <h2 className="text-center pt-6 text-title-xl border-t-3 border-indigo-400 duration-500 ease-in-out  hover:transition-all">Choose an option:</h2>
+            <div className="grid grid-cols-3 px-3 py-3 min-h-40">
+              <div className="flex py-3 justify-center ">
+                <button className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(1)}>General (Da Khoa)</button>
+              </div>
+              <div className="flex py-3 justify-center ">
+                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(2)}>Otorhinolaryngology (Tai mui hong)</button>
+              </div>
+              <div className="flex py-3 justify-center ">
+                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(3)}>Ophthalmologist (Mat)</button>
+              </div>
+              <div className="flex py-3 justify-center ">
+                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(4)}>Dermatology (Da Lieu)</button>
+              </div>
+              <div className="flex py-3 justify-center ">
+                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(5)}>Cardiology (Tim mach)</button>
+              </div>
+              <div className="flex py-3 justify-center ">
+                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
+                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(6)}>Pediatrician (Nhi)</button>
+              </div>
+            </div>
+        </div>
+      )}
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
           { isClicked ? (
-            <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
-                 py-3 text-white drop-shadow-md
-              transition
-              duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
-              "
-          >
-            <span className="font-bold">Sent to doctor!</span>
-          </button>
+            isDelete ? (
+                  <div>
+                  <div
+                className="delay-50 -2-blue-700 left-0  w-full border-2 border-black bg-white 
+                    py-3 text-white drop-shadow-md border-b-0
+                  hover:text-white hover:shadow-md hover:drop-shadow-xl text-center
+                  "
+              >
+                <span className="font-bold text-xl text-black">Are you sure you want to delete this patient?</span>
+                </div>
+                  <button
+                className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
+                    py-3 text-white drop-shadow-md
+                  transition
+                  duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-rose-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
+                  "
+                  onClick={() => DeletePatient()}
+              >
+                <span className="font-bold">Confirm</span>
+              </button>
+              </div>
+            ):(
+             isModalOpen ? (
+                <button
+                  className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
+                  py-3 text-white drop-shadow-md
+                  transition
+                  duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
+                  "
+                  onClick={handleConfirm}
+                >
+                  <span className="font-bold">Confirm</span>
+                </button>
+             ):(
+              <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-pink-400
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-pink-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+            >
+              <span className="font-bold">Sent to doctor!</span>
+            </button>
+             )
+          )
           ):(
+            isDelete ? (
+              <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-amber-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+            >
+              <span className="font-bold">Patient Deleted!</span>
+            </button>
+            ):(
+            <div>
             <button
-            className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-emerald-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+              onClick={handleClick}
+              >
+              <span className="font-bold">Re-Examine</span>
+            </button>
+            <button
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
                       py-3   text-white  drop-shadow-md
                       transition duration-200 
                       ease-in-out hover:-translate-y-1 hover:scale-110 
-                      hover:bg-emerald-400 hover:shadow-md
+                      hover:bg-rose-400 hover:shadow-md
                       hover:drop-shadow-xl "
-            onClick={handleClick}
+                      onClick={() => handleDelete()}
           >
-            <span className="font-bold">Re-Examine</span>
-          </button>
+              <span className="font-bold">Delete</span>
+            </button>
+            </div>
+            )
           )
           }
+
       </div>
     </div>
   );

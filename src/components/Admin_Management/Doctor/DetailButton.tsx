@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
-import { DetailPatient } from "./DetailDoctor/detaildoctor";
+import { DetailDoctor } from "./DetailDoctor/detaildoctor";
+import { IoEyeOutline } from "react-icons/io5";
 
 export type DoctorData = {
   id: number;
@@ -32,12 +33,12 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
     <div className="relative mr-2  flex">
       <Button
         onClick={openModal}
-        className="border-gray-600 rounded-full border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-white hover:text-black"
+        className="min-h-7 border-gray-600 rounded-full border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-slate-800 hover:text-white"
       >
-        +
+        <IoEyeOutline />
       </Button>
       {ModalIsOpen && (
-        <DetailPatient
+        <DetailDoctor
           onclose={closeModal}
           dataInitial={row.original}
           reloadData={reloadData}

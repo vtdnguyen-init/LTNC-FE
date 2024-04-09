@@ -192,8 +192,8 @@ export function DataTable<TData, TValue>({
           </div>
           <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
             <Link
-              href="/forms/patient"
-              className={` flex items-center gap-2.5 rounded-md bg-blue-500 px-4 font-medium  text-bodydark2 
+              href="/forms/tools"
+              className={` flex items-center gap-2.5 bg-sky-700 rounded-xl px-4 font-medium  text-bodydark2 
               transition duration-200
               ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500  hover:text-white
                               `}

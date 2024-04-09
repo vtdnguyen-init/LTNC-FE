@@ -4,7 +4,6 @@ import DemoPage from "./export";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
-import Doctor from "@/components/Dashboard/Doctor";
 const Patient: React.FC = () => {
   const [demoPage, setDemoPage] = useState(
     <div className="h-auto">
@@ -26,7 +25,7 @@ const Patient: React.FC = () => {
   }, [info]);
   return (
     <div className="mx-auto max-w-7xl">
-      <h2 className="text-center font-bold text-4xl text-sky-700 ">DOCTOR</h2>
+      <h2 className="text-center font-bold text-4xl text-sky-700 ">CHECKOUT PATIENT</h2>
       <div className="w-full flex-auto">
         <div className="dark:bg-dark-card mb-8 flex flex-col overflow-hidden rounded-lg shadow-lg dark:border-strokedark dark:bg-boxdark">
           {demoPage}

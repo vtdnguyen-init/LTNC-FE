@@ -35,6 +35,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
+
   const handleSave = async () => {
     setEditing(false);
   };

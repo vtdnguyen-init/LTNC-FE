@@ -4,21 +4,22 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/TableUI/checkbox";
-import { DetailPatient } from "./DetailDoctor/detaildoctor";
 import DetailCell from "./DetailButton";
-import { Button } from "@nextui-org/react";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
-export type PatientData = {
+export type DoctorData = {
   id: number;
   Name: string;
-  Room: string;
   Gender: string;
-  Date: string;
+  Date_of_birth: string;
   Age: string;
   CCCD: string;
   SDT: string;
-  MedicalHistory: string;
-  InditialDis: string;
+  Number: string;
+  Country: string;
+  Education: string;
+  Experiencce: string;
+  Specialty: string;
+  Salary: string;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -28,7 +29,7 @@ type MyColumnDef<T> = ColumnDef<T> & {
 export async function createColumns(
   reloadData: () => void,
   info: any,
-): Promise<MyColumnDef<PatientData>[]> {
+): Promise<MyColumnDef<DoctorData>[]> {
   return [
     {
       id: "select",
@@ -81,19 +82,6 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Room",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Room
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
       accessorKey: "Gender",
       header: ({ column }) => {
         return (
@@ -107,20 +95,17 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Date",
+      accessorKey: "Specialty",
 
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Date
+            Specialty
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
-      },
-      cell: ({ row }) => {
-        return new Date(row.original.Date).toLocaleDateString();
       },
     },
 

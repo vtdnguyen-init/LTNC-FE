@@ -30,6 +30,7 @@ export const DetailMedicine: React.FC<PropsDetailMedicine> = ({
   const [isEditing, setEditing] = useState(false);
   const [isDelete, setDelete] = useState(false);
   const handleSave = async () => {
+    console.log("UPDATE MEDICINE");
     setEditing(false);
   };
   const handleDelete = async () => {

@@ -32,6 +32,14 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [isClicked, setClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isDelete, setDelete] = useState(false);
+  const [isUpdate, setUpdate] = useState(false);
+  const handleUpdate = async () => {
+    setUpdate(true);
+  }
+  const completeUpdate = async () => {
+    console.log("UPDATE PATIENT");
+    setUpdate(false);
+  }
   const handleDelete = async () => {
     setDelete(true);
     setClicked(true);
@@ -47,15 +55,29 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const handleConfirm = () => {
    
     // Send data to the API here : Gui thong tin benh nhan cho bac si o day ->>>>>
-    console.log("Selected option:", selectedOption);
-    
+    console.log("Bệnh nhân khám dịch vụ id:", selectedOption," nghĩa là: ");
+
+    //FAKEEEE ->>>>>>>>
+    if (selectedOption === 1) {
+      console.log("General (Da Khoa)");
+    } else if (selectedOption === 2) {
+      console.log("Otorhinolaryngology (Tai mui hong)");
+    } else if (selectedOption === 3) {
+      console.log("Ophthalmologist (Mat)");
+    } else if (selectedOption === 4){
+      console.log("Dermatology (Da Lieu)");
+    } else if (selectedOption === 5){
+      console.log("Cardiology (Tim mach)");
+    } else if (selectedOption === 6){
+      console.log("Pediatrician (Nhi)");
+    }
     // Close the modal
     setIsModalOpen(false);
     setClicked(true);
   };
   const DeletePatient = () => {
     //Xoa benh nhan khoi database o day ->>>> 
-
+    console.log("DELETE PATIENT")
     setClicked(false);
   }
   return (
@@ -209,6 +231,19 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
              )
           )
           ):(
+            isUpdate ? (
+              <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-lime-600
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-lime-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+                      onClick={completeUpdate}
+            >
+              <span className="font-bold">Complete</span>
+            </button>
+            ):(
             isDelete ? (
               <button
               className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
@@ -217,7 +252,9 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-amber-400 hover:shadow-md
                         hover:drop-shadow-xl "
+                        onClick={completeUpdate}
             >
+              
               <span className="font-bold">Patient Deleted!</span>
             </button>
             ):(
@@ -234,6 +271,17 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
               <span className="font-bold">Re-Examine</span>
             </button>
             <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-cyan-600
+                        py-3   text-white  drop-shadow-md
+                        transition duration-200 
+                        ease-in-out hover:-translate-y-1 hover:scale-110 
+                        hover:bg-cyan-400 hover:shadow-md
+                        hover:drop-shadow-xl "
+              onClick={handleUpdate}
+              >
+              <span className="font-bold">Update</span>
+            </button>
+            <button
             className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
                       py-3   text-white  drop-shadow-md
                       transition duration-200 
@@ -247,6 +295,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             </div>
             )
           )
+        )
           }
 
       </div>

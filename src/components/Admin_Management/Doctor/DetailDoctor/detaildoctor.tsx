@@ -32,6 +32,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
   const [isEditing, setEditing] = useState(false);
   const [isDelete, setDelete] = useState(false);
   const handleSave = async () => {
+    console.log("UPDATE DOCTOR")
     setEditing(false);
   };
   const handleDelete = async () => {

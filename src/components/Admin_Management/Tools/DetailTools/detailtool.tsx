@@ -29,6 +29,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [isEditing, setEditing] = useState(false);
   const [isDelete, setDelete] = useState(false);
   const handleSave = async () => {
+    console.log("UPDATE TOOLS");
     setEditing(false);
   };
   const handleDelete = async () => {
@@ -37,7 +38,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   }
   const DeleteMedicine = async () => {
     //DO SOMETHING THAT DELETE THAT TOOLS
-    console.log("DELETE MEDICINE");
+    console.log("DELETE TOOL");
     
     setEditing(false);
   }

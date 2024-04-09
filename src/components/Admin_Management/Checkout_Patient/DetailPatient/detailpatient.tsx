@@ -45,7 +45,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setClicked(true);
   };
   const handleConfirm = () => {
-    console.log("This rating is: " ,state.rating);
+    console.log("BENH NHAN DANH GIA DICH VU: " ,state.rating ," SAO");
     // Send data to the API here :
     
     // Close the modal

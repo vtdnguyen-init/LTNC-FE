@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const SignUp: React.FC = () => {
   return (
-    <DefaultLayout>
+    <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -308,7 +308,7 @@ const SignUp: React.FC = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </>
   );
 };
 

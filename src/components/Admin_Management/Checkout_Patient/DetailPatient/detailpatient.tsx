@@ -134,7 +134,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             <ImCool className="inline pb-1 h-full" />
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-10">
         <Rating onChange={handleChange} value={state.rating} style={{ maxWidth: 400 }}
         itemStyles={myStyles}  />
         </div>

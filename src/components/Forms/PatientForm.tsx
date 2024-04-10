@@ -151,17 +151,17 @@ export default function Example() {
 
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="region"
+                  htmlFor="cccd"
                   className="text-gray-900 block text-sm font-medium leading-6"
                 >
-                  State / Province
+                  Citizen ID
                 </label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="region"
-                    id="region"
-                    autoComplete="address-level1"
+                    name="cccd"
+                    id="cccd"
+                    autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
                 </div>

@@ -32,7 +32,7 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
     <div className="relative mr-2  flex">
       <Button
         onClick={openModal}
-        className="min-h-7 border-gray-600 rounded-full border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-slate-800 hover:text-white"
+        className="min-h-8 min-w-10 border-gray-600 rounded-lg border bg-transparent px-[0.65rem] py-1 font-bold hover:border-transparent hover:bg-slate-800 hover:text-white"
       >
         <IoEyeOutline />
       </Button>

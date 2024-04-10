@@ -4,7 +4,6 @@ import DemoPage from "./export";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
-import Doctor from "@/components/Dashboard/Doctor";
 const Patient: React.FC = () => {
   const [demoPage, setDemoPage] = useState(
     <div className="h-auto">

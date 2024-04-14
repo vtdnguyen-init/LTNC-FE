@@ -1,19 +1,19 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Metadata } from "next";
+import styles from "@/css/background.module.css";
 
 // export const metadata: Metadata = {
 //   title: "Hospital Management | BK Hospital",
 //   description: "This is app for managing a hospital",
 // };
 
-
-
 const SignIn: React.FC = () => {
+  const [Case, setCase] = useState(true);
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +28,12 @@ const SignIn: React.FC = () => {
   };
   return (
     <>
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="flex flex-wrap items-center">
+      <div
+        className={` h-screen rounded-sm  border border-stroke  bg-white shadow-default
+        dark:border-strokedark dark:bg-boxdark
+        `}
+      >
+        <div className="flex h-full flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
               <span className="mt-15 inline-block">
@@ -159,16 +163,36 @@ const SignIn: React.FC = () => {
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">
-                Using Admin Account
-              </span>
+              <div className="flex place-content-center items-center gap-2">
+                Using
+                <select
+                  className="rounded-xl"
+                  id=""
+                  onChange={(e) => {
+                    if (e.target.value === "admin") {
+                      setCase(true);
+                    } else {
+                      setCase(false);
+                    }
+                  }}
+                >
+                  <option value="admin">Admin</option>
+                  <option value="doctor">Doctor</option>
+                </select>
+                Account
+              </div>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to BK Hospital&apos;s Admin Account
+                {Case
+                  ? "Sign In to BK Hospital&apos;s Admin Account"
+                  : "Sign In to BK Hospital&apos;s Doctor Account"}
               </h2>
 
               <form>
                 <div className="mb-4">
-                  <label htmlFor="email" className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label
+                    htmlFor="email"
+                    className="mb-2.5 block font-medium text-black dark:text-white"
+                  >
                     Email
                   </label>
                   <div className="relative">
@@ -176,7 +200,6 @@ const SignIn: React.FC = () => {
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      
                     />
 
                     <span className="absolute right-4 top-4">
@@ -200,7 +223,10 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="password" className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label
+                    htmlFor="password"
+                    className="mb-2.5 block font-medium text-black dark:text-white"
+                  >
                     Password
                   </label>
                   <div className="relative">
@@ -208,7 +234,6 @@ const SignIn: React.FC = () => {
                       type="password"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                     
                     />
 
                     <span className="absolute right-4 top-4">
@@ -238,11 +263,12 @@ const SignIn: React.FC = () => {
                 <div className="mb-5">
                   <a
                     type="submit"
-                    
-                    className="w-full cursor-pointer text-center rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-center text-white transition hover:bg-opacity-90"
                     href="/dashboard/statistic"
-                  > SIGN IN</a>
-                  
+                  >
+                    {" "}
+                    SIGN IN
+                  </a>
                 </div>
 
                 <div className="mt-6 text-center">

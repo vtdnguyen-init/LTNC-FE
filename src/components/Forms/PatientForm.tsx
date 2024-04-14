@@ -1,9 +1,54 @@
 "use client";
+import React from "react";
+import { useState, useEffect } from "react";
+import { Notification } from "@/components/common/Noti/Notification";
+interface PropsPatientForm {
+  name: string;
+  dob: string;
+  email: string;
+  gender: string;
+  country: string;
+  address: string;
+  city: string;
+  citizenID: string;
+  phone: string;
+  record: string;
+}
 
 export default function Example() {
+  const [patient, setPatient] = useState<PropsPatientForm>({
+    name: "",
+    dob: "",
+    email: "",
+    gender: "",
+    country: "",
+    address: "",
+    city: "",
+    citizenID: "",
+    phone: "",
+    record: "",
+  });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPatient({ ...patient, [e.target.name]: e.target.value });
+  };
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPatient({ ...patient, [e.target.name]: e.target.value });
+  };
+
+  const [openNotification, setOpenNotification] = useState(false);
+  const onclick = () => {
+    setOpenNotification(true);
+  };
+  const onclose = () => {
+    setOpenNotification(false);
+  };
+  const handlesubmit = async () => {
+    console.log(patient);
+    onclick();
+  };
   return (
     <>
-      <form>
+      <div>
         <div className="lg:px20 xl:px space-y-6 px-10 md:px-30 lg:px-30 xl:px-60">
           <div className="border-gray-900/10 border-b pb-3">
             <h2 className="text-gray-900 text-base font-semibold leading-7">
@@ -24,6 +69,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     type="text"
                     name="full-name"
                     id="full-name"
@@ -42,6 +88,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     id="Date of birth"
                     name="Date of birth"
                     type="date"
@@ -60,6 +107,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     id="email"
                     name="email"
                     type="email"
@@ -79,6 +127,7 @@ export default function Example() {
                   </label>
                   <div className="mt-2">
                     <select
+                      onChange={handleSelectChange}
                       id="gender"
                       name="gender"
                       autoComplete="gender"
@@ -99,6 +148,7 @@ export default function Example() {
                   </label>
                   <div className="mt-2">
                     <select
+                      onChange={handleSelectChange}
                       id="country"
                       name="country"
                       autoComplete="country-name"
@@ -122,6 +172,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     type="text"
                     name="street-address"
                     id="street-address"
@@ -140,6 +191,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     type="text"
                     name="city"
                     id="city"
@@ -158,6 +210,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     type="text"
                     name="cccd"
                     id="cccd"
@@ -176,6 +229,7 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={handleInputChange}
                     type="text"
                     name="phone"
                     id="phone"
@@ -214,13 +268,21 @@ export default function Example() {
             Cancel
           </a>
           <button
-            type="submit"
+            onClick={handlesubmit}
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
           </button>
+          {openNotification ? (
+            <Notification
+              onclose={onclose}
+              data="Save successfully"
+            ></Notification>
+          ) : (
+            ""
+          )}
         </div>
-      </form>
+      </div>
     </>
   );
 }

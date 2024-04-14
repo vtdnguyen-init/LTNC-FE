@@ -302,6 +302,7 @@ export default function Example() {
                     className="ring-gray-300 block w-full rounded-md border-0 py-1.5 text-slate-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:max-w-xs sm:text-sm sm:leading-6"
                     onChange={handleSelectChange}
                   >
+                    <option>Choose specialty</option>
                     <option>General (Da Khoa)</option>
                     <option>Otorhinolaryngology (Tai mui hong)</option>
                     <option>Ophthalmologist (Mat)</option>

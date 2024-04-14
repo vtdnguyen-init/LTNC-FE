@@ -3,28 +3,41 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Metadata } from "next";
 import styles from "@/css/background.module.css";
-
+import { Authenticate, loginInfo } from "@/api_library/managehospital";
+import { UserContext } from "@/app/Context/UserInfo";
+import { useContext } from "react";
 // export const metadata: Metadata = {
-//   title: "Hospital Management | BK Hospital",
+//   title: "Hospital Signin | BK Hospital",
 //   description: "This is app for managing a hospital",
 // };
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
   const [Case, setCase] = useState(true);
+  const { info, setInfo } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  const handleInputChange = (key: any, value: string) => {
+    setFormData({ ...formData, [key]: value });
   };
 
-  const handleFormSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
+  const handleFormSubmit = async () => {
     console.log(formData); // Log form data to console
-    // You can perform further actions here, such as sending the form data to an API
+    const auth = new Authenticate();
+    try {
+      const Data: loginInfo = {
+        account: formData.email,
+        password: formData.password,
+      };
+      const response = await auth.login(Data);
+      console.log("Response", response);
+      setInfo(response);
+      console.log("Info", info);
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
   return (
     <>
@@ -183,11 +196,11 @@ const SignIn: React.FC = () => {
               </div>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 {Case
-                  ? "Sign In to BK Hospital&apos;s Admin Account"
-                  : "Sign In to BK Hospital&apos;s Doctor Account"}
+                  ? "Sign In to BK Hospital's Admin Account"
+                  : "Sign In to BK Hospital's Doctor Account"}
               </h2>
 
-              <form>
+              <div>
                 <div className="mb-4">
                   <label
                     htmlFor="email"
@@ -199,6 +212,9 @@ const SignIn: React.FC = () => {
                     <input
                       type="email"
                       placeholder="Enter your email"
+                      onChange={(e) =>
+                        handleInputChange("email", e.target.value)
+                      }
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -232,6 +248,9 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      onChange={(e) =>
+                        handleInputChange("password", e.target.value)
+                      }
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -261,31 +280,28 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <div className="mb-5">
-                  <a
-                    type="submit"
+                  <button
+                    onClick={handleFormSubmit}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-center text-white transition hover:bg-opacity-90"
-                    href="/dashboard/statistic"
                   >
                     {" "}
                     SIGN IN
-                  </a>
+                  </button>
                 </div>
 
-                <div className="mt-6 text-center">
+                {/* <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{" "}
                     <Link href="/auth/signup" className="text-primary">
                       Sign Up
                     </Link>
                   </p>
-                </div>
-              </form>
+                </div> */}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-};
-
-export default SignIn;
+}

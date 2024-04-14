@@ -17,6 +17,7 @@
     "@tanstack/react-table": "^8.15.0",
     "@types/react-helmet": "^6.1.11",
     "apexcharts": "^3.45.2",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "flatpickr": "^4.6.13",

@@ -59,7 +59,7 @@ export interface queryRecords {
 class Patient {
   private baseUrl: string;
   constructor() {
-      this.baseUrl = "http://localhost:5000/api/v1/patient";
+      this.baseUrl = "http://localhost:3000/api/v1/patient";
   } 
 
   async createPatient (info : createPatient) {
@@ -236,7 +236,7 @@ export interface updateStaff {
 class Staff {
 	private baseUrl: string;
 	constructor() {
-		this.baseUrl = "http://localhost:5000/api/v1/staff";
+		this.baseUrl = "http://localhost:3000/api/v1/staff";
 	}
 
 	async createStaff (info: createStaff ) {
@@ -309,7 +309,7 @@ export interface loginInfo {
 class Authenticate {
 	private baseUrl: string;
 	constructor() {
-		this.baseUrl = "http://localhost:5000/api/v1/authenticate";
+		this.baseUrl = "http://localhost:3000/api/v1/authenticate";
 	}
 
 	async login (info: loginInfo ) {

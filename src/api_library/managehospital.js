@@ -40,7 +40,7 @@ exports.Authenticate = exports.Staff = exports.Patient = void 0;
 var axios_1 = require("axios");
 var Patient = /** @class */ (function () {
     function Patient() {
-        this.baseUrl = "http://localhost:5000/api/v1/patient";
+        this.baseUrl = "http://localhost:3000/api/v1/patient";
     }
     Patient.prototype.createPatient = function (info) {
         return __awaiter(this, void 0, void 0, function () {
@@ -254,7 +254,7 @@ var Patient = /** @class */ (function () {
 exports.Patient = Patient;
 var Staff = /** @class */ (function () {
     function Staff() {
-        this.baseUrl = "http://localhost:5000/api/v1/staff";
+        this.baseUrl = "http://localhost:3000/api/v1/staff";
     }
     Staff.prototype.createStaff = function (info) {
         return __awaiter(this, void 0, void 0, function () {
@@ -353,7 +353,7 @@ var Staff = /** @class */ (function () {
 exports.Staff = Staff;
 var Authenticate = /** @class */ (function () {
     function Authenticate() {
-        this.baseUrl = "http://localhost:5000/api/v1/authenticate";
+        this.baseUrl = "http://localhost:3000/api/v1/authenticate";
     }
     Authenticate.prototype.login = function (info) {
         return __awaiter(this, void 0, void 0, function () {

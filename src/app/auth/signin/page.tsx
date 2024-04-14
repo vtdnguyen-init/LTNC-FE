@@ -31,6 +31,7 @@ export default function SignIn() {
         account: formData.email,
         password: formData.password,
       };
+      console.log("Data", Data);  
       const response = await auth.login(Data);
       console.log("Response", response);
       setInfo(response);

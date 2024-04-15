@@ -6,19 +6,20 @@ import styles from "@/css/background.module.css";
 import { Authenticate, loginInfo } from "@/api_library/managehospital";
 import { UserContext } from "@/app/Context/UserInfo";
 import { useContext } from "react";
+import { useRouter } from "next/navigation";
 // export const metadata: Metadata = {
 //   title: "Hospital Signin | BK Hospital",
 //   description: "This is app for managing a hospital",
 // };
 
-export default function SignIn() {
+const SignIn = () => {
   const [Case, setCase] = useState(true);
   const { info, setInfo } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const handleInputChange = (key: any, value: string) => {
     setFormData({ ...formData, [key]: value });
   };
@@ -31,11 +32,15 @@ export default function SignIn() {
         account: formData.email,
         password: formData.password,
       };
-      console.log("Data", Data);  
+      console.log("Data", Data);
       const response = await auth.login(Data);
       console.log("Response", response);
       setInfo(response);
       console.log("Info", info);
+      if (response.error) {
+      } else {
+        router.push("/dashboard/statistic");
+      }
     } catch (error) {
       console.log("Error", error);
     }
@@ -305,4 +310,5 @@ export default function SignIn() {
       </div>
     </>
   );
-}
+};
+export default SignIn;

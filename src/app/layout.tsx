@@ -3,9 +3,10 @@ import "jsvectormap/dist/css/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
 import "@/css/satoshi.css";
 import "@/css/style.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Loader from "@/components/common/Loader";
-
+import { UserContext } from "./Context/UserInfo";
+import { Provider } from "react";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,13 +20,14 @@ export default function RootLayout({
   // useEffect(() => {
   //   setTimeout(() => setLoading(false), 1000);
   // }, []);
-
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <div className="h-full dark:bg-boxdark-2 dark:text-bodydark">
-          {children ? children : <Loader />}
-        </div>
+        <UserContext.Provider value={{ info: null, setInfo: () => {} }}>
+          <div className="h-full dark:bg-boxdark-2 dark:text-bodydark">
+            {children ? children : <Loader />}
+          </div>
+        </UserContext.Provider>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import React, { ReactEventHandler,useEffect } from "react";
+import React, { ReactEventHandler, useEffect } from "react";
 import { useState } from "react";
 interface PatientData {
   id: number;
@@ -35,15 +35,15 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [isUpdate, setUpdate] = useState(false);
   const handleUpdate = async () => {
     setUpdate(true);
-  }
+  };
   const completeUpdate = async () => {
     console.log("UPDATE PATIENT");
     setUpdate(false);
-  }
+  };
   const handleDelete = async () => {
     setDelete(true);
     setClicked(true);
-  }
+  };
 
   const handleOptionSelect = (option: number) => {
     setSelectedOption(option);
@@ -53,9 +53,8 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setClicked(true);
   };
   const handleConfirm = () => {
-   
     // Send data to the API here : Gui thong tin benh nhan cho bac si o day ->>>>>
-    console.log("Bệnh nhân khám dịch vụ id:", selectedOption," nghĩa là: ");
+    console.log("Bệnh nhân khám dịch vụ id:", selectedOption, " nghĩa là: ");
 
     //FAKEEEE ->>>>>>>>
     if (selectedOption === 1) {
@@ -64,11 +63,11 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       console.log("Otorhinolaryngology (Tai mui hong)");
     } else if (selectedOption === 3) {
       console.log("Ophthalmologist (Mat)");
-    } else if (selectedOption === 4){
+    } else if (selectedOption === 4) {
       console.log("Dermatology (Da Lieu)");
-    } else if (selectedOption === 5){
+    } else if (selectedOption === 5) {
       console.log("Cardiology (Tim mach)");
-    } else if (selectedOption === 6){
+    } else if (selectedOption === 6) {
       console.log("Pediatrician (Nhi)");
     }
     // Close the modal
@@ -76,10 +75,10 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setClicked(true);
   };
   const DeletePatient = () => {
-    //Xoa benh nhan khoi database o day ->>>> 
-    console.log("DELETE PATIENT")
+    //Xoa benh nhan khoi database o day ->>>>
+    console.log("DELETE PATIENT");
     setClicked(false);
-  }
+  };
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -144,81 +143,114 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           </div>
         </div>
         {isModalOpen && (
-        <div className="">
+          <div className="">
             <div className="pt-3"></div>
-            <h2 className="text-center pt-6 text-title-xl border-t-3 border-indigo-400 duration-500 ease-in-out  hover:transition-all">Choose an option:</h2>
-            <div className="grid grid-cols-3 px-3 py-3 min-h-40">
-              <div className="flex py-3 justify-center ">
-                <button className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(1)}>General (Da Khoa)</button>
+            <h2 className="border-t-3 border-indigo-400 pt-6 text-center text-title-xl duration-500 ease-in-out  hover:transition-all">
+              Choose an option:
+            </h2>
+            <div className="grid min-h-40 grid-cols-3 px-3 py-3">
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(1)}
+                >
+                  General (Da Khoa)
+                </button>
               </div>
-              <div className="flex py-3 justify-center ">
-                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(2)}>Otorhinolaryngology (Tai mui hong)</button>
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(2)}
+                >
+                  Otorhinolaryngology (Tai mui hong)
+                </button>
               </div>
-              <div className="flex py-3 justify-center ">
-                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(3)}>Ophthalmologist (Mat)</button>
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(3)}
+                >
+                  Ophthalmologist (Mat)
+                </button>
               </div>
-              <div className="flex py-3 justify-center ">
-                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(4)}>Dermatology (Da Lieu)</button>
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(4)}
+                >
+                  Dermatology (Da Lieu)
+                </button>
               </div>
-              <div className="flex py-3 justify-center ">
-                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(5)}>Cardiology (Tim mach)</button>
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(5)}
+                >
+                  Cardiology (Tim mach)
+                </button>
               </div>
-              <div className="flex py-3 justify-center ">
-                <button  className="text-black dark:bg-gray-700 dark:border-gray-600 block px-2 rounded-lg  border-2 
-                border-indigo-400 bg-gray-3  text-sm focus:border-indigo-500 focus:bg-indigo-400 dark:text-black 
-                dark:focus:border-indigo-500 dark:focus:ring-indigo-400 hover:bg-indigo-400" onClick={() => handleOptionSelect(6)}>Pediatrician (Nhi)</button>
+              <div className="flex justify-center py-3 ">
+                <button
+                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
+                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
+                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  onClick={() => handleOptionSelect(6)}
+                >
+                  Pediatrician (Nhi)
+                </button>
               </div>
             </div>
-        </div>
-      )}
+          </div>
+        )}
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
-          { isClicked ? (
-            isDelete ? (
-                  <div>
-                  <div
-                className="delay-50 -2-blue-700 left-0  w-full border-2 border-black bg-white 
-                    py-3 text-white drop-shadow-md border-b-0
-                  hover:text-white hover:shadow-md hover:drop-shadow-xl text-center
+        {isClicked ? (
+          isDelete ? (
+            <div>
+              <div
+                className="delay-50 -2-blue-700 left-0  w-full border-2 border-b-0 border-black 
+                    bg-white py-3 text-center text-white
+                  drop-shadow-md hover:text-white hover:shadow-md hover:drop-shadow-xl
                   "
               >
-                <span className="font-bold text-xl text-black">Are you sure you want to delete this patient?</span>
-                </div>
-                  <button
+                <span className="text-xl font-bold text-black">
+                  Are you sure you want to delete this patient?
+                </span>
+              </div>
+              <button
                 className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
                     py-3 text-white drop-shadow-md
                   transition
                   duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-rose-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
                   "
-                  onClick={() => DeletePatient()}
+                onClick={() => DeletePatient()}
               >
                 <span className="font-bold">Confirm</span>
               </button>
-              </div>
-            ):(
-             isModalOpen ? (
-                <button
-                  className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
+            </div>
+          ) : isModalOpen ? (
+            <button
+              className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
                   py-3 text-white drop-shadow-md
                   transition
                   duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
                   "
-                  onClick={handleConfirm}
-                >
-                  <span className="font-bold">Confirm</span>
-                </button>
-             ):(
-              <button
+              onClick={handleConfirm}
+            >
+              <span className="font-bold">Confirm</span>
+            </button>
+          ) : (
+            <button
               className=" delay-50  w-full rounded-lg border-2 border-black bg-pink-400
                         py-3   text-white  drop-shadow-md
                         transition duration-200 
@@ -228,37 +260,33 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             >
               <span className="font-bold">Sent to doctor!</span>
             </button>
-             )
           )
-          ):(
-            isUpdate ? (
-              <button
-              className=" delay-50  w-full rounded-lg border-2 border-black bg-lime-600
+        ) : isUpdate ? (
+          <button
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-lime-600
                         py-3   text-white  drop-shadow-md
                         transition duration-200 
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-lime-400 hover:shadow-md
                         hover:drop-shadow-xl "
-                      onClick={completeUpdate}
-            >
-              <span className="font-bold">Complete</span>
-            </button>
-            ):(
-            isDelete ? (
-              <button
-              className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
+            onClick={completeUpdate}
+          >
+            <span className="font-bold">Complete</span>
+          </button>
+        ) : isDelete ? (
+          <button
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
                         py-3   text-white  drop-shadow-md
                         transition duration-200 
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-amber-400 hover:shadow-md
                         hover:drop-shadow-xl "
-                        onClick={completeUpdate}
-            >
-              
-              <span className="font-bold">Patient Deleted!</span>
-            </button>
-            ):(
-            <div>
+            onClick={completeUpdate}
+          >
+            <span className="font-bold">Patient Deleted!</span>
+          </button>
+        ) : (
+          <div>
             <button
               className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
                         py-3   text-white  drop-shadow-md
@@ -267,7 +295,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         hover:bg-emerald-400 hover:shadow-md
                         hover:drop-shadow-xl "
               onClick={handleClick}
-              >
+            >
               <span className="font-bold">Re-Examine</span>
             </button>
             <button
@@ -278,26 +306,22 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         hover:bg-cyan-400 hover:shadow-md
                         hover:drop-shadow-xl "
               onClick={handleUpdate}
-              >
+            >
               <span className="font-bold">Update</span>
             </button>
             <button
-            className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
                       py-3   text-white  drop-shadow-md
                       transition duration-200 
                       ease-in-out hover:-translate-y-1 hover:scale-110 
                       hover:bg-rose-400 hover:shadow-md
                       hover:drop-shadow-xl "
-                      onClick={() => handleDelete()}
-          >
+              onClick={() => handleDelete()}
+            >
               <span className="font-bold">Delete</span>
             </button>
-            </div>
-            )
-          )
-        )
-          }
-
+          </div>
+        )}
       </div>
     </div>
   );

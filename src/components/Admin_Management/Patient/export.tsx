@@ -1,13 +1,19 @@
 import { PatientData, createColumns } from "./column";
 import { DataTable } from "./datatable";
 import https from "https";
+import { UserContext } from "@/app/Context/UserInfo";
+import { useEffect, useState, useContext } from "react";
+import { Patient, queryPatient } from "@/api_library/managehospital";
 
 async function getData(): Promise<PatientData[]> {
   // Fetch data from your API here.
 
-  const res = await fetch(
-    "https://65a8eb68219bfa371867ef13.mockapi.io/fakeapi/Patient",
-  );
+  // const res = await fetch(
+  //   "https://65a8eb68219bfa371867ef13.mockapi.io/fakeapi/Patient",
+  // );
+  const API = new Patient();
+  const res = await API.findAllPatient();
+  console.log("response data", res);
   const data = await res.json();
   return data;
 }

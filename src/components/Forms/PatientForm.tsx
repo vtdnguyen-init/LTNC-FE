@@ -2,31 +2,34 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
+import {
+  Patient,
+  createPatient,
+  medicalHistory,
+} from "@/api_library/managehospital";
 interface PropsPatientForm {
   name: string;
-  dob: string;
+  date_of_birth: string;
   email: string;
   gender: string;
-  country: string;
   address: string;
-  city: string;
   citizenID: string;
-  phone: string;
+  phoneNumber: string;
   record: string;
+  medicalHistory: medicalHistory[];
 }
-
+const API = new Patient();
 export default function Example() {
   const [patient, setPatient] = useState<PropsPatientForm>({
     name: "",
-    dob: "",
+    date_of_birth: "",
     email: "",
     gender: "",
-    country: "",
     address: "",
-    city: "",
     citizenID: "",
-    phone: "",
+    phoneNumber: "",
     record: "",
+    medicalHistory: [],
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
@@ -34,7 +37,7 @@ export default function Example() {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
-
+  const [message, setMessage] = useState("");
   const [openNotification, setOpenNotification] = useState(false);
   const onclick = () => {
     setOpenNotification(true);
@@ -44,7 +47,39 @@ export default function Example() {
   };
   const handlesubmit = async () => {
     console.log(patient);
-    onclick();
+    const data: createPatient = {
+      name: patient.name,
+      date_of_birth: patient.date_of_birth,
+      gender: patient.gender,
+      address: patient.address,
+      cccd: patient.citizenID,
+      phoneNumber: patient.phoneNumber,
+      medicalHistory: patient.medicalHistory,
+    };
+    try {
+      const response = await API.createPatient(data);
+      console.log("response: ", response);
+      if (response.error) {
+        setMessage(response.message);
+        onclick();
+      } else {
+        setMessage(response.message);
+        setPatient({
+          name: "",
+          date_of_birth: "",
+          email: "",
+          gender: "",
+          address: "",
+          citizenID: "",
+          phoneNumber: "",
+          record: "",
+          medicalHistory: [],
+        });
+        onclick();
+      }
+    } catch (error: any) {
+      console.log("Error creating patient: ", error);
+    }
   };
   return (
     <>
@@ -71,8 +106,8 @@ export default function Example() {
                   <input
                     onChange={handleInputChange}
                     type="text"
-                    name="full-name"
-                    id="full-name"
+                    name="name"
+                    id="name"
                     autoComplete="name"
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
@@ -90,7 +125,7 @@ export default function Example() {
                   <input
                     onChange={handleInputChange}
                     id="Date of birth"
-                    name="Date of birth"
+                    name="date_of_birth"
                     type="date"
                     autoComplete="birth"
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
@@ -174,7 +209,7 @@ export default function Example() {
                   <input
                     onChange={handleInputChange}
                     type="text"
-                    name="street-address"
+                    name="address"
                     id="street-address"
                     autoComplete="street-address"
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
@@ -212,7 +247,7 @@ export default function Example() {
                   <input
                     onChange={handleInputChange}
                     type="text"
-                    name="cccd"
+                    name="citizenID"
                     id="cccd"
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
@@ -222,7 +257,7 @@ export default function Example() {
 
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="phone"
+                  htmlFor="phoneNumber"
                   className="text-gray-900 block text-sm font-medium leading-6"
                 >
                   Phone Number
@@ -231,9 +266,9 @@ export default function Example() {
                   <input
                     onChange={handleInputChange}
                     type="text"
-                    name="phone"
-                    id="phone"
-                    autoComplete="phone"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    autoComplete="phoneNumber"
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -274,10 +309,7 @@ export default function Example() {
             Save
           </button>
           {openNotification ? (
-            <Notification
-              onclose={onclose}
-              data="Save successfully"
-            ></Notification>
+            <Notification onclose={onclose} data={message}></Notification>
           ) : (
             ""
           )}

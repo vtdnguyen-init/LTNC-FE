@@ -22,6 +22,7 @@
     "clsx": "^2.1.0",
     "flatpickr": "^4.6.13",
     "flowbite": "^2.3.0",
+    "joi": "^17.12.3",
     "jsvectormap": "^1.5.3",
     "lucide-react": "^0.363.0",
     "next": "14.1.0",

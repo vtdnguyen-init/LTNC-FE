@@ -201,7 +201,7 @@ const SignIn = () => {
                 Account
               </div>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                {Case
+                {Case === true
                   ? "Sign In to BK Hospital's Admin Account"
                   : "Sign In to BK Hospital's Doctor Account"}
               </h2>

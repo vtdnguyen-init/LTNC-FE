@@ -29,6 +29,7 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
+import { MedicalManage, QueryMedicine } from "@/api_library/managehospital";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -84,12 +85,28 @@ export function DataTable<TData, TValue>({
       </Button>,
     );
   }
-  const handleDeleteRowsSelected = () => {
-    table.getFilteredSelectedRowModel().rows.forEach((row) => {
-      console.log(row.original);
-      // Chỗ này call API về sever để xóa nhân viên nè m
-      //chỉ cần truyền row.original.id vào là được
-    });
+  const handleDeleteRowsSelected = async () => {
+    const OJ = new MedicalManage();
+    console.log(table.getFilteredSelectedRowModel().rows);
+    for (const row of table.getFilteredSelectedRowModel().rows) {
+      console.log("ID", row.original.id);
+      try {
+        const ID: QueryMedicine = {
+          id: row.original.id,
+        };
+        const response = await OJ.deleteMedicine(ID);
+        console.log(response);
+        if (response.error) {
+          alert(response.message);
+        } else {
+          if (reloadData) {
+            reloadData();
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
   const confirmDelete = () => {
     return window.confirm("Are you sure you want to delete?");
@@ -97,6 +114,7 @@ export function DataTable<TData, TValue>({
   const deleteRows = () => {
     // Gọi hàm confirmDelete và lưu kết quả vào biến result
     const result = confirmDelete();
+    console.log(result);
     // Nếu result là true, tức là người dùng nhấn yes
     if (result) {
       // Gọi hàm handleDeleteRowsSelected để xóa các hàng đã chọn
@@ -263,7 +281,7 @@ export function DataTable<TData, TValue>({
           mb-0.5 me-2 w-12 rounded-md border 
            bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
           text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none dark:text-white sm:w-16 md:text-base
+          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none dark:text-white sm:w-30 md:text-base
           ${
             table.getFilteredSelectedRowModel().rows.length > 0
               ? "border-red"
@@ -271,7 +289,7 @@ export function DataTable<TData, TValue>({
           }`}
           onClick={deleteRows}
         >
-          {table.getFilteredSelectedRowModel().rows.length}/
+          Delete {table.getFilteredSelectedRowModel().rows.length}/
           {table.getFilteredRowModel().rows.length}
         </button>
         <Button

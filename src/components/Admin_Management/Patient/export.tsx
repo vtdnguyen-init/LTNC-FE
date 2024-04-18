@@ -38,7 +38,7 @@ export default async function DemoPage(reloadData: any, info: any) {
     return (
       <DataTable
         columns={columns}
-        data={data.data}
+        data={data.data.patient}
         reloadData={reloadData}
         info={info}
       />

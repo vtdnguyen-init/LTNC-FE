@@ -7,15 +7,17 @@ import { Checkbox } from "../../ui/TableUI/checkbox";
 import { DetailPatient } from "./DetailPatient/detailpatient";
 import DetailCell from "./DetailButton";
 import { Button } from "@nextui-org/react";
+import { Notification } from "@/components/common/Noti/Notification";
+import { queryPatient, Patient } from "@/api_library/managehospital";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type PatientData = {
   id: number;
-  Name: string;
+  name: string;
   Room: string;
   Gender: string;
   Date: string;
   Age: string;
-  CCCD: string;
+  cccd: string;
   SDT: string;
   MedicalHistory: string;
   InditialDis: string;
@@ -29,6 +31,7 @@ export async function createColumns(
   reloadData: () => void,
   info: any,
 ): Promise<MyColumnDef<PatientData>[]> {
+  const count = 0;
   return [
     {
       id: "select",
@@ -59,75 +62,81 @@ export async function createColumns(
       header: ({ column }) => {
         return (
           <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() =>
+              column.toggleSorting(column.getIsSorted() === "desc")
+            }
           >
             ID
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
-    },
-    {
-      accessorKey: "Name",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Name
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Room",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Room
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Gender",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Gender
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Date",
-
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
       cell: ({ row }) => {
-        return new Date(row.original.Date).toLocaleDateString();
+        return row.index + 1;
+      },
+    },
+    {
+      accessorKey: "cccd",
+      header: ({ column }) => {
+        return (
+          <button
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            CCCD
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </button>
+        );
+      },
+    },
+    {
+      accessorKey: "name",
+      header: ({ column }) => {
+        return (
+          <button
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </button>
+        );
       },
     },
 
+    // {
+    //   accessorKey: "Gender",
+    //   header: ({ column }) => {
+    //     return (
+    //       <button
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //       >
+    //         Gender
+    //         <ArrowUpDown className="ml-2 h-4 w-4" />
+    //       </button>
+    //     );
+    //   },
+    // },
+    // {
+    //   accessorKey: "Date",
+
+    //   header: ({ column }) => {
+    //     return (
+    //       <button
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //       >
+    //         Date
+    //         <ArrowUpDown className="ml-2 h-4 w-4" />
+    //       </button>
+    //     );
+    //   },
+    //   cell: ({ row }) => {
+    //     return new Date(row.original.Date).toLocaleDateString();
+    //   },
+    // },
+
     {
-      accessorKey: "Chi tiết",
+      accessorKey: "Detail",
       header: ({ column }) => {
-        return "Chi tiết";
+        return "Detail";
       },
       cell: ({ row }) => (
         <DetailCell row={row} reloadData={reloadData} info={info} />

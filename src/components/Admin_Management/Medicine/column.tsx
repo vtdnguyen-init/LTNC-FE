@@ -7,16 +7,17 @@ import { Checkbox } from "../../ui/TableUI/checkbox";
 import { DetailMedicine } from "./DetailMedicine/detailmedicine";
 import DetailCell from "./DetailButton";
 import { Button } from "@nextui-org/react";
+import { MedicalManage } from "@/api_library/managehospital";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type MedicineData = {
+  brand: string;
+  disposal_price: number;
+  expiration_date: string;
   id: number;
-  Name: string;
-  ImportDate: string,
-  Brand: string,
-  Origin: string,
-  Amount: string,
-  Price: string,
-  ExpiredDate: string,
+  manufacture_date: string;
+  origin: string;
+  purchase_price: number;
+  quantity: number;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -79,7 +80,7 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Brand",
+      accessorKey: "brand",
       header: ({ column }) => {
         return (
           <button
@@ -92,36 +93,36 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "ImportDate",
+      accessorKey: "manufacture_date",
 
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Imported Date
+            Manufacture Date
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
       cell: ({ row }) => {
-        return new Date(row.original.ImportDate).toLocaleDateString();
+        return row.original.manufacture_date;
       },
     },
     {
-      accessorKey: "ExpiredDate",
+      accessorKey: "expiration_date",
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Expired Date
+            Expiration Date
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
       cell: ({ row }) => {
-        return new Date(row.original.ExpiredDate).toLocaleDateString();
+        return row.original.expiration_date;
       },
     },
 

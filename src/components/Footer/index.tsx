@@ -5,7 +5,7 @@ const Footer = () => {
     <>
       <footer className="dark:bg-gray-900 bg-white dark:bg-boxdark">
         <div className="mx-auto w-full max-w-screen-xl">
-          <div className="grid grid-cols-1 gap-2 px-4 pt-4 md:grid-cols-4 lg:grid-cols-8">
+          <div className="grid grid-cols-1 gap-2 px-4 pt-4 md:grid-cols-4 md:gap-10 lg:grid-cols-8">
             <div className="col-span-4">
               <div className="col-span-4 pb-3 text-center italic">
                 This project is driven by{" "}
@@ -93,8 +93,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="col-span-1"></div>
-            <div className="col-span-3">
+            <div className="col-span-4 ">
               <div className="pb-1 font-bold dark:text-white">
                 Project&#39;s Description
               </div>

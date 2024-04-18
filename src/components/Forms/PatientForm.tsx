@@ -37,6 +37,9 @@ export default function Example() {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPatient({ ...patient, [e.target.name]: e.target.value });
+  };
   const [message, setMessage] = useState("");
   const [openNotification, setOpenNotification] = useState(false);
   const onclick = () => {
@@ -55,6 +58,8 @@ export default function Example() {
       cccd: patient.citizenID,
       phoneNumber: patient.phoneNumber,
       medicalHistory: patient.medicalHistory,
+      email: patient.email,
+      record: patient.record,
     };
     try {
       const response = await API.createPatient(data);
@@ -286,6 +291,8 @@ export default function Example() {
             ></label>
             <textarea
               id="record"
+              name="record"
+              onChange={handleTextAreaChange}
               rows={4}
               className="font-italic text-gray-900 bg-gray-50 border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border p-2.5 
             text-sm focus:border-blue-500 focus:ring-indigo-600 dark:text-black dark:focus:border-blue-500 dark:focus:ring-blue-500"

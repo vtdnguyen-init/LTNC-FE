@@ -2,14 +2,14 @@ import React, { ReactEventHandler } from "react";
 import { Modal } from "@nextui-org/react";
 import { useState } from "react";
 interface MedicineData {
+  brand: string;
+  disposal_price: number;
+  expiration_date: string;
   id: number;
-  Name: string;
-  ImportDate: string;
-  Brand: string;
-  Origin: string;
-  Amount: string;
-  Price: string;
-  ExpiredDate: string;
+  manufacture_date: string;
+  origin: string;
+  purchase_price: number;
+  quantity: number;
 }
 interface PropsDetailMedicine {
   onclose: () => void;
@@ -36,13 +36,13 @@ export const DetailMedicine: React.FC<PropsDetailMedicine> = ({
   const handleDelete = async () => {
     setDelete(true);
     setEditing(true);
-  }
+  };
   const DeleteMedicine = async () => {
     //DO SOMETHING THAT DELETE THAT MEDICINE
     console.log("DELETE MEDICINE");
     setDelete(true);
     setEditing(false);
-  }
+  };
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -67,111 +67,113 @@ export const DetailMedicine: React.FC<PropsDetailMedicine> = ({
           <div className="border-b-2     border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">ID :</span> {dataInitial.id}
           </div>
+          {/* <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">Name:</span> {dataInitial.name}
+          </div> */}
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Name:</span>{" "}
-            {dataInitial.Name}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Brand :</span> {dataInitial.Brand}
+            <span className="text-xl font-bold">Brand :</span>{" "}
+            {dataInitial.brand}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Origin :</span>{" "}
-            {dataInitial.Origin}
+            {dataInitial.origin}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Imported Date :</span> {dataInitial.ImportDate}
+            <span className="text-xl font-bold">Manufacture date :</span>{" "}
+            {dataInitial.manufacture_date}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Expired Date :</span> {dataInitial.ExpiredDate}
+            <span className="text-xl font-bold">Expiration date :</span>{" "}
+            {dataInitial.expiration_date}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Price per box :</span>{" "}
-            ${dataInitial.Price} USD
+            <span className="text-xl font-bold">Disposal Price :</span> $
+            {dataInitial.disposal_price} USD
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Imported Amount :</span> {dataInitial.Amount}
+            <span className="text-xl font-bold">Quantity :</span>{" "}
+            {dataInitial.quantity}
           </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Amount Left:</span> {dataInitial.Amount}
-          </div>
+          {/* <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">quantity Left:</span>{" "}
+            {dataInitial.quantity}
+          </div> */}
         </div>
-        
-        
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
-          { isEditing ? (
-            isDelete ? (
-              <div>
+        {isEditing ? (
+          isDelete ? (
+            <div>
               <div
-            className="delay-50 -2-blue-700 left-0  w-full border-2 border-black bg-white 
-                 py-3 text-white drop-shadow-md border-b-0
-               hover:text-white hover:shadow-md hover:drop-shadow-xl text-center
+                className="delay-50 -2-blue-700 left-0  w-full border-2 border-b-0 border-black 
+                 bg-white py-3 text-center text-white
+               drop-shadow-md hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
-          >
-            <span className="font-bold text-xl text-black">Are you sure you want to delete this medicine?</span>
-            </div>
+              >
+                <span className="text-xl font-bold text-black">
+                  Are you sure you want to delete this medicine?
+                </span>
+              </div>
               <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
+                className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
                  py-3 text-white drop-shadow-md
               transition
               duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-rose-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
-              onClick={() => DeleteMedicine()}
-          >
-            <span className="font-bold">Confirm</span>
-          </button>
-          </div>
-            ):(
+                onClick={() => DeleteMedicine()}
+              >
+                <span className="font-bold">Confirm</span>
+              </button>
+            </div>
+          ) : (
             <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
+              className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
                  py-3 text-white drop-shadow-md
               transition
               duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
               onClick={() => handleSave()}
-          >
-            <span className="font-bold">Complete</span>
-          </button>
-          )):(
-            isDelete ?(
-              <button
-              className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
+            >
+              <span className="font-bold">Complete</span>
+            </button>
+          )
+        ) : isDelete ? (
+          <button
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
                         py-3   text-white  drop-shadow-md
                         transition duration-200 
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-amber-400 hover:shadow-md
                         hover:drop-shadow-xl "
-            >
-              <span className="font-bold">Medicine Deleted!</span>
-            </button>
-            ):(
-            <div>
+          >
+            <span className="font-bold">Medicine Deleted!</span>
+          </button>
+        ) : (
+          <div>
             <button
-            className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
                       py-3   text-white  drop-shadow-md
                       transition duration-200 
                       ease-in-out hover:-translate-y-1 hover:scale-110 
                       hover:bg-emerald-400 hover:shadow-md
                       hover:drop-shadow-xl "
-                      onClick={() => setEditing(true)}
-          >
-            <span className="font-bold">Update</span>
-          </button>
-          <button
-          className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
+              onClick={() => setEditing(true)}
+            >
+              <span className="font-bold">Update</span>
+            </button>
+            <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
                     py-3   text-white  drop-shadow-md
                     transition duration-200 
                     ease-in-out hover:-translate-y-1 hover:scale-110 
                     hover:bg-rose-400 hover:shadow-md
                     hover:drop-shadow-xl "
-                    onClick={() => handleDelete()}
-        >
-          <span className="font-bold">Delete</span>
-        </button>
-        </div>
-          )
-          )
-          }
+              onClick={() => handleDelete()}
+            >
+              <span className="font-bold">Delete</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

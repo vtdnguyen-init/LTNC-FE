@@ -2,13 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Authenticate } from "@/api_library/managehospital";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import { Notification } from "../common/Noti/Notification";
 const API = new Authenticate();
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const router = useRouter();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const onclickNoti = (message: string) => {
+    setMessage(message);
+    setOpen(!open);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -38,12 +49,13 @@ const DropdownUser = () => {
     try {
       const response = await API.logout();
       if (response.error) {
-        console.log("Error logging out: ", response.message);
+        onclickNoti("Error logging out");
       } else {
-        console.log("Logged out successfully");
+        router.push("/");
+        // console.log("Logged out successfully");
       }
     } catch (error) {
-      console.log("Error logging out: ", error);
+      console.log("error", error);
     }
   };
 
@@ -128,6 +140,7 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
+        {open && <Notification onclose={onClose} data={message} />}
         <button
           onClick={handleLogout}
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

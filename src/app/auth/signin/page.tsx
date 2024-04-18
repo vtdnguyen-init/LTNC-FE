@@ -19,6 +19,7 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
   const router = useRouter();
   const handleInputChange = (key: any, value: string) => {
     setFormData({ ...formData, [key]: value });
@@ -38,6 +39,7 @@ const SignIn = () => {
       setInfo(response);
       console.log("Info", info);
       if (response.error) {
+        setMessage("Invalid email or password");
       } else {
         router.push("/dashboard/statistic");
       }
@@ -201,7 +203,7 @@ const SignIn = () => {
                 Account
               </div>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                {Case
+                {Case === true
                   ? "Sign In to BK Hospital's Admin Account"
                   : "Sign In to BK Hospital's Doctor Account"}
               </h2>
@@ -283,6 +285,11 @@ const SignIn = () => {
                       </svg>
                     </span>
                   </div>
+                </div>
+                <div className="mb-6">
+                  {message && (
+                    <div className="mb-2 text-sm text-red">{message}</div>
+                  )}
                 </div>
 
                 <div className="mb-5">

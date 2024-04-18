@@ -1,16 +1,17 @@
 import React, { ReactEventHandler, useEffect } from "react";
 import { useState } from "react";
+import { Notification } from "@/components/common/Noti/Notification";
+import { queryPatient, Patient } from "@/api_library/managehospital";
 interface PatientData {
-  id: number;
-  Name: string;
-  Room: string;
-  Gender: string;
-  Date: string;
-  Age: string;
-  CCCD: string;
-  SDT: string;
-  MedicalHistory: string;
-  InditialDis: string;
+  address: string;
+  cccd: string;
+  date_of_birth: string;
+  email: string;
+  gender: string;
+  medicalHistory: [];
+  name: string;
+  phoneNumber: string;
+  record: string;
 }
 interface PropsDetailPatient {
   onclose: () => void;
@@ -33,6 +34,37 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isDelete, setDelete] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
+  const [data, setData] = useState<PatientData>({
+    address: "",
+    cccd: "",
+    date_of_birth: "",
+    email: "",
+    gender: "",
+    medicalHistory: [],
+    name: "",
+    phoneNumber: "",
+    record: "",
+  });
+
+  const handleFetchData = async () => {
+    const OJ = new Patient();
+    try {
+      const ID: queryPatient = {
+        cccd: dataInitial.cccd,
+      };
+      const response = await OJ.findPatient(ID);
+      console.log("Detail", response);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return "error";
+    }
+  };
+  useEffect(() => {
+    handleFetchData().then((res) => {
+      setData(res);
+    });
+  }, [dataInitial]);
   const handleUpdate = async () => {
     setUpdate(true);
   };
@@ -81,7 +113,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   };
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
+      className={`fixed bottom-0 left-0 right-0 top-0 z-99999 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
     >
       <div className="relative z-50 mt-10 h-3/4 w-3/4 flex-col place-content-between overflow-x-hidden overflow-y-scroll rounded-t-xl border-l-2  border-r-2 border-t-2 border-black bg-white hide-scrollbar  dark:bg-[#14141a] sm:w-3/4 lg:ml-52 lg:w-1/2">
         <div className="sticky my-2 flex h-10 w-full flex-row items-center justify-center  border-b-2 border-[#545e7b]">
@@ -100,36 +132,27 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           </button>
         </div>
         <div className="mt-5 grid gap-3 px-4 md:grid-cols-2">
-          <div className="border-b-2     border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">ID :</span> {dataInitial.id}
-          </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Full name:</span>{" "}
-            {dataInitial.Name}
+            <span className="text-xl font-bold">Full name:</span> {data?.name}
           </div>
+
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Room :</span> {dataInitial.Room}
+            <span className="text-xl font-bold">Gender :</span> {data?.gender}
           </div>
+
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Gender :</span>{" "}
-            {dataInitial.Gender}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Age :</span> {dataInitial.Age}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">CCCD:</span> {dataInitial.CCCD}
+            <span className="text-xl font-bold">CCCD:</span> {data?.cccd}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Phone number :</span>{" "}
-            {dataInitial.SDT}
+            {data?.phoneNumber}
           </div>
         </div>
         <div className="grid md:grid-cols-2">
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">Medical history</div>
             <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {dataInitial.MedicalHistory}
+              {data?.medicalHistory}
             </div>
           </div>
 
@@ -138,7 +161,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
               Treatment process
             </div>
             <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {dataInitial.InditialDis}
+              {data?.record}
             </div>
           </div>
         </div>

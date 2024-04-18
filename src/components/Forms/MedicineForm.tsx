@@ -2,28 +2,29 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
-interface PropsMedicineForm {
-  name: string;
-  expired: string;
-  brand: string;
-  origin: string;
-  ammount: number;
-  price: number;
+import { MedicalManage, createMedicine } from "@/api_library/managehospital";
+function convertDate(inputFormat: string) {
+  let [year, month, day] = inputFormat.split("-");
+  return [day, month, year].join("/");
 }
 export default function Example() {
-  const [medicine, setMedicine] = useState<PropsMedicineForm>({
+  const [medicine, setMedicine] = useState({
     name: "",
-    expired: "",
     brand: "",
+    disposal_price: 0,
+    expiration_date: "",
+    manufacture_date: "",
     origin: "",
-    ammount: 0,
-    price: 0,
+    purchase_price: 0,
+    quantity: 0,
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMedicine({ ...medicine, [e.target.name]: e.target.value });
   };
   const [openNotification, setOpenNotification] = useState(false);
-  const onclick = () => {
+  const [message, setMessage] = useState("");
+  const onclick = (message: string) => {
+    setMessage(message);
     setOpenNotification(true);
   };
   const onclose = () => {
@@ -31,7 +32,29 @@ export default function Example() {
   };
   const handlesubmit = async () => {
     console.log(medicine);
-    onclick();
+    const OJ = new MedicalManage();
+    const Form: createMedicine = {
+      // name: medicine.name,
+      brand: medicine.brand,
+      disposal_price: parseInt(medicine.disposal_price),
+      expiration_date: convertDate(medicine.expiration_date),
+      manufacture_date: convertDate(medicine.manufacture_date),
+      origin: medicine.origin,
+      purchase_price: parseInt(medicine.purchase_price),
+      quantity: parseInt(medicine.quantity),
+    };
+    try {
+      const response = await OJ.createMedicine(Form);
+      console.log(response);
+      if (response.error) {
+        onclick(response.message);
+        return;
+      }
+      onclick("Save successfully");
+    } catch (err) {
+      console.log(err);
+      onclick("Save failed");
+    }
   };
   return (
     <>
@@ -39,14 +62,14 @@ export default function Example() {
         <div className="lg:px20 xl:px space-y-6 px-10 md:px-30 lg:px-30 xl:px-60">
           <div className="border-gray-900/10 border-b pb-3">
             <h2 className="text-gray-900 text-base font-semibold leading-7">
-              Medicine&apos;s Management
+              Add Medicine&apos;s
             </h2>
           </div>
           <div className="pb-5">
             <h2 className="text-gray-900 text-base font-semibold leading-7">
               Information
             </h2>
-            <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
               <div className="sm:col-span-2">
                 <label
                   htmlFor="name"
@@ -65,26 +88,6 @@ export default function Example() {
                   />
                 </div>
               </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="date"
-                  className="text-gray-900 block text-sm font-medium leading-6"
-                >
-                  Expired Date:
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={handleInputChange}
-                    id="expired"
-                    name="expired"
-                    type="date"
-                    autoComplete="expired"
-                    className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-
               <div className="sm:col-span-2">
                 <label
                   htmlFor="brand"
@@ -99,6 +102,43 @@ export default function Example() {
                     name="brand"
                     id="brand"
                     autoComplete=""
+                    className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="date"
+                  className="text-gray-900 block text-sm font-medium leading-6"
+                >
+                  Manufacture Date:
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={handleInputChange}
+                    id="expired"
+                    name="manufacture_date"
+                    type="date"
+                    autoComplete="expired"
+                    className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="date"
+                  className="text-gray-900 block text-sm font-medium leading-6"
+                >
+                  Expired Date:
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={handleInputChange}
+                    id="expired"
+                    name="expiration_date"
+                    type="date"
+                    autoComplete="expired"
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -128,13 +168,13 @@ export default function Example() {
                   htmlFor="street-address"
                   className="text-gray-900 block text-sm font-medium leading-6"
                 >
-                  Imported Ammount:
+                  Quantity:
                 </label>
                 <div className="mt-2">
                   <input
                     onChange={handleInputChange}
                     type="number"
-                    name="ammount"
+                    name="quantity"
                     id="ammount"
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
@@ -147,12 +187,30 @@ export default function Example() {
                   htmlFor="street-address"
                   className="text-gray-900 block text-sm font-medium leading-6"
                 >
-                  Price per box ($USD):
+                  Purchase Price:
                 </label>
                 <div className="mt-2">
                   <input
                     type="number"
-                    name="price"
+                    name="purchase_price"
+                    id="price"
+                    autoComplete=""
+                    className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="col-span-2">
+                <label
+                  htmlFor="street-address"
+                  className="text-gray-900 block text-sm font-medium leading-6"
+                >
+                  Disposal Price:
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="number"
+                    name="disposal_price"
                     id="price"
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
@@ -179,10 +237,7 @@ export default function Example() {
             Save
           </button>
           {openNotification ? (
-            <Notification
-              onclose={onclose}
-              data="Save successfully"
-            ></Notification>
+            <Notification onclose={onclose} data={message}></Notification>
           ) : (
             ""
           )}

@@ -28,6 +28,7 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
+import Link from "next/link";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -71,10 +72,10 @@ export function DataTable<TData, TValue>({
   const openModal = () => {
     setModalIsOpen(true);
   };
-
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  const addPatient = () => {};
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons.push(
@@ -140,10 +141,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("Name")?.getFilterValue() as string) ?? ""
+                (table.getColumn("name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("Name")?.setFilterValue(event.target.value)
+                table.getColumn("name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}
@@ -189,14 +190,19 @@ export function DataTable<TData, TValue>({
               </DropdownMenu>
             </Dropdown>
           </div>
-          {/* <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
-            <Button
-              className="border-gray-600 h-full w-full rounded border text-center text-xs sm:ml-2 sm:w-32 md:text-sm"
-              onClick={openModal}
+          <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
+            <Link
+              href="/forms/patient"
+              className={` rounded-m flex items-center gap-2.5 rounded-xl bg-sky-700 px-4 font-medium  text-bodydark2 
+              transition duration-200
+              ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500  hover:text-white
+                              `}
             >
-              Thêm mới
-            </Button>
-          </div> */}
+              <Button variant="light" size="sm" className="text-white">
+                Add Patient
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="border-gray-700 rounded-md border">
@@ -252,22 +258,6 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-center space-x-2 py-4">
-        <button
-          className={`
-          mb-0.5 me-2 w-12 rounded-md border 
-           bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
-          text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none dark:text-white sm:w-16 md:text-base
-          ${
-            table.getFilteredSelectedRowModel().rows.length > 0
-              ? "border-red"
-              : "border-black dark:border-gray-2"
-          }`}
-          onClick={deleteRows}
-        >
-          {table.getFilteredSelectedRowModel().rows.length}/
-          {table.getFilteredRowModel().rows.length}
-        </button>
         <Button
           variant="light"
           size="sm"

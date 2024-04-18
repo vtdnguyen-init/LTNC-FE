@@ -28,6 +28,7 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    reloadData();
   };
 
   return (

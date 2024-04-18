@@ -7,7 +7,7 @@ async function getData(): Promise<any> {
 
   const a = new MedicalManage();
   try {
-    const response = await a.getData();
+    const response = await a.getExpire();
     if (response.error) {
       alert(response.message);
       return null;
@@ -19,7 +19,7 @@ async function getData(): Promise<any> {
   }
 }
 
-export default async function DemoPage(reloadData: any, info: any) {
+export default async function DemoPage2(reloadData: any, info: any) {
   const data = await getData();
   console.log("data", data);
   const columns = await createColumns(reloadData, info);

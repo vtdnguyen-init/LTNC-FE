@@ -216,7 +216,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                   </thead>
                   <tbody className="text-blue-gray-900">
                     {medicine?.map((med, index) => (
-                      <tr className="border-blue-gray-200 border-b">
+                      <tr key={index} className="border-blue-gray-200 border-b">
                         <td className="px-4 py-3">{index + 1}</td>
                         <td className="px-4 py-3">{med.name}</td>
                         <td className="px-4 py-3">

@@ -7,12 +7,12 @@ import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
 const Patient: React.FC = () => {
   const [change, setChange] = useState(false);
-  const [demoPage, setDemoPage] = useState(
+  const [demoPage, setDemoPage] = useState<React.ReactElement | undefined>(
     <div className="h-auto">
       <Loader />
     </div>,
   );
-  const [demoPage2, setDemoPage2] = useState(
+  const [demoPage2, setDemoPage2] = useState<React.ReactElement | undefined>(
     <div className="h-auto">
       <Loader />
     </div>,

@@ -11,12 +11,12 @@ export default function Example() {
   const [medicine, setMedicine] = useState({
     name: "",
     brand: "",
-    disposal_price: 0,
+    disposal_price: "",
     expiration_date: "",
     manufacture_date: "",
     origin: "",
-    purchase_price: 0,
-    quantity: 0,
+    purchase_price: "",
+    quantity: "",
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMedicine({ ...medicine, [e.target.name]: e.target.value });

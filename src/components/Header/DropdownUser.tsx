@@ -52,7 +52,7 @@ const DropdownUser = () => {
         onclickNoti("Error logging out");
       } else {
         router.push("/");
-        // console.log("Logged out successfully");
+        console.log("Logged out successfully");
       }
     } catch (error) {
       console.log("error", error);

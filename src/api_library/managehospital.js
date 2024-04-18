@@ -64,7 +64,7 @@ var Patient = /** @class */ (function () {
                 }
             });
         });
-    };
+    }; //done
     Patient.prototype.updatePatient = function (info, condition) {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, error_2;
@@ -87,7 +87,7 @@ var Patient = /** @class */ (function () {
                 }
             });
         });
-    };
+    }; //done
     Patient.prototype.removePatient = function (condition) {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, error_3;

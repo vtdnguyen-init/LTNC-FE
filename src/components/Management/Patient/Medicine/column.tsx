@@ -92,23 +92,7 @@ export async function createColumns(
         );
       },
     },
-    {
-      accessorKey: "manufacture_date",
 
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Manufacture Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-      cell: ({ row }) => {
-        return row.original.manufacture_date;
-      },
-    },
     {
       accessorKey: "expiration_date",
       header: ({ column }) => {

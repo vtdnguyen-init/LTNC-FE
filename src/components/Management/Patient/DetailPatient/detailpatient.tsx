@@ -1,6 +1,7 @@
 import React, { ReactEventHandler, useEffect } from "react";
 import { useState } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
+import { ListMedicine } from "../Medicine";
 import {
   queryPatient,
   Patient,
@@ -9,16 +10,13 @@ import {
   testResult,
 } from "@/api_library/managehospital";
 interface prescription {
-  dosage: dosage;
+  evening: number;
+  morning: number;
+  noon: number;
   medicine: string;
   quantity: number;
 }
 
-interface dosage {
-  evening: number;
-  morning: number;
-  noon: number;
-}
 interface PatientData {
   address: string;
   cccd: string;
@@ -103,13 +101,48 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     description: "",
     diagnosis: "",
     prescription: [],
-    testResult: [],
+    testResult: [
+      {
+        result: "",
+        testName: "",
+      },
+    ],
   });
+  const [prescription, setPrescription] = useState<prescription[]>([]);
+  const handleOpenListMedicine = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseListMedicine = () => {
+    console.log("Prescription2", prescription);
+    setIsModalOpen(false);
+  };
+  const handleCreateRecord = async () => {
+    const OJ = new Patient();
+    try {
+      const ID: createRecords = {
+        date: record.date,
+        description: record.description,
+        diagnosis: record.diagnosis,
+        prescription: prescription,
+        testResult: record.testResult,
+      };
+      console.log("ID", ID);
+      const response = await OJ.createRecords(ID);
+      console.log("Detail", response);
+
+      // return response;
+    } catch (err) {
+      console.log(err);
+      return "error";
+    }
+    // setUpdateTreatment(false);
+  };
+
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 top-0 z-999 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
+      className={`fixed bottom-0 left-0 right-0 top-0 z-99999 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
     >
-      <div className="relative z-50 mt-10 h-3/4 w-3/4 flex-col place-content-between overflow-x-hidden overflow-y-scroll rounded-t-xl border-l-2  border-r-2 border-t-2 border-black bg-white hide-scrollbar  dark:bg-[#14141a] sm:w-3/4 lg:ml-52 lg:w-1/2">
+      <div className="relative z-50 mt-10 h-3/4 w-3/4 flex-col place-content-between overflow-x-hidden overflow-y-scroll rounded-t-xl border-l-2  border-r-2 border-t-2 border-black bg-white hide-scrollbar  dark:bg-[#14141a] sm:w-3/4 lg:ml-52 lg:w-3/4">
         <div className="sticky my-2 flex h-10 w-full flex-row items-center justify-center  border-b-2 border-[#545e7b]">
           <div className="w-full  text-center text-lg font-bold  sm:text-2xl">
             Detail Patient
@@ -129,28 +162,6 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Full name:</span> {data?.name}
           </div>
-
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Gender :</span> {data?.gender}
-          </div>
-
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">CCCD:</span> {data?.cccd}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Phone number :</span>{" "}
-            {data?.phoneNumber}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Address :</span> {data?.address}
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Date of birth :</span>{" "}
-            {data?.date_of_birth}
-          </div>
-          {/* <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Email :</span> {data?.email}
-          </div> */}
         </div>
         {!updateTreatment && (
           <div className="grid md:grid-cols-2">
@@ -178,7 +189,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         {updateTreatment && (
           <div className="my-5 grid px-4">
             <div className="text-center text-xl font-bold">
-              Update process and use medicine
+              Update Record Treatment
             </div>
             <div className=" flex place-content-center place-items-center gap-3 border-indigo-400 duration-500 ease-in-out hover:transition-all">
               <span className="text-center text-base font-bold">Date:</span>{" "}
@@ -196,44 +207,90 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
               <textarea
                 className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="Description "
+                onChange={(e) => {
+                  record.description = e.target.value;
+                  setRecord({ ...record });
+                }}
               ></textarea>
               <textarea
                 className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="Diagnosis"
+                onChange={(e) => {
+                  record.diagnosis = e.target.value;
+                  setRecord({ ...record });
+                }}
               ></textarea>
               <div className="flex flex-col  place-content-between place-items-center">
                 <div className="text-center text-base font-bold">Medicine</div>
 
                 <div className="">Danh sách thuốc sử dụng</div>
+
                 <table className="min-w-full rounded-xl bg-white shadow-md">
                   <thead>
                     <tr className="bg-blue-gray-100 text-gray-700">
-                      <th className="px-4 py-3 text-left">ID</th>
-                      <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Quantity</th>
-                      <th className="px-4 py-3 text-left">Delete</th>
+                      <th className="px-1 py-1 text-left">ID</th>
+                      <th className="px-1 py-1 text-left">Name</th>
+                      <th className="px-1 py-1 text-left">Quantity</th>
+                      <th className="px-1 py-1 text-left">Morning</th>
+                      <th className="px-1 py-1 text-left">Evening</th>
+                      <th className="px-1 py-1 text-left">Noon</th>
+                      <th className="px-1 py-1 text-left">Delete</th>
                     </tr>
                   </thead>
                   <tbody className="text-blue-gray-900">
-                    {medicine?.map((med, index) => (
+                    {prescription?.map((med, index) => (
                       <tr key={index} className="border-blue-gray-200 border-b">
-                        <td className="px-4 py-3">{index + 1}</td>
-                        <td className="px-4 py-3">{med.name}</td>
-                        <td className="px-4 py-3">
+                        <td className="px-1 py-1">{index + 1}</td>
+                        <td className="px-1 py-1">{med.Name}</td>
+                        <td className="w-20 px-1 py-1 ">
                           <input
                             type="number"
+                            className="w-20 rounded-sm text-center text-xs font-bold"
                             value={med.quantity}
                             onChange={(e) => {
                               med.quantity = parseInt(e.target.value);
-                              setMedicine([...medicine]);
+                              setPrescription([...prescription]);
                             }}
                           />
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="w-20 px-1 py-1 ">
+                          <input
+                            type="number"
+                            className="w-20 rounded-sm text-center text-xs font-bold"
+                            value={med.morning}
+                            onChange={(e) => {
+                              med.morning = parseInt(e.target.value);
+                              setPrescription([...prescription]);
+                            }}
+                          />
+                        </td>
+                        <td className="w-20 px-1 py-1 ">
+                          <input
+                            type="number"
+                            className="w-20 rounded-sm text-center text-xs font-bold"
+                            value={med.evening}
+                            onChange={(e) => {
+                              med.evening = parseInt(e.target.value);
+                              setPrescription([...prescription]);
+                            }}
+                          />
+                        </td>
+                        <td className="w-20 px-1 py-1 ">
+                          <input
+                            type="number"
+                            className="w-20 rounded-sm text-center text-xs font-bold"
+                            value={med.noon}
+                            onChange={(e) => {
+                              med.noon = parseInt(e.target.value);
+                              setPrescription([...prescription]);
+                            }}
+                          />
+                        </td>
+                        <td className="w-20 px-1 py-1">
                           <button
-                            onClick={() => {
-                              medicine.splice(index, 1);
-                              setMedicine([...medicine]);
+                            onAbort={() => {
+                              prescription.splice(index, 1);
+                              setPrescription([...prescription]);
                             }}
                           >
                             Delete
@@ -244,7 +301,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                   </tbody>
                 </table>
                 <button
-                  className="
+                  className=" mt-3
                 w-24 rounded-lg border-2
                 border-black bg-blue-500 py-3 text-center
                 text-xs   font-bold  text-white
@@ -254,6 +311,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                 hover:shadow-md
                   hover:drop-shadow-xl
                 "
+                  onClick={handleOpenListMedicine}
                 >
                   Sử dụng thuốc
                 </button>
@@ -332,17 +390,31 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                 <textarea
                   className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Test Name"
+                  onChange={(e) => {
+                    record.testResult[0].testName = e.target.value;
+                    setRecord({ ...record });
+                  }}
                 ></textarea>
                 <textarea
                   className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Result"
+                  onChange={(e) => {
+                    record.testResult[0].result = e.target.value;
+                    setRecord({ ...record });
+                  }}
                 ></textarea>
               </div>
             </div>
           </div>
         )}
       </div>
-      <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
+      {isModalOpen && (
+        <ListMedicine
+          onclose={handleCloseListMedicine}
+          dataInitial={prescription}
+        />
+      )}
+      <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-3/4 ">
         {updateTreatment && (
           <button
             className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
@@ -352,7 +424,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                       hover:bg-green-400 hover:shadow-md
                       hover:drop-shadow-xl "
             onClick={() => {
-              setUpdateTreatment(false);
+              handleCreateRecord();
             }}
           >
             <span className="font-bold">Confirm</span>

@@ -5,6 +5,7 @@ import {
   queryPatient,
   Patient,
   updatePatient,
+  registerInfo,
 } from "@/api_library/managehospital";
 interface PatientData {
   address: string;
@@ -38,6 +39,15 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isDelete, setDelete] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
+  const [openNoti, setOpenNoti] = useState(false);
+  const [message, setMessage] = useState("");
+  const onclick = (data: string) => {
+    setMessage(data);
+    setOpenNoti(true);
+  };
+  const oncloseNoti = () => {
+    setOpenNoti(false);
+  };
   const [data, setData] = useState<PatientData>({
     address: "",
     cccd: "",
@@ -65,10 +75,10 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       };
       const response = await OJ.findPatient(ID);
       console.log("Detail", response);
-      const record = await OJ.findRecords({ date: "01/01/2004" });
+      // const record = await OJ.findRecords({ date: "01/01/2004" });
       const treatmnet = await OJ.findTreatment(ID);
       console.log("Treatment", treatmnet);
-      console.log("Record", record);
+      // console.log("Record", record);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -103,9 +113,12 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       };
       const response = await OJ.updatePatient(Data, ID);
       console.log("Update", response);
-      handleFetchData().then((res) => {
-        setData(res);
-      });
+      if (response.error) {
+      } else {
+        handleFetchData().then((res) => {
+          setData(res);
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -162,6 +175,44 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       }
     } catch (err) {
       console.log(err);
+    }
+    setClicked(false);
+  };
+  const handleReExamine = async () => {
+    // Gui thong tin benh nhan cho bac si o day ->>>>>
+    const OJ = new Patient();
+    const Info: registerInfo = {
+      cccd: dataInitial.cccd,
+      faculty: "",
+    };
+    switch (selectedOption) {
+      case 1:
+        Info.faculty = "GEN";
+        break;
+      case 2:
+        Info.faculty = "OTO";
+        break;
+      case 3:
+        Info.faculty = "OPH";
+        break;
+      case 4:
+        Info.faculty = "DERMA";
+        break;
+      case 5:
+        Info.faculty = "CAR";
+        break;
+      case 6:
+        Info.faculty = "PED";
+        break;
+    }
+
+    console.log("Bệnh nhân khám lại");
+    console.log("Info:", Info);
+    const response = await OJ.createRegister(Info);
+    if (response.error) {
+      onclick(response.message);
+    } else {
+      onclick("Register success");
     }
     setClicked(false);
   };
@@ -271,62 +322,62 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             <h2 className="border-t-3 border-indigo-400 pt-6 text-center text-title-xl duration-500 ease-in-out  hover:transition-all">
               Choose an option:
             </h2>
-            <div className="grid min-h-40 grid-cols-3 px-3 py-3">
-              <div className="flex justify-center py-3 ">
+            <div className="grid grid-cols-3 gap-2 px-3 py-3">
+              <div className="flex h-20 w-full justify-center ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(1)}
                 >
                   General (Da Khoa)
                 </button>
               </div>
-              <div className="flex justify-center py-3 ">
+              <div className="flex h-20 w-full justify-center ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(2)}
                 >
                   Otorhinolaryngology (Tai mui hong)
                 </button>
               </div>
-              <div className="flex justify-center py-3 ">
+              <div className="flex h-20 w-full justify-center ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(3)}
                 >
                   Ophthalmologist (Mat)
                 </button>
               </div>
-              <div className="flex justify-center py-3 ">
+              <div className="flex h-20 w-full justify-center ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(4)}
                 >
                   Dermatology (Da Lieu)
                 </button>
               </div>
-              <div className="flex justify-center py-3 ">
+              <div className="flex h-20 w-full justify-center ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(5)}
                 >
                   Cardiology (Tim mach)
                 </button>
               </div>
-              <div className="flex justify-center py-3 ">
+              <div className="flex  h-20 w-full justify-center  ">
                 <button
-                  className="dark:bg-gray-700 dark:border-gray-600 block rounded-lg border-2 border-indigo-400  bg-gray-3 
-                px-2 text-sm  text-black hover:bg-indigo-400 focus:border-indigo-500 focus:bg-indigo-400 
-                dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
+                  className="dark:bg-gray-700 dark:border-gray-600 block h-full w-full rounded-lg  border-2 
+                border-indigo-400 bg-gray-3  px-2 text-sm text-black hover:bg-indigo-400 
+                focus:border-indigo-500 focus:bg-indigo-400 dark:text-black dark:focus:border-indigo-500 dark:focus:ring-indigo-400"
                   onClick={() => handleOptionSelect(6)}
                 >
                   Pediatrician (Nhi)
@@ -380,6 +431,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-pink-400 hover:shadow-md
                         hover:drop-shadow-xl "
+              onClick={handleReExamine}
             >
               <span className="font-bold">Sent to doctor!</span>
             </button>
@@ -446,6 +498,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           </div>
         )}
       </div>
+      {openNoti && <Notification data={message} onclose={oncloseNoti} />}
     </div>
   );
 };

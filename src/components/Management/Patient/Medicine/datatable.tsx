@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
         evening: 0,
         morning: 0,
         noon: 0,
-        medicine: row.original.medicine,
+        medicine: row.original.name,
         quantity: row.original.quantity,
         medicineID: row.original.id,
       });
@@ -156,10 +156,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("Name")?.getFilterValue() as string) ?? ""
+                (table.getColumn("name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("Name")?.setFilterValue(event.target.value)
+                table.getColumn("name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}

@@ -34,7 +34,7 @@ export default function Example() {
     console.log(medicine);
     const OJ = new MedicalManage();
     const Form: createMedicine = {
-      // name: medicine.name,
+      name: medicine.name,
       brand: medicine.brand,
       disposal_price: parseInt(medicine.disposal_price),
       expiration_date: convertDate(medicine.expiration_date),

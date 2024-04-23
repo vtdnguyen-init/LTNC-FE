@@ -10,6 +10,7 @@ import { Button } from "@nextui-org/react";
 import { MedicalManage } from "@/api_library/managehospital";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type MedicineData = {
+  name: string;
   brand: string;
   disposal_price: number;
   expiration_date: string;
@@ -67,7 +68,7 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Name",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <button

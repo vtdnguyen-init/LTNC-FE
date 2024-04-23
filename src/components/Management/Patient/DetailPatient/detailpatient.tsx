@@ -2,21 +2,19 @@ import React, { ReactEventHandler, useEffect } from "react";
 import { useState } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
 import { ListMedicine } from "../Medicine";
+import { OpenRecord } from "../detailTreatment";
 import {
   queryPatient,
   Patient,
   createRecords,
   queryRecords,
   testResult,
+  prescription,
 } from "@/api_library/managehospital";
-interface prescription {
-  evening: number;
-  morning: number;
-  noon: number;
-  medicine: string;
-  quantity: number;
+interface Treatment {
+  date: string;
+  name: string;
 }
-
 interface PatientData {
   address: string;
   cccd: string;
@@ -49,6 +47,25 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isDelete, setDelete] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
+  const [RecordOpen, setRecordOpen] = useState(false);
+  const [NotiOpen, setNotiOpen] = useState(false);
+  const [NotiMessage, setNotiMessage] = useState("");
+  const [dataRecord, setDataRecord] = useState<queryRecords>();
+  const handleRecordOpen = (date: string, cccd: string) => {
+    setDataRecord({ date: date, cccd: cccd });
+
+    setRecordOpen(true);
+  };
+  const handleRecordClose = () => {
+    setRecordOpen(false);
+  };
+  const handleOpenNoti = (data: string) => {
+    setNotiMessage(data);
+    setNotiOpen(true);
+  };
+  const handleCloseNoti = () => {
+    setNotiOpen(false);
+  };
   const [data, setData] = useState<PatientData>({
     address: "",
     cccd: "",
@@ -60,6 +77,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     phoneNumber: "",
     record: "",
   });
+  const [Treatment, setTreatment] = useState<Treatment[]>([]);
   const [dataTreatment, setDataTreatment] = useState([]);
 
   const handleFetchData = async () => {
@@ -68,11 +86,24 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       const ID: queryPatient = {
         cccd: dataInitial.cccd,
       };
+      console.log("ID", ID);
+      const date: queryRecords = {
+        date: "2024-04-23",
+        cccd: dataInitial.cccd,
+      };
       const response = await OJ.findPatient(ID);
+
       const response2 = await OJ.findTreatment(ID);
+
+      const response3 = await OJ.findRecords(date);
+
       console.log("Detail", response);
+
       console.log("Detail2", response2);
-      setDataTreatment(response2.data);
+      setTreatment(response2.data);
+      console.log("Treatment", Treatment);
+      console.log("Detail3", response3);
+      // setDataTreatment(response2);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -119,17 +150,24 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const handleCreateRecord = async () => {
     const OJ = new Patient();
     try {
-      const ID: createRecords = {
+      const Medicine: createRecords = {
         date: record.date,
         description: record.description,
         diagnosis: record.diagnosis,
         prescription: prescription,
         testResult: record.testResult,
       };
+      const ID: queryPatient = {
+        cccd: dataInitial.cccd,
+      };
       console.log("ID", ID);
-      const response = await OJ.createRecords(ID);
+      const response = await OJ.createRecords(Medicine, ID);
       console.log("Detail", response);
-
+      if (response.error) {
+        handleOpenNoti(response.message);
+      } else {
+        handleOpenNoti("Create Record Success");
+      }
       // return response;
     } catch (err) {
       console.log(err);
@@ -162,6 +200,22 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Full name:</span> {data?.name}
           </div>
+          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">Email :</span> {data?.email}
+          </div>
+
+          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">Gender :</span> {data?.gender}
+          </div>
+
+          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">CCCD:</span> {data?.cccd}
+          </div>
+
+          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+            <span className="text-xl font-bold">Date of birth :</span>{" "}
+            {data?.date_of_birth}
+          </div>
         </div>
         {!updateTreatment && (
           <div className="grid md:grid-cols-2">
@@ -170,17 +224,37 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                 <div className="text-center text-xl font-bold">
                   Medical history
                 </div>
-                <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                  {data?.medicalHistory}
+                <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                  {data?.record}
                 </div>
               </div>
-
               <div className="mt-5 px-4">
                 <div className="text-center text-xl font-bold">
                   Treatment process
                 </div>
-                <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                  {data?.record}
+                <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                  {Treatment?.map((item, index) => (
+                    <div key={index}>
+                      <div>STT: {index}</div>
+                      <span className="font-bold">Date:</span> {item.date}
+                      <br />
+                      <span className="font-bold">Name:</span> {item.name}
+                      <br />
+                      <button
+                        onClick={() => {
+                          handleRecordOpen(item.date, dataInitial.cccd);
+                        }}
+                      >
+                        Open
+                      </button>
+                    </div>
+                  ))}
+                  {RecordOpen && (
+                    <OpenRecord
+                      onclose={handleRecordClose}
+                      dataInitial={dataRecord || { date: "", cccd: "" }}
+                    />
+                  )}
                 </div>
               </div>
             </>
@@ -241,7 +315,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                     {prescription?.map((med, index) => (
                       <tr key={index} className="border-blue-gray-200 border-b">
                         <td className="px-1 py-1">{index + 1}</td>
-                        <td className="px-1 py-1">{med.Name}</td>
+                        <td className="px-1 py-1">{med.medicine}</td>
                         <td className="w-20 px-1 py-1 ">
                           <input
                             type="number"
@@ -408,6 +482,10 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
           </div>
         )}
       </div>
+
+      {NotiOpen && (
+        <Notification data={NotiMessage} onclose={handleCloseNoti} />
+      )}
       {isModalOpen && (
         <ListMedicine
           onclose={handleCloseListMedicine}

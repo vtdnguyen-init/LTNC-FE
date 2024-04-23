@@ -95,7 +95,7 @@ export async function createColumns(
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            name
+            Name
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );

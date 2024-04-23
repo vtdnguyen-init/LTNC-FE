@@ -4,9 +4,12 @@ import Image from "next/image";
 import { Authenticate } from "@/api_library/managehospital";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/app/Context/UserInfo";
 import { Notification } from "../common/Noti/Notification";
 const API = new Authenticate();
 const DropdownUser = () => {
+  const [info2, setInfo2] = useState({ name: "", role: "" });
+  const { info } = useContext(UserContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const router = useRouter();
   const trigger = useRef<any>(null);
@@ -45,6 +48,7 @@ const DropdownUser = () => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+  useEffect(() => {}, [info]);
   const handleLogout = async () => {
     try {
       const response = await API.logout();
@@ -58,6 +62,19 @@ const DropdownUser = () => {
       console.log("error", error);
     }
   };
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response2 = await API.getUser();
+        console.log(response2);
+
+        setInfo2({ name: response2.data.name, role: response2.data.role });
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className="relative">
@@ -69,9 +86,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            DUY NGUYEN
+            {info2?.name}
           </span>
-          <span className="block text-xs">Admin</span>
+          <span className="block text-xs">{info2?.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

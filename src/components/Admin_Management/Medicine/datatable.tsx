@@ -129,7 +129,7 @@ export function DataTable<TData, TValue>({
     <div className="px-4 ">
       <div className="flex items-center px-4 py-4">
         <div className="flex w-full flex-col sm:flex-row">
-          <div className="relative flex h-full w-full sm:w-1/2 lg:w-1/3">
+          <div className="relative flex h-full w-full sm:w-1/2 lg:w-1/2">
             <svg
               viewBox="0 0 24 24"
               height={18}
@@ -159,10 +159,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("Name")?.getFilterValue() as string) ?? ""
+                (table.getColumn("name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("Name")?.setFilterValue(event.target.value)
+                table.getColumn("name")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}

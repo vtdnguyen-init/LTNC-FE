@@ -2,6 +2,7 @@ import React, { ReactEventHandler } from "react";
 import { Modal } from "@nextui-org/react";
 import { useState } from "react";
 interface MedicineData {
+  name: string;
   brand: string;
   disposal_price: number;
   expiration_date: string;

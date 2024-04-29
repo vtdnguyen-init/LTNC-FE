@@ -8,17 +8,17 @@ import DetailCell from "./DetailButton";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type DoctorData = {
   id: number;
-  Name: string;
+  name: string;
   Gender: string;
   Date_of_birth: string;
   Age: string;
-  CCCD: string;
+  cccd: string;
   SDT: string;
   Number: string;
   Country: string;
   Education: string;
   Experiencce: string;
-  Specialty: string;
+  specialized: string;
   Salary: string;
 };
 
@@ -69,7 +69,7 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Name",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <button
@@ -81,21 +81,9 @@ export async function createColumns(
         );
       },
     },
+    
     {
-      accessorKey: "Gender",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Gender
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Specialty",
+      accessorKey: "specialized",
 
       header: ({ column }) => {
         return (
@@ -110,9 +98,9 @@ export async function createColumns(
     },
 
     {
-      accessorKey: "Chi tiết",
+      accessorKey: "Detail",
       header: ({ column }) => {
-        return "Chi tiết";
+        return "Detail";
       },
       cell: ({ row }) => (
         <DetailCell row={row} reloadData={reloadData} info={info} />

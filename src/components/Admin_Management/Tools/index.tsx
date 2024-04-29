@@ -5,7 +5,7 @@ import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
 const Tools: React.FC = () => {
-  const [demoPage, setDemoPage] = useState(
+  const [demoPage, setDemoPage] = useState<React.ReactElement | undefined>(
     <div className="h-auto">
       <Loader />
     </div>,

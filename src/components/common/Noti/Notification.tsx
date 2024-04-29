@@ -27,6 +27,7 @@ export const Notification: React.FC<NotificationProps> = ({
             <label htmlFor="exit">X</label>
           </button>
         </div>
+        <div className=" font-bold text-center"></div>
         <div className="text-center">{data}</div>
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
-import { DetailPatient } from "./DetailTools/detailtool";
+import { DetailTool } from "./DetailTools/detailtool";
 import { IoEyeOutline } from "react-icons/io5";
-export type DoctorData = {
-  id: number;
-  Name: string;
-  Gender: string;
-  CCCD: string;
-  SDT: string;
-  Position: string;
-  Age: string;
-  Salary: string;
+export type ToolData = {
+  id: string;
+  name: string;
+  warranty_expiration_date: string;
+  status: string;
+  purchase_price: string;
+  warranty_history: [];
 };
 type DetailCellProps = {
   row: any;
@@ -37,7 +35,7 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
         <IoEyeOutline />
       </Button>
       {ModalIsOpen && (
-        <DetailPatient
+        <DetailTool
           onclose={closeModal}
           dataInitial={row.original}
           reloadData={reloadData}

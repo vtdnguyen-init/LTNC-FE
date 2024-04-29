@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { expression } from "joi";
 
 export interface medicalHistory {
   name: string,
@@ -56,6 +55,16 @@ export interface createRecords {
 export interface queryRecords {
   date: string,
 	cccd: string,
+}
+
+export interface registerInfo {
+	cccd: string, 
+	faculty: string,
+}
+
+export interface queryPatientInQueue {
+	cccd: string,
+	faculty: string,
 }
 
 export interface registerInfo {

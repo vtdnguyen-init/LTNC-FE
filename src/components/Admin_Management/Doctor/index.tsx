@@ -4,8 +4,8 @@ import DemoPage from "./export";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
-const Patient: React.FC = () => {
-  const [demoPage, setDemoPage] = useState(
+const Doctor: React.FC = () => {
+  const [demoPage, setDemoPage] = useState<React.ReactElement | undefined>(
     <div className="h-auto">
       <Loader />
     </div>,
@@ -35,4 +35,4 @@ const Patient: React.FC = () => {
   );
 };
 
-export default Patient;
+export default Doctor;

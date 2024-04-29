@@ -1,25 +1,29 @@
 import React, { ReactEventHandler } from "react";
-import {Helmet} from "react-helmet";
-import Script from 'next/script'
-import { useState } from "react";
-interface DoctorData {
-  id: number;
-  Name: string;
-  Gender: string;
-  Date_of_birth: string;
-  Age: string;
-  CCCD: string;
-  Email: string;
-  Number: string;
-  Country: string;
-  Education: string;
-  Experience: string;
-  Specialty: string;
-  Salary: string;
+import { useState , useEffect} from "react";
+import {
+  queryStaff,
+  Staff,
+  updateStaff,
+  workinghours,
+} from "@/api_library/managehospital"
+
+interface StaffData {
+  cccd:  string,
+	name:  string,
+	email: string,
+	gender: string, // Giới tính female hoặc male
+	birthday: string, // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
+	address: string,
+	degree : string,
+	clinic: string,
+	position: string,
+	specialized: string,
+	role: string,
+	working_hours: workinghours[],
 }
 interface PropsDetailDoctor {
   onclose: () => void;
-  dataInitial: DoctorData;
+  dataInitial: StaffData;
   reloadData: () => void;
   info: any;
 }
@@ -31,19 +35,99 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
 }) => {
   const [isEditing, setEditing] = useState(false);
   const [isDelete, setDelete] = useState(false);
+  const [data, setData] = useState<StaffData>({
+    cccd:  "",
+    name:  "",
+    email: "",
+    gender: "", // Giới tính female hoặc male
+    birthday: "", // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
+    address: "",
+    degree : "",
+    clinic: "",
+    position: "",
+    specialized: "",
+    role: "",
+    working_hours: [],
+  });
+  const [updateData, setUpdateData] = useState({
+    address: "",
+    degree: "",
+    clinic: "",
+    position: "",
+    specialized: "",
+    working_hours: [],
+  });
+  const handleFetchData = async () => {
+    const DOC = new Staff();
+    try {
+      const ID : queryStaff = {
+        cccd: dataInitial.cccd
+      };
+      const res = await DOC.findStaff(ID);
+      return res.data;
+
+    }catch (err){
+      console.log("error: ",err);
+    }
+  };
+  useEffect(() => {
+    handleFetchData().then((res) => {
+      setData(res);
+    });
+  }, [dataInitial]);
+
   const handleSave = async () => {
-    console.log("UPDATE DOCTOR")
+    console.log("UPDATE DOCTOR");
+    const DOC = new Staff();
+    try{
+      const Data: updateStaff = {
+        address: data.address,
+        degree: data.degree,
+        specialized: data.specialized,
+        clinic: data.clinic,
+        position: updateData.position
+          ? updateData.position
+          : data.position,
+        working_hours: updateData.working_hours
+          ? updateData.working_hours
+          : data.working_hours,
+      };
+      const ID : queryStaff = {
+        cccd: dataInitial.cccd,
+      }
+      const response = await DOC.updateStaff( ID,Data);
+      console.log("Update", response);
+      handleFetchData().then((res) => {
+        setData(response);
+      })
+    }catch(error){
+      console.log(error);
+    }
     setEditing(false);
   };
   const handleDelete = async () => {
     setDelete(true);
     setEditing(true);
-  }
+  };
   const DeleteDoctor = async () => {
     //DO SOMETHING THAT DELETE THAT DOCTOR
-    console.log("DELETE DOCTOR")
+    const DOC = new Staff();
+    try {
+      const ID : queryStaff = {
+        cccd: dataInitial.cccd
+      };
+      const res = await DOC.deleteStaff(ID);
+      console.log("DELETE DOCTOR: ", res);
+      if (res.error) {
+        alert("Delete failed" + res.message);
+      } else {
+        reloadData();
+      }
+    }catch (err){
+      console.log("error: ",err);
+    }
     setEditing(false);
-  }
+  };
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -65,58 +149,85 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
           </button>
         </div>
         <div className="mt-5 grid gap-3 px-4 md:grid-cols-2">
-          <div className="border-b-2     border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">ID :</span> {dataInitial.id}
-          </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Full name:</span>{" "}
-            {dataInitial.Name}
+            {dataInitial.name}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Email :</span> {dataInitial.Email}
+            <span className="text-xl font-bold">Email :</span> {dataInitial.email}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Gender :</span>{" "}
-            {dataInitial.Gender}
+            {dataInitial.gender}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Age :</span> {dataInitial.Age}
+            <span className="text-xl font-bold">Birthday :</span> {dataInitial.birthday}
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">CCCD:</span> {dataInitial.CCCD}
+            <span className="text-xl font-bold">CCCD:</span> {dataInitial.cccd}
           </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Phone number :</span>{" "}
-            {dataInitial.Number}
-          </div>
+          
         </div>
         <div className="grid md:grid-cols-2">
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">Specialty</div>
             <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {dataInitial.Specialty}
+              {dataInitial.specialized}
             </div>
           </div>
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">Education</div>
             <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {dataInitial.Education}
+              {dataInitial.degree}
             </div>
           </div>
           <div className="mt-5 px-4">
-            <div className="text-center text-xl font-bold">Experience</div>
-            <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {dataInitial.Experience} years
-            </div>
-          </div>
-          <div className="mt-5 px-4">
-            <div className="text-center text-xl font-bold">Salary</div>
-            <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              ${dataInitial.Salary} USD
-            </div>
+          {!isEditing && (
+            <>
+              <div className="text-center text-xl font-bold">Availability</div>
+              <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              {dataInitial.working_hours.map((workingHour, index) => (
+              <div key={index}>{workingHour.day} from {workingHour.start_time} to {workingHour.end_time}</div>
+              ))} 
+              </div>
+            </>
+          )};
+          {isEditing && (
+            <>
+              <div className="text-center text-xl font-bold">Availability</div>
+              <input
+                 className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                 
+              />
+            </>
+          )}
+          
           </div>
           
-        </div>
+          <div className="mt-5 px-4">
+          {!isEditing && (
+            <>
+            <div className="text-center text-xl font-bold">Position</div>
+            <div className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              ${dataInitial.position}
+            </div>
+            </>
+          )}
+          {isEditing && (
+            <>
+            <input 
+              className="text-center font-bold text-slate-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-5 w-full rounded-lg border-2 border-rose-400 bg-gray-3 p-2.5 text-sm focus:border-rose-500 focus:ring-rose-500 dark:text-rose-800 dark:focus:border-rose-500 dark:focus:ring-rose-500"
+              type = "text"
+              value = {updateData?.position}
+              onChange={(e) => 
+                setUpdateData({ ...updateData, position: e.target.value})
+              }
+            />
+            </>
+          )}
+          </div>
+          
+          </div>
         
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">

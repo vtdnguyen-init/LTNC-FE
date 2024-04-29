@@ -7,14 +7,11 @@ import { Checkbox } from "../../ui/TableUI/checkbox";
 import DetailCell from "./DetailButton";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type ToolsData = {
-  id: number;
-  Name: string;
-  ExpiredDate: string;
-  ImportedDate: string;
-  Amount: string;
-  Origin: string;
-  Brand: string;
-  Price: string;
+  name: string;
+  warranty_expiration_date: string;
+  status: string;
+  purchase_price: string;
+  warranty_history: [];
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -50,21 +47,9 @@ export async function createColumns(
       enableSorting: false,
       enableHiding: false,
     },
+    
     {
-      accessorKey: "id",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            ID
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "Name",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <button
@@ -77,21 +62,20 @@ export async function createColumns(
       },
     },
     {
-      accessorKey: "Amount",
+      accessorKey: "status",
       header: ({ column }) => {
         return (
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Amount
+            Status
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );
       },
     },
-    
     {
-      accessorKey: "ExpriredDate",
+      accessorKey: "warranty_expiration_date",
 
       header: ({ column }) => {
         return (
@@ -103,15 +87,12 @@ export async function createColumns(
           </button>
         );
       },
-      cell: ({ row }) => {
-        return new Date(row.original.ExpiredDate).toLocaleDateString();
-      },
     },
 
     {
-      accessorKey: "Chi tiết",
+      accessorKey: "Details",
       header: ({ column }) => {
-        return "Chi tiết";
+        return "Details";
       },
       cell: ({ row }) => (
         <DetailCell row={row} reloadData={reloadData} info={info} />

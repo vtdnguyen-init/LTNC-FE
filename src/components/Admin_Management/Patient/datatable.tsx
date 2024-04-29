@@ -141,10 +141,10 @@ export function DataTable<TData, TValue>({
               id="consSearch"
               type="text"
               value={
-                (table.getColumn("name")?.getFilterValue() as string) ?? ""
+                (table.getColumn("cccd")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("name")?.setFilterValue(event.target.value)
+                table.getColumn("cccd")?.setFilterValue(event.target.value)
               }
               className={` border-gray-600 peer h-10 w-full self-center truncate rounded border bg-transparent pl-10 pr-12
               pt-2 text-left text-sm placeholder-transparent focus:border-blue-500 focus:outline-none dark:text-whiter`}
@@ -156,7 +156,7 @@ export function DataTable<TData, TValue>({
               peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-focus:-top-0.5 
               peer-focus:text-xs peer-focus:leading-5 peer-focus:text-blue-500 dark:text-blue-600 `}
             >
-              Search by name
+              Search by CCCD
             </label>
             <Dropdown className="z-30">
               <DropdownTrigger>

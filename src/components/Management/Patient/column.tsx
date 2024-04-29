@@ -31,6 +31,7 @@ export async function createColumns(
   reloadData: () => void,
   info: any,
 ): Promise<MyColumnDef<PatientData>[]> {
+  console.log("info", info);
   const count = 0;
   return [
     {
@@ -96,6 +97,32 @@ export async function createColumns(
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </button>
+        );
+      },
+    },
+    {
+      accessorKey: "active",
+      header: ({ column }) => {
+        return (
+          <button
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            active
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </button>
+        );
+      },
+    },
+    {
+      accessorKey: "faculty",
+      header: ({ column }) => {
+        return (
+          <button
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            faculty
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );

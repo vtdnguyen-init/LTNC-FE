@@ -4,6 +4,7 @@ import DemoPage from "./export";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "@/components/Context/UserContext";
 import Loader from "@/components/common/Loader";
+import { Staff } from "@/api_library/managehospital";
 const Patient: React.FC = () => {
   const [demoPage, setDemoPage] = useState<React.ReactElement | undefined>(
     <div className="h-auto">
@@ -19,6 +20,15 @@ const Patient: React.FC = () => {
     const result = await DemoPage(reloadData, info);
     setDemoPage(result);
   };
+  // const [staff, setStaff] = useState("");
+  // const API = new Staff();
+  // useEffect(() => {
+  //   const fetchStaff = async () => {
+  //     const res = await API.findAllStaff();
+  //     console.log("staff", res);
+  //   };
+  //   fetchStaff();
+  // }, []);
 
   useEffect(() => {
     fetchDemoPage();

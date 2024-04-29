@@ -9,13 +9,14 @@ import { AnyARecord } from "dns";
 async function getData(): Promise<any> {
   try {
     const API = new Patient();
-    const res = await API.findAllPatient();
+    const res = await API.findPatientsInQueue();
     // const CCCD: queryPatient = {
     //   cccd: "052204002805",
     // };
     // const res2 = await API.findPatient(CCCD);
     console.log("response data", res);
     // console.log("response data2", res2);
+    // console.log("response data2", res.data.CAR);
     return res;
   } catch (error) {
     console.log("error", error);
@@ -38,7 +39,7 @@ export default async function DemoPage(reloadData: any, info: any) {
     return (
       <DataTable
         columns={columns}
-        data={data.data.patient}
+        data={Object.values(data.data.CAR) as PatientData[]}
         reloadData={reloadData}
         info={info}
       />

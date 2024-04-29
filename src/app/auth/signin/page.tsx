@@ -178,7 +178,7 @@ const SignIn = () => {
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <div className="flex place-content-center items-center gap-2">
+              {/* <div className="flex place-content-center items-center gap-2">
                 Using
                 <select
                   className="rounded-xl"
@@ -195,11 +195,9 @@ const SignIn = () => {
                   <option value="doctor">Doctor</option>
                 </select>
                 Account
-              </div>
-              <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                {Case === true
-                  ? "Sign In to BK Hospital's Admin Account"
-                  : "Sign In to BK Hospital's Doctor Account"}
+              </div> */}
+              <h2 className="mb-9 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+                Sign In to BK Hospital's
               </h2>
 
               <div>

@@ -362,7 +362,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         </td>
                         <td className="w-20 px-1 py-1">
                           <button
-                            onAbort={() => {
+                            onClick={() => {
                               prescription.splice(index, 1);
                               setPrescription([...prescription]);
                             }}

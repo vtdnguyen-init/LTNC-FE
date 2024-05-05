@@ -32,7 +32,7 @@ import {
 import { MedicalManage, QueryMedicine } from "@/api_library/managehospital";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: any[];
   reloadData?: () => void;
   info?: any;
 }

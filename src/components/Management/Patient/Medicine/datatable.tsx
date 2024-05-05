@@ -37,7 +37,7 @@ import {
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: any[];
   reloadData?: () => void;
   Prescription: prescription[];
 }

@@ -23,11 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <UserContext.Provider value={{ info: null, setInfo: () => {} }}>
-          <div className="h-full dark:bg-boxdark-2 dark:text-bodydark">
-            {children ? children : <Loader />}
-          </div>
-        </UserContext.Provider>
+        {/* <UserContext.Provider value={{ info: null, setInfo: () => {} }}> */}
+        <div className="h-full dark:bg-boxdark-2 dark:text-bodydark">
+          {children ? children : <Loader />}
+        </div>
+        {/* </UserContext.Provider> */}
       </body>
     </html>
   );

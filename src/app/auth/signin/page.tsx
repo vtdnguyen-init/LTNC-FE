@@ -197,7 +197,7 @@ const SignIn = () => {
                 Account
               </div> */}
               <h2 className="mb-9 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to BK Hospital's
+                Sign In to BK Hospitals
               </h2>
 
               <div>

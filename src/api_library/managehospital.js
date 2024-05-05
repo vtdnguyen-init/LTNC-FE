@@ -170,7 +170,11 @@ var Patient = /** @class */ (function () {
                     case 1:
                         response = _a.sent();
                         data = response.data;
-                        return [2 /*return*/, { error: data.error, data: data.medicalHistory, message: data.message }];
+                        return [2 /*return*/, {
+                                error: data.error,
+                                data: data.medicalHistory,
+                                message: data.message,
+                            }];
                     case 2:
                         error_6 = _a.sent();
                         console.log("Error find all treatment: ", error_6.response.data);
@@ -453,7 +457,7 @@ var Staff = /** @class */ (function () {
                     case 1:
                         response = _a.sent();
                         data = response.data;
-                        return [2 /*return*/, { error: data.error, data: data.data.data, message: data.message }];
+                        return [2 /*return*/, { error: data.error, data: data.data, message: data.message }];
                     case 2:
                         error_18 = _a.sent();
                         console.log("Error updating staff: ", error_18.response.data);

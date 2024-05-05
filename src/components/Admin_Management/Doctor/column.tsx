@@ -7,19 +7,9 @@ import { Checkbox } from "../../ui/TableUI/checkbox";
 import DetailCell from "./DetailButton";
 // Đảm bảo gọi hàm này ở đầu ứng dụng của bạn
 export type DoctorData = {
-  id: number;
-  name: string;
-  Gender: string;
-  Date_of_birth: string;
-  Age: string;
+  role: string;
+  fullname: string;
   cccd: string;
-  SDT: string;
-  Number: string;
-  Country: string;
-  Education: string;
-  Experiencce: string;
-  specialized: string;
-  Salary: string;
 };
 
 type MyColumnDef<T> = ColumnDef<T> & {
@@ -56,20 +46,7 @@ export async function createColumns(
       enableHiding: false,
     },
     {
-      accessorKey: "id",
-      header: ({ column }) => {
-        return (
-          <button
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            ID
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </button>
-        );
-      },
-    },
-    {
-      accessorKey: "name",
+      accessorKey: "fullname",
       header: ({ column }) => {
         return (
           <button
@@ -81,9 +58,9 @@ export async function createColumns(
         );
       },
     },
-    
+
     {
-      accessorKey: "specialized",
+      accessorKey: "cccd",
 
       header: ({ column }) => {
         return (

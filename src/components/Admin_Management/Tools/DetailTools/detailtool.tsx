@@ -6,6 +6,7 @@ import {
   updateMedicalEquip,
   warranty_history
 } from "@/api_library/managehospital"
+import { constrainedMemory } from "process";
 interface ToolsData {
   id: string;
   name: string;
@@ -76,14 +77,13 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
   const [year, month, day] = originalDate.split('-');
 
   const formattedDate = `${day}/${month}/${year}`;
+
     const TL = new medicalEquipment();
     try {
       const Warranty_data: warranty_history = {
         date: formattedDate,
         description: warranty.description,
       };
-      console.log("Status: ",updateData.status)
-      console.log("DATA: ",Warranty_data);
       const Data: updateMedicalEquip = {
         name:data.name,
         warranty_expiration_date:data.warranty_expiration_date,
@@ -91,13 +91,14 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
         status: updateData.status
           ? updateData.status
           : data.status,
-        warranty_history: (Warranty_data.date && data.warranty_history) 
-          ? [...data.warranty_history, Warranty_data]
-          : [Warranty_data],
+        warranty_history:
+          [...dataInitial.warranty_history, Warranty_data]
+          
       };
       const ID: queryMedicalEquipment = {
         id: dataInitial.id,
       };
+      console.log(Data);
       const response = await TL.updateMedicalEquip( ID,Data);
       console.log("Update", response);
       handleFetchData().then((res) => {

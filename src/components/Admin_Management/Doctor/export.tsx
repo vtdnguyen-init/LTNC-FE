@@ -14,7 +14,6 @@ async function getData(): Promise<any> {
     const API = new Staff();
     // console.log(API);
     const res = await API.findAllStaff();
-    console.log("response data", res);
     return res;
   } catch (error) {
     console.log("Error all staff: ", error);

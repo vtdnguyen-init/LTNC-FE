@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { DetailDoctor } from "./DetailDoctor/detaildoctor";
 import { IoEyeOutline } from "react-icons/io5";
-
+import {queryStaff, Staff} from "@/api_library/managehospital"
 export type DoctorData = {
   id: number;
   Name: string;
@@ -18,7 +18,11 @@ type DetailCellProps = {
   reloadData: () => void;
   info: any;
 };
+
+
+
 function DetailCell({ row, reloadData, info }: DetailCellProps) {
+
   const [ModalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -29,6 +33,7 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
     setModalIsOpen(false);
   };
 
+
   return (
     <div className="relative mr-2  flex">
       <Button
@@ -38,6 +43,7 @@ function DetailCell({ row, reloadData, info }: DetailCellProps) {
         <IoEyeOutline />
       </Button>
       {ModalIsOpen && (
+        
         <DetailDoctor
           onclose={closeModal}
           dataInitial={row.original}

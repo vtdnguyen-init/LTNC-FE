@@ -67,7 +67,22 @@ export async function createColumns(
           <button
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Specialty
+            Citizen ID
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </button>
+        );
+      },
+    },
+
+    {
+      accessorKey: "role",
+
+      header: ({ column }) => {
+        return (
+          <button
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            ROLE
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </button>
         );

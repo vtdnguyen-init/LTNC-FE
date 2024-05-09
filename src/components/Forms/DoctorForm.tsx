@@ -923,8 +923,8 @@ export default function Example() {
                           <div></div>
                           <div className=" bg-rose-400 rounded-xl text-center font-medium text-lg text-white ">
                             <span>
-                            {errors.map((error, index) => (
-                              <div>
+                            {errors.map((error) => (
+                              <div key={1}>
                               {error}
                               </div>
                             ))}

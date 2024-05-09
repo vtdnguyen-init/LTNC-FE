@@ -456,7 +456,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
                           <div className=" bg-rose-400 rounded-xl text-center font-medium text-lg text-white ">
                             <span>
                             {errors.map((error, index) => (
-                              <div>
+                              <div key={index}>
                               {error}
                               </div>
                             ))}

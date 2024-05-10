@@ -330,6 +330,7 @@ export interface createStaff {
   position: string;
   specialized: string;
   role: string;
+  faculty: string;
   working_hours: workinghours[];
 }
 

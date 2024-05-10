@@ -64,12 +64,8 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
     working_hours: [],
   });
   const [updateData, setUpdateData] = useState({
-    address: "",
-    degree: "",
     clinic: "",
     position: "",
-    specialized: "",
-    working_hours: [],
   });
   const [validiateState, setValidiateState] = useState(false);
  
@@ -208,14 +204,24 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
           : data.position,
         working_hours: schedule,
       };
+      console.log("UPDATED DATA: ",updateData);
+      console.log("UPDATED SCHEDULE: ",schedule)
       const ID : queryStaff = {
-        cccd: dataInitial.cccd,
+        cccd: data.cccd,
       }
-      console.log("NEW UPDATED DATA: ",Data);
       const response = await DOC.updateStaff( ID,Data);
+
       console.log("Update state: ", response);
       handleFetchData().then((res) => {
-        setData(response);
+        setData(res);
+        const newRows = res.working_hours.map((workingHour: any) => ({
+          day: workingHour.day,
+          start_time: workingHour.start_time,
+          end_time: workingHour.end_time,
+          validated: "true",
+          error: "false"
+        }));
+        setRows(newRows);
       })
     }catch(error){
       console.log(error);

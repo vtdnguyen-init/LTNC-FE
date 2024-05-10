@@ -7,6 +7,7 @@ import {
   createStaff,
   workinghours,
 }from "@/api_library/managehospital"
+import { StethoscopeIcon } from "lucide-react";
 interface PropsDoctorForm {
   cccd:  string,
 	name:  string,
@@ -20,6 +21,7 @@ interface PropsDoctorForm {
 	specialized: string,
 	role: string,
 	working_hours: workinghours[],
+  faculty: string,
 }
 interface PropsDayForm {
     monday: string,
@@ -142,6 +144,7 @@ export default function Example() {
     specialized: "",
     role: "",
     working_hours: [],
+    faculty:"",
   });
   // const [workday, setWorkday] = useState<PropsDayForm>({
   //   monday: "",
@@ -192,7 +195,24 @@ export default function Example() {
   //   }
     
   // };
-
+  const getFaculty = (spe: any) => {
+    switch (spe){
+      case "Da khoa":
+        return "GEN";
+      case "Tai mui hong":
+        return "OTO";
+      case "Mat":
+        return "OPH";
+      case "Da Lieu":
+        return "DERMA";
+      case "Tim mach":
+        return "CAR";
+      case "Nhi":
+        return "PED";
+      default:
+          return "GEN";
+      }
+  }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
@@ -219,7 +239,7 @@ export default function Example() {
       start_time: row.start_time,
       end_time: row.end_time,
     }));
-
+    
     const data: createStaff = {
       cccd:  doctor.cccd,
       name:  doctor.name,
@@ -231,11 +251,12 @@ export default function Example() {
       clinic: doctor.clinic,
       position: doctor.position,
       specialized: doctor.specialized,
-      role: "Doctor",
+      role: "DOCTOR",
       working_hours: schedule,
+      faculty: getFaculty(doctor.specialized),
     };
     try {
-      console.log(data);
+      console.log("DATA: ",data);
       const response = await API.createStaff(data);
       console.log("response: ", response);
       if (response.error) {
@@ -243,6 +264,7 @@ export default function Example() {
         onclick();
       } else {
         setMessage(response.message);
+        setOpenNotification(true);
         setDoctor({
           cccd:  "",
           name:  "",
@@ -256,6 +278,7 @@ export default function Example() {
           specialized: "",
           role: "",
           working_hours: [],
+          faculty: "",
         });
       }
     } catch (error: any) {
@@ -408,7 +431,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="bachelor"
+                        id="Bachelor"
                         name="degree"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -427,7 +450,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="master"
+                        id="Master"
                         name="degree"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -446,7 +469,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="doctorate"
+                        id="Doctorate"
                         name="degree"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -474,7 +497,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="internship"
+                        id="Internship"
                         name="position"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -493,7 +516,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="doctor"
+                        id="Doctor"
                         name="position"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -512,7 +535,7 @@ export default function Example() {
                   <div className="relative flex gap-x-2">
                     <div className="flex h-6 items-center">
                       <input
-                        id="chief"
+                        id="Head Doctor"
                         name="position"
                         type="radio"
                         className="border-gray-300 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-600"
@@ -524,7 +547,7 @@ export default function Example() {
                         htmlFor="chief"
                         className="text-gray-900 font-medium"
                       >
-                        Chief Doctor
+                        Head Doctor
                       </label>
                     </div>
                   </div>

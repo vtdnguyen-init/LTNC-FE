@@ -7,13 +7,17 @@ import {
   warranty_history
 } from "@/api_library/managehospital"
 import { constrainedMemory } from "process";
+interface WarrantyData {
+	date: string,
+	description: string,
+}
 interface ToolsData {
   id: string;
   name: string;
   warranty_expiration_date: string;
   status: string;
   purchase_price: number;
-  warranty_history: [];
+  warranty_history: WarrantyData[];
 }
 interface PropsDetailTool {
   onclose: () => void;
@@ -21,10 +25,7 @@ interface PropsDetailTool {
   reloadData: () => void;
   info: any;
 }
-interface WarrantyData {
-	date: string,
-	description: string,
-}
+
 export const DetailTool: React.FC<PropsDetailTool> = ({
   onclose,
   dataInitial,
@@ -57,7 +58,7 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
         id : dataInitial.id,
       };
       const response = await TL.getDetail(ID);
-      console.log("Detail", response.data);
+      console.log("Fetch Detail", response.data);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -66,9 +67,11 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
   };
   useEffect(() => {
     handleFetchData().then((res) => {
-      setData(res);
+      setData(res[0]);
+      console.log("DATA: ",data);
     });
   }, [dataInitial]);
+
   const completeUpdate = async () => {
     console.log("UPDATE TOOLS");
     const originalDate = warranty.date;
@@ -92,7 +95,7 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
           ? updateData.status
           : data.status,
         warranty_history:
-          [...dataInitial.warranty_history, Warranty_data]
+          [...data.warranty_history, Warranty_data]
           
       };
       const ID: queryMedicalEquipment = {
@@ -102,7 +105,7 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
       const response = await TL.updateMedicalEquip( ID,Data);
       console.log("Update", response);
       handleFetchData().then((res) => {
-        setData(res);
+        setData(res[0]);
       });
     } catch (err) {
       console.log(err);
@@ -156,24 +159,24 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
         <div className="mt-5 grid gap-3 px-4 md:grid-cols-2">
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Name:</span>{" "}
-            <span className="text-xl">{dataInitial.name}</span>
+            <span className="text-xl">{data.name}</span>
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Status :</span>{" "}
-            <span className="text-xl">{dataInitial.status}</span>
+            <span className="text-xl">{data.status}</span>
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Price :</span>{" "}
-            <span className="text-xl">${dataInitial.purchase_price}</span>
+            <span className="text-xl">${data.purchase_price}</span>
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Expired Date:</span> 
-            <span className="text-xl">{dataInitial.warranty_expiration_date}</span>
+            <span className="text-xl">{data.warranty_expiration_date}</span>
           </div>
           <div className=" bg-slate-300 rounded-xl col-span-2 text-center font-semibold text-title-xl">
               WARRANTY HISTORY
           </div>
-          {dataInitial.warranty_history.map((hist:WarrantyData) => (
+           {data.warranty_history.map((hist:WarrantyData) => (
             <>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
             <span className="text-xl font-bold">Date :</span>{" "}
@@ -184,7 +187,7 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
             <span className="text-l">{hist.description}</span>
           </div>
           </>
-          ))}
+          ))} 
           {isEditing && !isDelete? (
           <>
             <div className="py-5"></div>

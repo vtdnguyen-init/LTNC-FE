@@ -107,6 +107,7 @@ export default function Example() {
                     type="text"
                     name="name"
                     id="name"
+                    value={tool.name}
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
@@ -126,6 +127,7 @@ export default function Example() {
                     id="Warranty_expiration_date"
                     name="warranty_expiration_date"
                     type="date"
+                    value={tool.warranty_expiration_date}
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
@@ -145,6 +147,7 @@ export default function Example() {
                     type="number"
                     name="purchase_price"
                     id="purchase_price"
+                    value={tool.purchase_price}
                     autoComplete=""
                     className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                   />
@@ -164,6 +167,7 @@ export default function Example() {
                       id="status"
                       name="status"
                       autoComplete=""
+                      value={tool.status}
                       className="text-gray-900 ring-gray-300 block rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset min-w-full focus:ring-indigo-600"
                     >
                       <option>Choose one</option>

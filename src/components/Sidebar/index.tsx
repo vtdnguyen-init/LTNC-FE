@@ -314,7 +314,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                   Patient
                                 </Link>
                               </li>
-                              <li>
+                              {/* <li>
                                 <Link
                                   href="/admin/checkout_patient"
                                   className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
@@ -324,7 +324,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 >
                                   Checkout Patient
                                 </Link>
-                              </li>
+                              </li> */}
                               <li>
                                 <Link
                                   href="/admin/medicine"

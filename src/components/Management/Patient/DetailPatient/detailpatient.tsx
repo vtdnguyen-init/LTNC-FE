@@ -234,7 +234,10 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                 </div>
                 <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
                   {Treatment?.map((item, index) => (
-                    <div key={index}>
+                    <div
+                      key={index}
+                      className="my-1 flex place-content-between gap-3"
+                    >
                       <div>STT: {index}</div>
                       <span className="font-bold">Date:</span> {item.date}
                       <br />
@@ -244,6 +247,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                         onClick={() => {
                           handleRecordOpen(item.date, dataInitial.cccd);
                         }}
+                        className="w-20 rounded-lg border-2 border-black bg-blue-500 py-1 text-center text-xs font-bold text-white drop-shadow-md transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-400 hover:shadow-md hover:drop-shadow-xl"
                       >
                         Open
                       </button>
@@ -389,73 +393,6 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
                 >
                   Sử dụng thuốc
                 </button>
-                {/* <div className="mx-auto max-w-md">
-                  <label
-                    htmlFor="default-search"
-                    className="text-gray-900 sr-only mb-2 text-sm font-medium dark:text-white"
-                  >
-                    Search
-                  </label>
-                  <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-                      <svg
-                        className="text-gray-500 dark:text-gray-400 h-4 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      id="default-search"
-                      className="text-gray-900 border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border p-4 ps-10 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                      placeholder="Search Medicine name"
-                      value={searchValue}
-                      onChange={handleSearchChange}
-                      required
-                    />
-                    <button
-                      onClick={handleSearchMedicine}
-                      type="submit"
-                      className="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center gap-2 px-4">
-                  <span className="h-full w-1/2 border-r-2 border-indigo-400  text-center text-sm font-bold">
-                    Medicine name
-                  </span>
-                  <span className="h-full w-1/2   text-center text-sm font-bold">
-                    Quantity
-                  </span>
-                </div>
-                {medicine?.map((med, index) => (
-                  <div key={index} className="flex items-center gap-2 px-4">
-                    <span className="h-full w-1/2 border-r-2 border-indigo-400    text-center text-xs font-bold">
-                      {med.name}
-                    </span>
-
-                    <input
-                      type="number"
-                      className="h-full w-1/2  text-center text-xs font-bold"
-                      value={med.quantity}
-                      onChange={(e) => {
-                        med.quantity = parseInt(e.target.value);
-                        setMedicine([...medicine]);
-                      }}
-                    />
-                  </div>
-                ))} */}
               </div>
               <div className="flex flex-col gap-3">
                 <div className="text-center text-base font-bold">

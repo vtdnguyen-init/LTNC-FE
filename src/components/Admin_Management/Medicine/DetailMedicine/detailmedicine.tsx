@@ -1,6 +1,7 @@
 import React, { ReactEventHandler } from "react";
 import { Modal } from "@nextui-org/react";
 import { useState } from "react";
+import { MedicalManage, QueryMedicine } from "@/api_library/managehospital";
 interface MedicineData {
   brand: string;
   disposal_price: number;
@@ -40,6 +41,18 @@ export const DetailMedicine: React.FC<PropsDetailMedicine> = ({
   const DeleteMedicine = async () => {
     //DO SOMETHING THAT DELETE THAT MEDICINE
     console.log("DELETE MEDICINE");
+    const OJ = new MedicalManage();
+    const data: QueryMedicine = {
+      id: dataInitial.id.toString(),
+    };
+    try {
+      const response = await OJ.deleteMedicine(data);
+      if (response.error === false) {
+        reloadData();
+      }
+    } catch (e) {
+      console.log(e);
+    }
     setDelete(true);
     setEditing(false);
   };

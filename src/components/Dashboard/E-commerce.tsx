@@ -1,12 +1,52 @@
 "use client";
 import React from "react";
 import CardDataStats from "../CardDataStats";
-
+import { useState, useEffect } from "react";
+import { Patient, Staff } from "@/api_library/managehospital";
 const ECommerce: React.FC = () => {
+  const [staff, setStaff] = useState(0);
+  const [patientInHospital, setPatientInHospital] = useState(0);
+
+  const numberStaff = async () => {
+    const OJ = new Staff();
+    try {
+      const response = await OJ.findAllStaff();
+      setStaff(response.data.length);
+    } catch (e) {
+      // console.log(e);
+    }
+  };
+  const numberPatientInHospital = async () => {
+    const OJ = new Patient();
+    try {
+      const response = await OJ.findPatientsInQueue();
+      console.log(response);
+      setPatientInHospital(
+        Object.keys(response.data.CAR).length +
+          Object.keys(response.data.DERMA).length +
+          Object.keys(response.data.PED).length +
+          Object.keys(response.data.GEN).length +
+          Object.keys(response.data.OTO).length +
+          Object.keys(response.data.OPH).length,
+      );
+      console.log(patientInHospital);
+    } catch (e) {
+      // console.log(e);
+    }
+  };
+  useEffect(() => {
+    // numberPatient();
+    numberStaff();
+    numberPatientInHospital();
+  }, [staff, patientInHospital]);
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total patient" total="3.456">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
+        <CardDataStats
+          title="Total patient"
+          total={patientInHospital.toString()}
+        >
           <svg
             fill="#006eff"
             width="107px"
@@ -18,16 +58,17 @@ const ECommerce: React.FC = () => {
               strokeLinejoin: "round",
               strokeMiterlimit: 2,
             }}
+            className="fill-primary dark:fill-white"
             version="1.1"
             xmlSpace="preserve"
             stroke="#006eff"
             strokeWidth="0.00032"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               <path d="M9.731,14.075c-1.387,0.252 -2.676,0.921 -3.687,1.932c-1.309,1.309 -2.044,3.084 -2.044,4.935l0,4.039c0,1.657 1.343,3 3,3c4.184,-0 13.816,-0 18,-0c1.657,-0 3,-1.343 3,-3l0,-4.039c0,-1.851 -0.735,-3.626 -2.044,-4.935c-1.011,-1.011 -2.3,-1.68 -3.687,-1.932c0.468,-0.939 0.731,-1.997 0.731,-3.117c0,-3.863 -3.137,-7 -7,-7c-3.863,0 -7,3.137 -7,7c0,1.12 0.263,2.178 0.731,3.117Zm11.169,1.88c-1.262,1.239 -2.993,2.003 -4.9,2.003c-1.907,0 -3.638,-0.764 -4.9,-2.003c-0.04,0.005 -0.08,0.007 -0.12,0.007c-1.321,0 -2.588,0.525 -3.521,1.459c-0.934,0.934 -1.459,2.201 -1.459,3.521c0,0 0,4.039 0,4.039c0,0.552 0.448,1 1,1l18,-0c0.552,-0 1,-0.448 1,-1c-0,-0 0,-4.039 0,-4.039c0,-1.32 -0.525,-2.587 -1.459,-3.521c-0.933,-0.934 -2.2,-1.459 -3.521,-1.459c-0.04,0 -0.08,-0.002 -0.12,-0.007Zm-4.9,-9.997c2.76,0 5,2.241 5,5c0,2.76 -2.24,5 -5,5c-2.76,0 -5,-2.24 -5,-5c0,-2.759 2.24,-5 5,-5Z"></path>
@@ -36,31 +77,7 @@ const ECommerce: React.FC = () => {
           </svg>
         </CardDataStats>
 
-        {/* <CardDataStats title="Total revenue" total="$12.112" rate="0.35%" levelUp>
-          <svg
-            className="fill-primary dark:fill-white"
-            width="20"
-            height="22"
-            viewBox="0 0 20 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M11.7531 16.4312C10.3781 16.4312 9.27808 17.5312 9.27808 18.9062C9.27808 20.2812 10.3781 21.3812 11.7531 21.3812C13.1281 21.3812 14.2281 20.2812 14.2281 18.9062C14.2281 17.5656 13.0937 16.4312 11.7531 16.4312ZM11.7531 19.8687C11.2375 19.8687 10.825 19.4562 10.825 18.9406C10.825 18.425 11.2375 18.0125 11.7531 18.0125C12.2687 18.0125 12.6812 18.425 12.6812 18.9406C12.6812 19.4219 12.2343 19.8687 11.7531 19.8687Z"
-              fill=""
-            />
-            <path
-              d="M5.22183 16.4312C3.84683 16.4312 2.74683 17.5312 2.74683 18.9062C2.74683 20.2812 3.84683 21.3812 5.22183 21.3812C6.59683 21.3812 7.69683 20.2812 7.69683 18.9062C7.69683 17.5656 6.56245 16.4312 5.22183 16.4312ZM5.22183 19.8687C4.7062 19.8687 4.2937 19.4562 4.2937 18.9406C4.2937 18.425 4.7062 18.0125 5.22183 18.0125C5.73745 18.0125 6.14995 18.425 6.14995 18.9406C6.14995 19.4219 5.73745 19.8687 5.22183 19.8687Z"
-              fill=""
-            />
-            <path
-              d="M19.0062 0.618744H17.15C16.325 0.618744 15.6031 1.23749 15.5 2.06249L14.95 6.01562H1.37185C1.0281 6.01562 0.684353 6.18749 0.443728 6.46249C0.237478 6.73749 0.134353 7.11562 0.237478 7.45937C0.237478 7.49374 0.237478 7.49374 0.237478 7.52812L2.36873 13.9562C2.50623 14.4375 2.9531 14.7812 3.46873 14.7812H12.9562C14.2281 14.7812 15.3281 13.8187 15.5 12.5469L16.9437 2.26874C16.9437 2.19999 17.0125 2.16562 17.0812 2.16562H18.9375C19.35 2.16562 19.7281 1.82187 19.7281 1.37499C19.7281 0.928119 19.4187 0.618744 19.0062 0.618744ZM14.0219 12.3062C13.9531 12.8219 13.5062 13.2 12.9906 13.2H3.7781L1.92185 7.56249H14.7094L14.0219 12.3062Z"
-              fill=""
-            />
-          </svg>
-        </CardDataStats> */}
-
-        <CardDataStats title="Total doctors" total="112">
+        <CardDataStats title="Total doctors" total={staff.toString()}>
           <svg
             className="fill-primary dark:fill-white"
             width="32"
@@ -83,11 +100,14 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Patient/Doctor ratio" total="2.450">
+        <CardDataStats
+          title="Patient/Doctor ratio"
+          total={(patientInHospital / staff).toFixed(2).toString()}
+        >
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M21,11H17.06a.78.78,0,0,0-.21,0l-.17,0a1.3,1.3,0,0,0-.15.1,1.67,1.67,0,0,0-.16.12,1,1,0,0,0-.09.13,1.32,1.32,0,0,0-.12.2v0l-1.6,4.41L10.39,4.66a1,1,0,0,0-1.88,0L6.2,11H3a1,1,0,0,0,0,2H6.92L7.15,13l.15,0a.86.86,0,0,0,.16-.1,1.67,1.67,0,0,0,.16-.12l.09-.13a1,1,0,0,0,.12-.2v0L9.45,7.92l4.16,11.42a1,1,0,0,0,.94.66h0a1,1,0,0,0,.94-.66L17.79,13H21a1,1,0,0,0,0-2Z"
-              fill="#6563ff"
+              className="fill-primary dark:fill-white"
             />
           </svg>
         </CardDataStats>

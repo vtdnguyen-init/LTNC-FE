@@ -35,7 +35,11 @@ const SignIn = () => {
       if (response.error) {
         setMessage("Invalid email or password");
       } else {
-        router.push("/dashboard/statistic");
+        if (response.data.role == "DOCTOR") {
+          router.push("/management/patient");
+        } else {
+          router.push("/dashboard/statistic");
+        }
       }
     } catch (error) {
       console.log("Error:", error);

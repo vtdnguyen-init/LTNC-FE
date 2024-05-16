@@ -29,11 +29,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     const fetchUser = async () => {
       try {
         const response2 = await API.getUser();
-        console.log(response2);
+        // console.log(response2);
 
         setInfo2({ name: response2.data.name, role: response2.data.role });
       } catch (error) {
-        console.log("Error", error);
+        // console.log("Error", error);
       }
     };
     fetchUser();

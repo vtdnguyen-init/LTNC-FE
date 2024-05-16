@@ -2,40 +2,36 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
-import {
-  Staff,
-  createStaff,
-  workinghours,
-}from "@/api_library/managehospital"
+import { Staff, createStaff, workinghours } from "@/api_library/managehospital";
 import { StethoscopeIcon } from "lucide-react";
 interface PropsDoctorForm {
-  cccd:  string,
-	name:  string,
-	email: string,
-	gender: string, // Giới tính female hoặc male
-	birthday: string, // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
-	address: string,
-	degree : string,
-	clinic: string,
-	position: string,
-	specialized: string,
-	role: string,
-	working_hours: workinghours[],
-  faculty: string,
+  cccd: string;
+  name: string;
+  email: string;
+  gender: string; // Giới tính female hoặc male
+  birthday: string; // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
+  address: string;
+  degree: string;
+  clinic: string;
+  position: string;
+  specialized: string;
+  role: string;
+  working_hours: workinghours[];
+  faculty: string;
 }
 interface PropsDayForm {
-    monday: string,
-    tuesday: string,
-    wednesday: string,
-    thursday: string,
-    friday: string,
-    saturday: string,
-    sunday: string,
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
 }
-interface PropsScheduleForm{
-    day: string,
-    start_time: string,
-    end_time: string,
+interface PropsScheduleForm {
+  day: string;
+  start_time: string;
+  end_time: string;
 }
 interface Row {
   day: string;
@@ -46,28 +42,50 @@ interface Row {
 }
 const API = new Staff();
 export default function Example() {
-  useEffect(() => {
-  })
- 
-  const [rows, setRows] = useState<Row[]>([{ day: '', start_time: '', end_time: '' , validated: "false", error: "false"}]);
+  useEffect(() => {});
+
+  const [rows, setRows] = useState<Row[]>([
+    {
+      day: "",
+      start_time: "",
+      end_time: "",
+      validated: "false",
+      error: "false",
+    },
+  ]);
   const [errors, setErrors] = useState<string[]>([]);
 
   const addRow = () => {
-    setRows([...rows, { day: '', start_time: '', end_time: '' , validated: "false", error: "false"}]);
+    setRows([
+      ...rows,
+      {
+        day: "",
+        start_time: "",
+        end_time: "",
+        validated: "false",
+        error: "false",
+      },
+    ]);
     //setValidiateState(false);
-    
-    console.log("ADD",rows);
+
+    console.log("ADD", rows);
   };
 
-  const deleteRow = (index: number) : React.MouseEventHandler<HTMLButtonElement> => {
+  const deleteRow = (
+    index: number,
+  ): React.MouseEventHandler<HTMLButtonElement> => {
     return (event) => {
-      setRows(prevRows => prevRows.filter((_, i) => i !== index));
+      setRows((prevRows) => prevRows.filter((_, i) => i !== index));
       //setValidiateState(true);
       setErrors([]);
     };
   };
 
-  const handleSelectDayChange = (index: number, selectName: string, value: string) => {
+  const handleSelectDayChange = (
+    index: number,
+    selectName: string,
+    value: string,
+  ) => {
     const newRows = [...rows];
     newRows[index][selectName as keyof Row] = value;
     newRows[index].validated = "false";
@@ -80,49 +98,56 @@ export default function Example() {
     const options = [];
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 60) {
-        const time = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
-        options.push(<option key={time} value={time}>{time}</option>);
+        const time = `${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`;
+        options.push(
+          <option key={time} value={time}>
+            {time}
+          </option>,
+        );
       }
     }
     return options;
   };
 
   const allRowsValidated = (): boolean => {
-    return rows.every(row => row.validated == "true");
-  }
-  
+    return rows.every((row) => row.validated == "true");
+  };
+
   const validateRow = (index: number) => {
     const row = rows[index];
     const newErrors: string[] = [];
 
     if (!row.day) {
-      newErrors.push('Please select a day.');
-    }else {
+      newErrors.push("Please select a day.");
+    } else {
       const existingRow = rows.find((r, i) => i !== index && r.day === row.day);
       if (existingRow) {
-        newErrors.push('Selected day has already existed.');
+        newErrors.push("Selected day has already existed.");
       }
     }
 
     if (!row.start_time || !row.end_time) {
-      newErrors.push('Please select start and end times.');
+      newErrors.push("Please select start and end times.");
     } else {
       const time1 = new Date(`2000-01-01T${row.start_time}`);
       const time2 = new Date(`2000-01-01T${row.end_time}`);
       if (time2 <= time1) {
-        newErrors.push('There must be at least 4 hours gap between start and end time.');
+        newErrors.push(
+          "There must be at least 4 hours gap between start and end time.",
+        );
       } else if (time2.getHours() - time1.getHours() < 4) {
-        newErrors.push('There must be at least 4 hours gap between start and end time.');
+        newErrors.push(
+          "There must be at least 4 hours gap between start and end time.",
+        );
       }
     }
     setErrors(newErrors);
     const newRows = [...rows];
-    if (newErrors.length > 0){
+    if (newErrors.length > 0) {
       //setValidiateState(false);
       newRows[index].validated = "false";
       newRows[index].error = "true";
-    }
-    else if (newErrors.length === 0) {
+    } else if (newErrors.length === 0) {
       newRows[index].validated = "true";
       newRows[index].error = "false";
       //setValidiateState(true);
@@ -132,19 +157,19 @@ export default function Example() {
   };
 
   const [doctor, setDoctor] = useState<PropsDoctorForm>({
-    cccd:  "",
-    name:  "",
+    cccd: "",
+    name: "",
     email: "",
     gender: "", // Giới tính female hoặc male
     birthday: "", // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
     address: "",
-    degree : "",
+    degree: "",
     clinic: "",
     position: "",
     specialized: "",
     role: "",
     working_hours: [],
-    faculty:"",
+    faculty: "",
   });
   // const [workday, setWorkday] = useState<PropsDayForm>({
   //   monday: "",
@@ -177,12 +202,12 @@ export default function Example() {
 
   // const createSchedule = (selectedShift:any, day:string) => {
   //   try {
-  //     const { start, end } =  getShiftTiming(selectedShift);     
+  //     const { start, end } =  getShiftTiming(selectedShift);
   //     const newScheduleItem: PropsScheduleForm = {
   //       day,
   //       start_time : start,
   //       end_time: end,
-  //   };      
+  //   };
   //   //   setSchedule(prevHours => {
   //   //   // Filter out the previous entry for the same day, if it exists
   //   //   const filteredHours = prevHours.filter(hour => hour.day !== day);
@@ -193,10 +218,10 @@ export default function Example() {
   //   }catch(err){
   //     console.log("Error in scheduler: ", err);
   //   }
-    
+
   // };
   const getFaculty = (spe: any) => {
-    switch (spe){
+    switch (spe) {
       case "Da khoa":
         return "GEN";
       case "Tai mui hong":
@@ -210,9 +235,9 @@ export default function Example() {
       case "Nhi":
         return "PED";
       default:
-          return "GEN";
-      }
-  }
+        return "GEN";
+    }
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
@@ -221,7 +246,7 @@ export default function Example() {
   };
   const handleDoctorEdu = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.id });
-  }
+  };
   // const handleSchedule = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   setWorkday({ ...workday, [e.target.name]: e.target.id});
   // };
@@ -234,20 +259,20 @@ export default function Example() {
     setOpenNotification(false);
   };
   const handlesubmit = async () => {
-    const schedule: PropsScheduleForm[] = rows.map(row => ({
+    const schedule: PropsScheduleForm[] = rows.map((row) => ({
       day: row.day,
       start_time: row.start_time,
       end_time: row.end_time,
     }));
-    
+
     const data: createStaff = {
-      cccd:  doctor.cccd,
-      name:  doctor.name,
+      cccd: doctor.cccd,
+      name: doctor.name,
       email: doctor.email,
       gender: doctor.gender, // Giới tính female hoặc male
       birthday: doctor.birthday, // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
       address: doctor.address,
-      degree : doctor.degree,
+      degree: doctor.degree,
       clinic: doctor.clinic,
       position: doctor.position,
       specialized: doctor.specialized,
@@ -256,7 +281,7 @@ export default function Example() {
       faculty: getFaculty(doctor.specialized),
     };
     try {
-      console.log("DATA: ",data);
+      console.log("DATA: ", data);
       const response = await API.createStaff(data);
       console.log("response: ", response);
       if (response.error) {
@@ -266,13 +291,13 @@ export default function Example() {
         setMessage(response.message);
         setOpenNotification(true);
         setDoctor({
-          cccd:  "",
-          name:  "",
+          cccd: "",
+          name: "",
           email: "",
           gender: "", // Giới tính female hoặc male
           birthday: "", // Kiểm tra ngày sinh theo định dạng yyyy-mm-dd và bắt buộc
           address: "",
-          degree : "",
+          degree: "",
           clinic: "",
           position: "",
           specialized: "",
@@ -296,7 +321,7 @@ export default function Example() {
           </div> */}
 
           <div className="border-gray-900/10 border-b-2 pb-6">
-            <div className="bg-slate-300 rounded-xl text-center font-semibold text-title-xl dark:text-black">
+            <div className="rounded-xl bg-slate-300 text-center text-title-xl font-semibold dark:text-black">
               Personal Information
             </div>
             <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -332,7 +357,7 @@ export default function Example() {
                     name="birthday"
                     type="date"
                     autoComplete="birth"
-                    className="text-black ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
+                    className="ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   />
                 </div>
@@ -368,12 +393,13 @@ export default function Example() {
                   <select
                     id="gender"
                     name="gender"
-                    
                     onChange={handleSelectChange}
-                    className="text-black ring-gray-300 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm sm:leading-6"
+                    className="ring-gray-300 block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm sm:leading-6"
                   >
-                    <option disabled selected>Choose one</option>
-                    <option >Male</option>
+                    <option disabled selected>
+                      Choose one
+                    </option>
+                    <option>Male</option>
                     <option>Female</option>
                     <option>Other</option>
                   </select>
@@ -417,14 +443,13 @@ export default function Example() {
                   />
                 </div>
               </div>
-
             </div>
           </div>
 
           <div className="border-gray-900/10 grid grid-cols-3 gap-4 pb-3">
             <div>
               <fieldset>
-                <legend className="bg-slate-300 rounded-lg px-3 text-gray-900 text-sm font-semibold leading-6 dark:text-black">
+                <legend className="text-gray-900 rounded-lg bg-slate-300 px-3 text-sm font-semibold leading-6 dark:text-black">
                   Education
                 </legend>
                 <div className="mt-2 space-y-6">
@@ -490,7 +515,7 @@ export default function Example() {
             </div>
             <div>
               <fieldset>
-                <legend className="bg-slate-300 rounded-lg px-3 text-gray-900 text-sm font-semibold leading-6 dark:text-black">
+                <legend className="text-gray-900 rounded-lg bg-slate-300 px-3 text-sm font-semibold leading-6 dark:text-black">
                   Position
                 </legend>
                 <div className="mt-2 space-y-6">
@@ -558,7 +583,7 @@ export default function Example() {
               <fieldset>
                 <label
                   htmlFor="specialty"
-                  className="bg-slate-300 rounded-lg px-3 py-1 text-gray-900 text-sm font-semibold leading-6 dark:text-black"
+                  className="text-gray-900 rounded-lg bg-slate-300 px-3 py-1 text-sm font-semibold leading-6 dark:text-black"
                 >
                   Specialty:
                 </label>
@@ -569,9 +594,13 @@ export default function Example() {
                     className="ring-gray-300 block w-full rounded-md border-0 py-1.5 text-slate-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:text-black sm:max-w-xs sm:text-sm sm:leading-6"
                     onChange={handleSelectChange}
                   >
-                    <option disabled selected>Choose specialty</option>
+                    <option disabled selected>
+                      Choose specialty
+                    </option>
                     <option value={"Da khoa"}>General (Da Khoa)</option>
-                    <option value={"Tai mui hong"}>Otorhinolaryngology (Tai mui hong)</option>
+                    <option value={"Tai mui hong"}>
+                      Otorhinolaryngology (Tai mui hong)
+                    </option>
                     <option value={"Mat"}>Ophthalmologist (Mat)</option>
                     <option value={"Da Lieu"}>Dermatology (Da Lieu)</option>
                     <option value={"Tim mach"}>Cardiology (Tim mach)</option>
@@ -582,9 +611,9 @@ export default function Example() {
               <fieldset className="pt-3">
                 <label
                   htmlFor="clinic"
-                  className="bg-slate-300 rounded-lg px-3 py-1 text-gray-900 text-sm font-bold leading-6 dark:text-black"
+                  className="text-gray-900 rounded-lg bg-slate-300 px-3 py-1 text-sm font-bold leading-6 dark:text-black"
                 >
-                  Clinic: 
+                  Clinic:
                 </label>
                 <div className="mt-2">
                   <input
@@ -597,7 +626,6 @@ export default function Example() {
                   />
                 </div>
               </fieldset>
-              
             </div>
           </div>
 
@@ -880,100 +908,122 @@ export default function Example() {
                 
               </div>
   </div> */}
-          </div> 
+          </div>
 
           <div>
             <div className="">
-            <div className=" bg-slate-300 rounded-xl text-center font-semibold text-title-xl dark:text-black">
-              Schedule
-            </div>
-            {/* Dynamic rows */}
-            {rows.map((row, index) => (         
-                <div key={index} className={`flex justify-center gap-3 space-x-3 pt-7`}>
+              <div className=" rounded-xl bg-slate-300 text-center text-title-xl font-semibold dark:text-black">
+                Schedule
+              </div>
+              {/* Dynamic rows */}
+              {rows.map((row, index) => (
+                <div
+                  key={index}
+                  className={`flex justify-center gap-3 space-x-3 pt-7`}
+                >
                   <select
                     value={row.day}
-                    onChange={(e) => handleSelectDayChange(index, 'day', e.target.value)}
-                    className={`w-1/4 p-2 rounded-xl border-4 text-xl font-bold dark:text-black   ${(row.validated == "true")? 'border-green-300' :((row.error == "false")?'border-grey-300 ' :' border-rose-300 ' )} focus:ring-indigo-500 focus:border-indigo-500 `}
+                    onChange={(e) =>
+                      handleSelectDayChange(index, "day", e.target.value)
+                    }
+                    className={`w-1/4 rounded-xl border-4 p-2 text-xl font-bold dark:text-black   ${row.validated == "true" ? "border-green-300" : row.error == "false" ? "border-grey-300 " : " border-rose-300 "} focus:border-indigo-500 focus:ring-indigo-500 `}
                   >
-                    <option value="" disabled>Select Day</option>
-                      <option value="Monday">Monday</option>
-                      <option value="Tuesday">Tuesday</option>
-                      <option value="Wednesday">Wednesday</option>
-                      <option value="Thursday">Thursday</option>
-                      <option value="Friday">Friday</option>
-                      <option value="Saturday">Saturday</option>
-                      <option value="Sunday">Sunday</option>
+                    <option value="" disabled>
+                      Select Day
+                    </option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
                   </select>
                   <select
                     value={row.start_time}
-                    onChange={(e) => handleSelectDayChange(index, 'start_time', e.target.value)}
-                    className={`w-1/4 p-2 border-4 rounded-xl text-xl font-bold dark:text-black ${(row.validated == "true")? 'border-green-300' :((row.error == "false")?'border-grey-300 ' :'  border-rose-300')} focus:ring-indigo-500 focus:border-indigo-500`}
+                    onChange={(e) =>
+                      handleSelectDayChange(index, "start_time", e.target.value)
+                    }
+                    className={`w-1/4 rounded-xl border-4 p-2 text-xl font-bold dark:text-black ${row.validated == "true" ? "border-green-300" : row.error == "false" ? "border-grey-300 " : "  border-rose-300"} focus:border-indigo-500 focus:ring-indigo-500`}
                   >
-                    <option value="" disabled>Select Time</option>
+                    <option value="" disabled>
+                      Select Time
+                    </option>
                     {generateTimeOptions()}
                   </select>
                   <select
                     value={row.end_time}
-                    onChange={(e) => handleSelectDayChange(index, 'end_time', e.target.value)}
-                    className={`w-1/4 p-2 border-4 rounded-xl text-xl font-bold dark:text-black ${(row.validated == "true")? 'border-green-300' :((row.error == "false")?'border-grey-300 ' :'  border-rose-300')} focus:ring-indigo-500 focus:border-indigo-500`}
+                    onChange={(e) =>
+                      handleSelectDayChange(index, "end_time", e.target.value)
+                    }
+                    className={`w-1/4 rounded-xl border-4 p-2 text-xl font-bold dark:text-black ${row.validated == "true" ? "border-green-300" : row.error == "false" ? "border-grey-300 " : "  border-rose-300"} focus:border-indigo-500 focus:ring-indigo-500`}
                   >
-                    <option value="" disabled>Select Time</option>
+                    <option value="" disabled>
+                      Select Time
+                    </option>
                     {generateTimeOptions()}
                   </select>
 
-
                   {/* Validation button */}
                   <button
-                    className={`${(rows.length === 1)? ' cursor-not-allowed':''} shadow-lg rounded-xl bg-rose-500 text-white`}
-                    onClick={ deleteRow(index)}
-                    disabled={(rows.length === 1)}
+                    className={`${rows.length === 1 ? " cursor-not-allowed" : ""} rounded-xl bg-rose-500 text-white shadow-lg`}
+                    onClick={deleteRow(index)}
+                    disabled={rows.length === 1}
                   >
-                    <div className="text-lg flex items-center white">
-                      <svg className="block mx-auto" xmlns="http://www.w3.org/2000/svg" width="58" height="24" viewBox="0 0 24 24" fill="white" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
+                    <div className="white flex items-center text-lg">
+                      <svg
+                        className="mx-auto block"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="58"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
                       </svg>
                     </div>
-                      
                   </button>
-                  
                 </div>
-            
-            ))}
-            {/* Error messages */}
+              ))}
+              {/* Error messages */}
               {errors.length > 0 && (
-                <div className="mt-4 text-red-500">
+                <div className="text-red-500 mt-4">
                   <ul>
-                        <div className="grid grid-cols-2">
-                          <div></div>
-                          <div className=" bg-rose-400 rounded-xl text-center font-medium text-lg text-white ">
-                            <span>
-                            {errors.map((error) => (
-                              <div key={1}>
-                              {error}
-                              </div>
-                            ))}
-                            </span>
-                          </div>
-                        </div>
-                    
+                    <div className="grid grid-cols-2">
+                      <div></div>
+                      <div className=" rounded-xl bg-rose-400 text-center text-lg font-medium text-white ">
+                        <span>
+                          {errors.map((error) => (
+                            <div key={1}>{error}</div>
+                          ))}
+                        </span>
+                      </div>
+                    </div>
                   </ul>
                 </div>
               )}
-      
-            {/* Add button */}
-              <div className="pt-2 pb-6 flex justify-center">
-              <button onClick={addRow} 
-              className={` w-1/4 min-h-10 bg-cyan-500 text-white px-4 py-2 rounded-md mt-4
-              ${(  !allRowsValidated() || rows.length === 7 ) ? 'opacity-50 cursor-not-allowed': 'animate-bounce transition duration-1000 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-teal-500 hover:text-white hover:shadow-md hover:drop-shadow-xl'}
-                `} 
-              disabled={ !allRowsValidated() || rows.length === 7 }>
-                 
-                <span className=" font-semibold">Add Day</span>
-              </button>
+
+              {/* Add button */}
+              <div className="flex justify-center pb-6 pt-2">
+                <button
+                  onClick={addRow}
+                  className={` mt-4 min-h-10 w-1/4 rounded-md bg-cyan-500 px-4 py-2 text-white
+              ${!allRowsValidated() || rows.length === 7 ? "cursor-not-allowed opacity-50" : "animate-bounce transition duration-1000 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-teal-500 hover:text-white hover:shadow-md hover:drop-shadow-xl"}
+                `}
+                  disabled={!allRowsValidated() || rows.length === 7}
+                >
+                  <span className=" font-semibold">Add Day</span>
+                </button>
               </div>
             </div>
-          
           </div>
-
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-x-6 px-60">
@@ -984,10 +1034,7 @@ export default function Example() {
             Save
           </button>
           {openNotification ? (
-            <Notification
-              onclose={onclose}
-              data={message}
-            ></Notification>
+            <Notification onclose={onclose} data={message}></Notification>
           ) : (
             ""
           )}

@@ -25,7 +25,7 @@ const Calendar = () => {
     const fetchSchedule = async () => {
       try {
         const data = await OJ.getschedule();
-        console.log(data);
+        // console.log(data);
         setSchedule(data.data);
       } catch (e) {
         console.log(e);

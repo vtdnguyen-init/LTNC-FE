@@ -80,7 +80,7 @@ class Patient {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -98,7 +98,7 @@ class Patient {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -115,7 +115,7 @@ class Patient {
         `${this.baseUrl}/remove_patient?cccd=${condition.cccd}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -132,7 +132,7 @@ class Patient {
         `${this.baseUrl}/remove_records?date=${condition.date}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -150,7 +150,7 @@ class Patient {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -167,7 +167,7 @@ class Patient {
         `${this.baseUrl}/find_treatment?cccd=${condition.cccd}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -188,7 +188,7 @@ class Patient {
         `${this.baseUrl}/find_patient?cccd=${condition.cccd}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -205,7 +205,7 @@ class Patient {
         `${this.baseUrl}/find_patient_all`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -222,7 +222,7 @@ class Patient {
         `${this.baseUrl}/find_records?cccd=${condition.cccd}&date=${condition.date}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -240,7 +240,7 @@ class Patient {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -257,7 +257,7 @@ class Patient {
         `${this.baseUrl}/find_patient_in_queue`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -274,7 +274,7 @@ class Patient {
         `${this.baseUrl}/update_status?cccd=${condition.cccd}&faculty=${condition.faculty}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -291,7 +291,7 @@ class Patient {
         `${this.baseUrl}/complete_healing?cccd=${condition.cccd}&faculty=${condition.faculty}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -322,6 +322,7 @@ export interface createStaff {
   specialized: string;
   role: string;
   working_hours: workinghours[];
+  faculty: string;
 }
 
 export interface queryStaff {
@@ -350,7 +351,7 @@ class Staff {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -367,7 +368,7 @@ class Staff {
         `${this.baseUrl}/detail?cccd=${condition.cccd}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -384,7 +385,7 @@ class Staff {
         `${this.baseUrl}/getschedule`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -401,7 +402,7 @@ class Staff {
         `${this.baseUrl}/delete?cccd=${condition.cccd}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -419,7 +420,7 @@ class Staff {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -436,7 +437,7 @@ class Staff {
         `${this.baseUrl}/getalldoctor`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -466,7 +467,7 @@ class Authenticate {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -483,7 +484,7 @@ class Authenticate {
         `${this.baseUrl}/logout`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -500,7 +501,7 @@ class Authenticate {
         `${this.baseUrl}/getUser`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -513,6 +514,7 @@ class Authenticate {
 }
 
 export interface createMedicine {
+  name: string;
   brand: string;
   disposal_price: number;
   expiration_date: string;
@@ -550,7 +552,7 @@ class MedicalManage {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -567,7 +569,7 @@ class MedicalManage {
         `${this.baseUrl}/getDetail?id=${condition.id}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -584,7 +586,7 @@ class MedicalManage {
         `${this.baseUrl}/getExp`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -601,7 +603,7 @@ class MedicalManage {
         `${this.baseUrl}/getData`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -618,7 +620,7 @@ class MedicalManage {
         `${this.baseUrl}/delete?id=${condition.id}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -636,7 +638,7 @@ class MedicalManage {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -690,7 +692,7 @@ class medicalEquipment {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -707,7 +709,7 @@ class medicalEquipment {
         `${this.baseUrl}/getDetail?id=${condition.id}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -724,7 +726,7 @@ class medicalEquipment {
         `${this.baseUrl}/getExp`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -741,7 +743,7 @@ class medicalEquipment {
         `${this.baseUrl}/getData`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -758,7 +760,7 @@ class medicalEquipment {
         `${this.baseUrl}/delete?id=${condition.id}`,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;
@@ -771,7 +773,7 @@ class medicalEquipment {
 
   async updateMedicalEquip(
     condition: queryMedicalEquipment,
-    info: updateMedicalEquip,
+    info: updateMedicalEquip
   ) {
     try {
       const response: AxiosResponse = await axios.put(
@@ -779,7 +781,7 @@ class medicalEquipment {
         info,
         {
           withCredentials: true,
-        },
+        }
       );
 
       const data = response.data;

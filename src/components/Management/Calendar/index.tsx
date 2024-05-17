@@ -1,3 +1,11 @@
+"use client";
+import { useState, useEffect } from "react";
+import { Staff } from "@/api_library/managehospital";
+interface Schedule {
+  day: string;
+  start_time: string;
+  end_time: string;
+}
 function getCurrentWeek() {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 1);
@@ -11,6 +19,20 @@ function getCurrentWeek() {
   );
 }
 const Calendar = () => {
+  const [schedule, setSchedule] = useState<Schedule[]>([]);
+  const OJ = new Staff();
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const data = await OJ.getschedule();
+        console.log(data);
+        setSchedule(data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchSchedule();
+  }, []);
   const week = getCurrentWeek();
   return (
     <div className="mx-auto max-w-7xl">
@@ -22,106 +44,42 @@ const Calendar = () => {
         </div>
         <table className="w-full">
           <thead>
-            <tr className="grid grid-cols-7 rounded-t-sm bg-primary text-white">
-              <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Sunday </span>
-                <span className="block lg:hidden"> Sun </span>
-              </th>
-              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Monday </span>
-                <span className="block lg:hidden"> Mon </span>
-              </th>
-              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Tuesday </span>
-                <span className="block lg:hidden"> Tue </span>
-              </th>
-              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Wednesday </span>
-                <span className="block lg:hidden"> Wed </span>
-              </th>
-              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Thursday </span>
-                <span className="block lg:hidden"> Thur </span>
-              </th>
-              <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Friday </span>
-                <span className="block lg:hidden"> Fri </span>
-              </th>
-              <th className="flex h-15 items-center justify-center rounded-tr-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Saturday </span>
-                <span className="block lg:hidden"> Sat </span>
-              </th>
+            <tr className="flex flex-row place-content-around rounded-t-sm bg-primary text-white">
+              {schedule.map((item, index) => (
+                <th
+                  key={index}
+                  className="start-0 flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5"
+                >
+                  <span className="hidden lg:block"> {item.day} </span>
+                  <span className="block lg:hidden"> {item.day} </span>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr className="grid grid-cols-7">
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
+            <tr className="flex flex-row place-content-around">
+              {schedule.map((item, index) => (
+                <td
+                  key={index}
+                  className=" items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5"
+                >
+                  <div className="flex flex-col rounded-full bg-white">
+                    <div className="">Start time: {item.start_time}</div>
+                  </div>
+                </td>
+              ))}
             </tr>
-            <tr className="grid grid-cols-7">
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-            </tr>
-            <tr className="grid grid-cols-7">
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
-              <td className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <div className="h-5 w-5 rounded-full bg-white"></div>
-              </td>
+            <tr className="flex flex-row place-content-around">
+              {schedule.map((item, index) => (
+                <td
+                  key={index}
+                  className=" items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5"
+                >
+                  <div className="flex flex-col rounded-full bg-white">
+                    <div className="">End time: {item.end_time}</div>
+                  </div>
+                </td>
+              ))}
             </tr>
           </tbody>
         </table>

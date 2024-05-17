@@ -190,19 +190,6 @@ export function DataTable<TData, TValue>({
               </DropdownMenu>
             </Dropdown>
           </div>
-          <div className="mt-4 flex h-10 flex-grow justify-center sm:mt-0 sm:justify-end">
-            <Link
-              href="/forms/patient"
-              className={` rounded-m flex items-center gap-2.5 rounded-xl bg-sky-700 px-4 font-medium  text-bodydark2 
-              transition duration-200
-              ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500  hover:text-white
-                              `}
-            >
-              <Button variant="light" size="sm" className="text-white">
-                Add Patient
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
       <div className="border-gray-700 rounded-md border">

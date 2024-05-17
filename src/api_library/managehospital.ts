@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { expression } from "joi";
 
 export interface medicalHistory {
   name: string;
@@ -54,16 +55,6 @@ export interface createRecords {
 export interface queryRecords {
   date: string;
   cccd: string;
-}
-
-export interface registerInfo {
-  cccd: string;
-  faculty: string;
-}
-
-export interface queryPatientInQueue {
-  cccd: string;
-  faculty: string;
 }
 
 export interface registerInfo {
@@ -330,7 +321,6 @@ export interface createStaff {
   position: string;
   specialized: string;
   role: string;
-  faculty: string;
   working_hours: workinghours[];
 }
 
@@ -375,6 +365,23 @@ class Staff {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.baseUrl}/detail?cccd=${condition.cccd}`,
+        {
+          withCredentials: true,
+        },
+      );
+
+      const data = response.data;
+      return { error: data.error, data: data.data, message: data.message };
+    } catch (error: any) {
+      console.log("Error finding staff: ", error.response.data);
+      return error.response.data;
+    }
+  }
+
+  async getschedule() {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.baseUrl}/getschedule`,
         {
           withCredentials: true,
         },
@@ -513,7 +520,6 @@ export interface createMedicine {
   origin: string;
   purchase_price: number;
   quantity: number;
-  name: string;
 }
 
 export interface QueryMedicine {

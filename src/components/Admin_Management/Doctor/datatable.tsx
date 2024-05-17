@@ -28,11 +28,12 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
+import { Staff, queryStaff } from "@/api_library/managehospital";
 import Link from "next/link";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  reloadData?: () => void;
+  data: any[];
+  reloadData: () => void;
   info?: any;
 }
 
@@ -84,21 +85,36 @@ export function DataTable<TData, TValue>({
       </Button>,
     );
   }
-  const handleDeleteRowsSelected = () => {
-    table.getFilteredSelectedRowModel().rows.forEach((row) => {
-      console.log(row.original);
-      // Chỗ này call API về sever để xóa nhân viên nè m
-      //chỉ cần truyền row.original.id vào là được
-    });
+  const handleDeleteRowsSelected = async () => {
+    for (const row of table.getFilteredSelectedRowModel().rows) {
+      // console.log(row);
+      try {
+        const ID: queryStaff = {
+          cccd: row.original.cccd,
+        };
+        const res = await DOC.deleteStaff(ID);
+        // console.log("DELETE DOCTOR: ", res);
+        if (res.error) {
+          alert("Delete failed" + res.message);
+        } else {
+          alert("Delete successfully");
+          reloadData();
+        }
+      } catch (err) {
+        // console.log("error: ", err);
+      }
+    }
   };
   const confirmDelete = () => {
     return window.confirm("Are you sure you want to delete?");
   };
+  const DOC = new Staff();
   const deleteRows = () => {
     // Gọi hàm confirmDelete và lưu kết quả vào biến result
     const result = confirmDelete();
     // Nếu result là true, tức là người dùng nhấn yes
     if (result) {
+      // console.log("Delete");
       // Gọi hàm handleDeleteRowsSelected để xóa các hàng đã chọn
       handleDeleteRowsSelected();
     }

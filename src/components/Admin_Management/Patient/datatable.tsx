@@ -258,22 +258,6 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-center space-x-2 py-4">
-        <button
-          className={`
-          mb-0.5 me-2 w-12 rounded-md border 
-           bg-transparent px-2 py-[0.15rem] text-center text-sm font-normal
-          text-black drop-shadow-md hover:bg-black hover:bg-opacity-30
-          hover:text-black hover:shadow-md hover:drop-shadow-xl focus:outline-none dark:text-white sm:w-16 md:text-base
-          ${
-            table.getFilteredSelectedRowModel().rows.length > 0
-              ? "border-red"
-              : "border-black dark:border-gray-2"
-          }`}
-          onClick={deleteRows}
-        >
-          {table.getFilteredSelectedRowModel().rows.length}/
-          {table.getFilteredRowModel().rows.length}
-        </button>
         <Button
           variant="light"
           size="sm"

@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
   }
   const handleDeleteRowsSelected = async () => {
     const OJ = new MedicalManage();
-    console.log(table.getFilteredSelectedRowModel().rows);
+    // console.log(table.getFilteredSelectedRowModel().rows);
     for (const row of table.getFilteredSelectedRowModel().rows) {
       console.log("ID", row.original.id);
       try {
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
           id: row.original.id,
         };
         const response = await OJ.deleteMedicine(ID);
-        console.log(response);
+        // console.log(response);
         if (response.error) {
           alert(response.message);
         } else {
@@ -104,7 +104,7 @@ export function DataTable<TData, TValue>({
           }
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     }
   };

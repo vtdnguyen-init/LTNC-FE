@@ -86,7 +86,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       const ID: queryPatient = {
         cccd: dataInitial.cccd,
       };
-      console.log("ID", ID);
+      // console.log("ID", ID);
       const date: queryRecords = {
         date: "2024-04-23",
         cccd: dataInitial.cccd,
@@ -97,12 +97,12 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
 
       const response3 = await OJ.findRecords(date);
 
-      console.log("Detail", response);
+      // console.log("Detail", response);
 
-      console.log("Detail2", response2);
+      // console.log("Detail2", response2);
       setTreatment(response2.data);
-      console.log("Treatment", Treatment);
-      console.log("Detail3", response3);
+      // console.log("Treatment", Treatment);
+      // console.log("Detail3", response3);
       // setDataTreatment(response2);
       return response.data;
     } catch (err) {
@@ -144,7 +144,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setIsModalOpen(true);
   };
   const handleCloseListMedicine = () => {
-    console.log("Prescription2", prescription);
+    // console.log("Prescription2", prescription);
     setIsModalOpen(false);
   };
   const handleCreateRecord = async () => {
@@ -160,9 +160,9 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       const ID: queryPatient = {
         cccd: dataInitial.cccd,
       };
-      console.log("ID", ID);
+      // console.log("ID", ID);
       const response = await OJ.createRecords(Medicine, ID);
-      console.log("Detail", response);
+      // console.log("Detail", response);
       if (response.error) {
         handleOpenNoti(response.message);
       } else {

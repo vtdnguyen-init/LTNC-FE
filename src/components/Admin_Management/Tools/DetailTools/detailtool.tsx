@@ -1,15 +1,15 @@
 import React, { ReactEventHandler } from "react";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import {
   medicalEquipment,
   queryMedicalEquipment,
   updateMedicalEquip,
-  warranty_history
-} from "@/api_library/managehospital"
+  warranty_history,
+} from "@/api_library/managehospital";
 import { constrainedMemory } from "process";
 interface WarrantyData {
-	date: string,
-	description: string,
+  date: string;
+  description: string;
 }
 interface ToolsData {
   id: string;
@@ -48,17 +48,17 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
     warranty_history: [],
   });
   const [warranty, setWarranty] = useState({
-    date:"",
+    date: "",
     description: "",
   });
   const handleFetchData = async () => {
     const TL = new medicalEquipment();
     try {
       const ID: queryMedicalEquipment = {
-        id : dataInitial.id,
+        id: dataInitial.id,
       };
       const response = await TL.getDetail(ID);
-      console.log("Fetch Detail", response.data);
+      // console.log("Fetch Detail", response.data);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -68,18 +68,18 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
   useEffect(() => {
     handleFetchData().then((res) => {
       setData(res[0]);
-      console.log("DATA: ",data);
+      // console.log("DATA: ", data);
     });
   }, [dataInitial]);
 
   const completeUpdate = async () => {
-    console.log("UPDATE TOOLS");
+    // console.log("UPDATE TOOLS");
     const originalDate = warranty.date;
 
-  // Split the original date string into year, month, and day parts
-  const [year, month, day] = originalDate.split('-');
+    // Split the original date string into year, month, and day parts
+    const [year, month, day] = originalDate.split("-");
 
-  const formattedDate = `${day}/${month}/${year}`;
+    const formattedDate = `${day}/${month}/${year}`;
 
     const TL = new medicalEquipment();
     try {
@@ -88,22 +88,18 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
         description: warranty.description,
       };
       const Data: updateMedicalEquip = {
-        name:data.name,
-        warranty_expiration_date:data.warranty_expiration_date,
+        name: data.name,
+        warranty_expiration_date: data.warranty_expiration_date,
         purchase_price: data.purchase_price,
-        status: updateData.status
-          ? updateData.status
-          : data.status,
-        warranty_history:
-          [...data.warranty_history, Warranty_data]
-          
+        status: updateData.status ? updateData.status : data.status,
+        warranty_history: [...data.warranty_history, Warranty_data],
       };
       const ID: queryMedicalEquipment = {
         id: dataInitial.id,
       };
-      console.log(Data);
-      const response = await TL.updateMedicalEquip( ID,Data);
-      console.log("Update", response);
+      // console.log(Data);
+      const response = await TL.updateMedicalEquip(ID, Data);
+      // console.log("Update", response);
       handleFetchData().then((res) => {
         setData(res[0]);
       });
@@ -115,27 +111,27 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
   const handleDelete = async () => {
     setDelete(true);
     setEditing(true);
-  }
+  };
   const DeleteTool = async () => {
     //DO SOMETHING THAT DELETE THAT TOOLS
-    console.log("DELETE TOOL");
+    // console.log("DELETE TOOL");
     const TL = new medicalEquipment();
     try {
       const ID: queryMedicalEquipment = {
         id: dataInitial.id,
       };
       const response = await TL.deleteMedicalEquipment(ID);
-      console.log("Delete ID: ",dataInitial.id, response);
+      // console.log("Delete ID: ", dataInitial.id, response);
       if (response.error) {
         alert("Delete failed: " + response.message);
       } else {
         reloadData();
       }
     } catch (err) {
-      console.log("Delete fail sucessfully",err);
+      console.log("Delete fail sucessfully", err);
     }
     setEditing(false);
-  }
+  };
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 top-0 z-50 flex flex-col items-center justify-center   bg-opacity-60 text-[#545e7b]`}
@@ -170,140 +166,160 @@ export const DetailTool: React.FC<PropsDetailTool> = ({
             <span className="text-xl">${data.purchase_price}</span>
           </div>
           <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Expired Date:</span> 
+            <span className="text-xl font-bold">Expired Date:</span>
             <span className="text-xl">{data.warranty_expiration_date}</span>
           </div>
-          <div className=" bg-slate-300 rounded-xl col-span-2 text-center font-semibold text-title-xl">
-              WARRANTY HISTORY
+          <div className=" col-span-2 rounded-xl bg-slate-300 text-center text-title-xl font-semibold">
+            WARRANTY HISTORY
           </div>
-           {data.warranty_history.map((hist:WarrantyData) => (
+          {data.warranty_history.map((hist: WarrantyData) => (
             <>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold">Date :</span>{" "}
-            <span className="text-xl">{hist.date}</span>
-          </div>
-          <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
-            <span className="text-xl font-bold"></span> 
-            <span className="text-l">{hist.description}</span>
-          </div>
-          </>
-          ))} 
-          {isEditing && !isDelete? (
-          <>
-            <div className="py-5"></div>
-              <div className=" bg-slate-300 rounded-xl col-span-2 text-center font-semibold text-title-xl">
-              WARRANTY UPDATED
+              <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+                <span className="text-xl font-bold">Date :</span>{" "}
+                <span className="text-xl">{hist.date}</span>
               </div>
-            <div className="col-span-1 grid grid-cols-2">
-              <div>
-                <div className="relative">
-                    <span className=" font-medium text-xl pl-3">Status: </span>
-                    <input type="text" id="status" className="block w-5/6 p-3 ps-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter status" required 
-                    onChange={(e) => setUpdateData({ ...updateData, status: e.target.value})}/>
-                    
-                </div>
+              <div className="border-b-2 border-indigo-400 duration-500 ease-in-out  hover:transition-all">
+                <span className="text-xl font-bold"></span>
+                <span className="text-l">{hist.description}</span>
               </div>
-              <div>
-                <span className=" font-medium text-xl pl-3">At day: </span>
-                <div className="relative">
-                    <input type="date" id="date" className="block w-5/6 p-3 ps-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Date" required 
-                    onChange={(e) => setWarranty({ ...warranty, date: e.target.value})}
+            </>
+          ))}
+          {isEditing && !isDelete ? (
+            <>
+              <div className="py-5"></div>
+              <div className=" col-span-2 rounded-xl bg-slate-300 text-center text-title-xl font-semibold">
+                WARRANTY UPDATED
+              </div>
+              <div className="col-span-1 grid grid-cols-2">
+                <div>
+                  <div className="relative">
+                    <span className=" pl-3 text-xl font-medium">Status: </span>
+                    <input
+                      type="text"
+                      id="status"
+                      className="text-gray-900 border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-5/6 rounded-lg border p-3 ps-3 text-sm focus:border-blue-500 focus:ring-blue-500 
+                    dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                      placeholder="Enter status"
+                      required
+                      onChange={(e) =>
+                        setUpdateData({ ...updateData, status: e.target.value })
+                      }
                     />
+                  </div>
+                </div>
+                <div>
+                  <span className=" pl-3 text-xl font-medium">At day: </span>
+                  <div className="relative">
+                    <input
+                      type="date"
+                      id="date"
+                      className="text-gray-900 border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-5/6 rounded-lg border p-3 ps-3 text-sm focus:border-blue-500 focus:ring-blue-500 
+                    dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                      placeholder="Date"
+                      required
+                      onChange={(e) =>
+                        setWarranty({ ...warranty, date: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-span-1">
-              <span className=" font-medium text-xl pl-3">Description: </span>
-              <div className="relative">
-                    <textarea id="description" rows={4} className="block w-full p-3 ps-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Describe condition of items...." required 
-                    onChange={(e) => setWarranty({ ...warranty, description: e.target.value})}
-                    />
+              <div className="col-span-1">
+                <span className=" pl-3 text-xl font-medium">Description: </span>
+                <div className="relative">
+                  <textarea
+                    id="description"
+                    rows={4}
+                    className="text-gray-900 border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border p-3 ps-3 text-sm focus:border-blue-500 focus:ring-blue-500 
+                    dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder="Describe condition of items...."
+                    required
+                    onChange={(e) =>
+                      setWarranty({ ...warranty, description: e.target.value })
+                    }
+                  />
                 </div>
-            </div>
-          </>
-        ):("")}
-          
+              </div>
+            </>
+          ) : (
+            ""
+          )}
         </div>
-        
-        
       </div>
       <div className="sticky  bottom-0  z-999 flex w-3/4 flex-col sm:w-3/4 lg:ml-52 lg:w-1/2 ">
-          { isEditing ? (
-            isDelete ? (
-              <div>
+        {isEditing ? (
+          isDelete ? (
+            <div>
               <div
-            className="delay-50 -2-blue-700 left-0  w-full border-2 border-black bg-white 
-                 py-3 text-white drop-shadow-md border-b-0
-               hover:text-white hover:shadow-md hover:drop-shadow-xl text-center
+                className="delay-50 -2-blue-700 left-0  w-full border-2 border-b-0 border-black 
+                 bg-white py-3 text-center text-white
+               drop-shadow-md hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
-          >
-            <span className="font-bold text-xl text-black">Are you sure you want to delete this tool?</span>
-            </div>
+              >
+                <span className="text-xl font-bold text-black">
+                  Are you sure you want to delete this tool?
+                </span>
+              </div>
               <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
+                className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-danger
                  py-3 text-white drop-shadow-md
               transition
               duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-rose-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
-              onClick={() => DeleteTool()}
-          >
-            <span className="font-bold">Confirm</span>
-          </button>
-          </div>
-            ):(
+                onClick={() => DeleteTool()}
+              >
+                <span className="font-bold">Confirm</span>
+              </button>
+            </div>
+          ) : (
             <button
-            className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
+              className="delay-50 -2-blue-700 left-0  w-full rounded-b-lg border-2 border-black bg-blue-500
                  py-3 text-white drop-shadow-md
               transition
               duration-200 ease-in-out hover:-translate-y-1 hover:scale-110  hover:bg-indigo-500 hover:text-white hover:shadow-md hover:drop-shadow-xl
               "
               onClick={() => completeUpdate()}
-          >
-            <span className="font-bold">Complete</span>
-          </button>
-          )):(
-            isDelete ? (
-              <button
-              className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
+            >
+              <span className="font-bold">Complete</span>
+            </button>
+          )
+        ) : isDelete ? (
+          <button
+            className=" delay-50  w-full rounded-lg border-2 border-black bg-amber-700
                         py-3   text-white  drop-shadow-md
                         transition duration-200 
                         ease-in-out hover:-translate-y-1 hover:scale-110 
                         hover:bg-amber-400 hover:shadow-md
                         hover:drop-shadow-xl "
-            >
-              <span className="font-bold">Tool Deleted!</span>
-            </button>
-            ):(
-            <div>
+          >
+            <span className="font-bold">Tool Deleted!</span>
+          </button>
+        ) : (
+          <div>
             <button
-            className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-green-500
                       py-3   text-white  drop-shadow-md
                       transition duration-200 
                       ease-in-out hover:-translate-y-1 hover:scale-110 
                       hover:bg-emerald-400 hover:shadow-md
                       hover:drop-shadow-xl "
-                      onClick={() => setEditing(true)}
-          >
-            <span className="font-bold">Update</span>
-          </button>
-          <button
-          className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
+              onClick={() => setEditing(true)}
+            >
+              <span className="font-bold">Update</span>
+            </button>
+            <button
+              className=" delay-50  w-full rounded-lg border-2 border-black bg-rose-500
                     py-3   text-white  drop-shadow-md
                     transition duration-200 
                     ease-in-out hover:-translate-y-1 hover:scale-110 
                     hover:bg-rose-400 hover:shadow-md
                     hover:drop-shadow-xl "
-                    onClick={() => handleDelete()}
-        >
-          <span className="font-bold">Delete</span>
-        </button>
-        </div>
-            )
-          )
-          }
+              onClick={() => handleDelete()}
+            >
+              <span className="font-bold">Delete</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

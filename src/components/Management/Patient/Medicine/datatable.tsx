@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({
   }
   const handleUseRowsSelected = () => {
     const OJ = new MedicalManage();
-    console.log(table.getFilteredSelectedRowModel().rows);
+    // console.log(table.getFilteredSelectedRowModel().rows);
     for (const row of table.getFilteredSelectedRowModel().rows) {
       Prescription.push({
         evening: 0,
@@ -103,7 +103,7 @@ export function DataTable<TData, TValue>({
         medicineID: row.original.id,
       });
     }
-    console.log("Prescription", Prescription);
+    // console.log("Prescription", Prescription);
   };
   const confirmUse = () => {
     return window.confirm("Are you sure you want to Use?");

@@ -93,7 +93,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
     ]);
     //setValidiateState(false);
 
-    console.log("ADD", rows);
+    // console.log("ADD", rows);
   };
 
   const deleteRow = (
@@ -178,7 +178,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
       //setValidiateState(true);
     }
     setRows(newRows);
-    console.log(rows);
+    // console.log(rows);
   };
 
   const handleFetchData = async () => {
@@ -188,7 +188,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
         cccd: dataInitial.cccd,
       };
       const res = await DOC.findStaff(ID);
-      console.log("DETAIL DATA: ", res.data);
+      // console.log("DETAIL DATA: ", res.data);
       return res.data;
     } catch (err) {
       console.log("error: ", err);
@@ -210,7 +210,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
   }, [dataInitial]);
 
   const handleSave = async () => {
-    console.log("UPDATE DOCTOR");
+    // console.log("UPDATE DOCTOR");
     const schedule: PropsScheduleForm[] = rows.map((row) => ({
       day: row.day,
       start_time: row.start_time,
@@ -226,14 +226,14 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
         position: updateData.position ? updateData.position : data.position,
         working_hours: schedule,
       };
-      console.log("UPDATED DATA: ", updateData);
-      console.log("UPDATED SCHEDULE: ", schedule);
+      // console.log("UPDATED DATA: ", updateData);
+      // console.log("UPDATED SCHEDULE: ", schedule);
       const ID: queryStaff = {
         cccd: data.cccd,
       };
       const response = await DOC.updateStaff(ID, Data);
 
-      console.log("Update state: ", response);
+      // console.log("Update state: ", response);
       handleFetchData().then((res) => {
         setData(res);
         const newRows = res.working_hours.map((workingHour: any) => ({
@@ -262,7 +262,7 @@ export const DetailDoctor: React.FC<PropsDetailDoctor> = ({
         cccd: dataInitial.cccd,
       };
       const res = await DOC.deleteStaff(ID);
-      console.log("DELETE DOCTOR: ", res);
+      // console.log("DELETE DOCTOR: ", res);
       if (res.error) {
         alert("Delete failed" + res.message);
       } else {

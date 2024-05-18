@@ -49,7 +49,7 @@ export default function Example() {
     setOpenNotification(false);
   };
   const handlesubmit = async () => {
-    console.log(patient);
+    // console.log(patient);
     const data: createPatient = {
       name: patient.name,
       date_of_birth: patient.date_of_birth,
@@ -63,7 +63,7 @@ export default function Example() {
     };
     try {
       const response = await API.createPatient(data);
-      console.log("response: ", response);
+      // console.log("response: ", response);
       if (response.error) {
         setMessage(response.message);
         onclick();

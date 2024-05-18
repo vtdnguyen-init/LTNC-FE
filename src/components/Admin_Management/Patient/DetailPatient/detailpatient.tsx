@@ -74,10 +74,10 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         cccd: dataInitial.cccd,
       };
       const response = await OJ.findPatient(ID);
-      console.log("Detail", response);
+      // console.log("Detail", response);
       // const record = await OJ.findRecords({ date: "01/01/2004" });
       const treatmnet = await OJ.findTreatment(ID);
-      console.log("Treatment", treatmnet);
+      // console.log("Treatment", treatmnet);
       // console.log("Record", record);
       return response.data;
     } catch (err) {
@@ -94,7 +94,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setUpdate(true);
   };
   const completeUpdate = async () => {
-    console.log("UPDATE PATIENT");
+    // console.log("UPDATE PATIENT");
     const OJ = new Patient();
     try {
       const Data: updatePatient = {
@@ -112,7 +112,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         cccd: dataInitial.cccd,
       };
       const response = await OJ.updatePatient(Data, ID);
-      console.log("Update", response);
+      // console.log("Update", response);
       if (response.error) {
       } else {
         handleFetchData().then((res) => {
@@ -139,21 +139,21 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   };
   const handleConfirm = () => {
     // Send data to the API here : Gui thong tin benh nhan cho bac si o day ->>>>>
-    console.log("Bệnh nhân khám dịch vụ id:", selectedOption, " nghĩa là: ");
+    // console.log("Bệnh nhân khám dịch vụ id:", selectedOption, " nghĩa là: ");
 
     //FAKEEEE ->>>>>>>>
     if (selectedOption === 1) {
-      console.log("General (Da Khoa)");
+      // console.log("General (Da Khoa)");
     } else if (selectedOption === 2) {
-      console.log("Otorhinolaryngology (Tai mui hong)");
+      // console.log("Otorhinolaryngology (Tai mui hong)");
     } else if (selectedOption === 3) {
-      console.log("Ophthalmologist (Mat)");
+      // console.log("Ophthalmologist (Mat)");
     } else if (selectedOption === 4) {
-      console.log("Dermatology (Da Lieu)");
+      // console.log("Dermatology (Da Lieu)");
     } else if (selectedOption === 5) {
-      console.log("Cardiology (Tim mach)");
+      // console.log("Cardiology (Tim mach)");
     } else if (selectedOption === 6) {
-      console.log("Pediatrician (Nhi)");
+      // console.log("Pediatrician (Nhi)");
     }
     // Close the modal
     setIsModalOpen(false);
@@ -167,7 +167,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         cccd: dataInitial.cccd,
       };
       const response = await OJ.removePatient(ID);
-      console.log("Delete", response);
+      // console.log("Delete", response);
       if (response.error) {
         alert("Delete failed" + response.message);
       } else {
@@ -206,8 +206,8 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         break;
     }
 
-    console.log("Bệnh nhân khám lại");
-    console.log("Info:", Info);
+    // console.log("Bệnh nhân khám lại");
+    // console.log("Info:", Info);
     const response = await OJ.createRegister(Info);
     if (response.error) {
       onclick(response.message);

@@ -14,7 +14,7 @@ async function getData(): Promise<any> {
     //   cccd: "052204002805",
     // };
     // const res2 = await API.findPatient(CCCD);
-    console.log("response data", res);
+    // console.log("response data", res);
     // console.log("response data2", res2);
     return res;
   } catch (error) {
@@ -24,7 +24,7 @@ async function getData(): Promise<any> {
 
 export default async function DemoPage(reloadData: any, info: any) {
   const data = await getData();
-  console.log("data", data);
+  // console.log("data", data);
   const columns = await createColumns(reloadData, info);
 
   if (data?.error) {

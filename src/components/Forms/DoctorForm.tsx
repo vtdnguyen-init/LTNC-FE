@@ -2,7 +2,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Notification } from "@/components/common/Noti/Notification";
-import { Staff, createStaff, workinghours } from "@/api_library/managehospital";
+import {
+  Staff,
+  createStaff,
+  workinghours,
+  Authenticate,
+  loginInfo,
+} from "@/api_library/managehospital";
 import { StethoscopeIcon } from "lucide-react";
 interface PropsDoctorForm {
   cccd: string;
@@ -68,7 +74,7 @@ export default function Example() {
     ]);
     //setValidiateState(false);
 
-    console.log("ADD", rows);
+    // console.log("ADD", rows);
   };
 
   const deleteRow = (
@@ -153,7 +159,7 @@ export default function Example() {
       //setValidiateState(true);
     }
     setRows(newRows);
-    console.log(rows);
+    // console.log(rows);
   };
 
   const [doctor, setDoctor] = useState<PropsDoctorForm>({
@@ -281,9 +287,9 @@ export default function Example() {
       faculty: getFaculty(doctor.specialized),
     };
     try {
-      console.log("DATA: ", data);
+      // console.log("DATA: ", data);
       const response = await API.createStaff(data);
-      console.log("response: ", response);
+      // console.log("response: ", response);
       if (response.error) {
         setMessage(response.message);
         onclick();
@@ -304,6 +310,11 @@ export default function Example() {
           role: "",
           working_hours: [],
           faculty: "",
+        });
+        const API2 = new Authenticate();
+        API2.login({
+          account: "nhan.nguyen1234@gmail.com",
+          password: "079205012712",
         });
       }
     } catch (error: any) {

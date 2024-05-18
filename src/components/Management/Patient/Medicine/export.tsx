@@ -21,7 +21,7 @@ async function getData(): Promise<any> {
 
 export default async function DemoPage(reloadData: any, Prescription: any) {
   const data = await getData();
-  console.log("data", data);
+  // console.log("data", data);
   const columns = await createColumns(reloadData, Prescription);
 
   if (data?.error) {

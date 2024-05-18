@@ -31,7 +31,7 @@ export async function createColumns(
   reloadData: () => void,
   info: any,
 ): Promise<MyColumnDef<PatientData>[]> {
-  console.log("info", info);
+  // console.log("info", info);
   const count = 0;
   return [
     {

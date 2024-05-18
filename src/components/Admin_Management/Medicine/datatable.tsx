@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
     const OJ = new MedicalManage();
     // console.log(table.getFilteredSelectedRowModel().rows);
     for (const row of table.getFilteredSelectedRowModel().rows) {
-      console.log("ID", row.original.id);
+      // console.log("ID", row.original.id);
       try {
         const ID: QueryMedicine = {
           id: row.original.id,
@@ -114,7 +114,7 @@ export function DataTable<TData, TValue>({
   const deleteRows = () => {
     // Gọi hàm confirmDelete và lưu kết quả vào biến result
     const result = confirmDelete();
-    console.log(result);
+    // console.log(result);
     // Nếu result là true, tức là người dùng nhấn yes
     if (result) {
       // Gọi hàm handleDeleteRowsSelected để xóa các hàng đã chọn

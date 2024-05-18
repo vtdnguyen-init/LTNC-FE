@@ -5,7 +5,7 @@ import { Notification } from "@/components/common/Noti/Notification";
 import {
   medicalEquipment,
   createMedicalEquipment,
-}from "@/api_library/managehospital"
+} from "@/api_library/managehospital";
 interface PropsToolForm {
   name: string;
   warranty_expiration_date: string;
@@ -43,25 +43,25 @@ export default function Example() {
     setOpenNotification(false);
   };
   const handlesubmit = async () => {
-    console.log(tool);
+    // console.log(tool);
     const originalDate = tool.warranty_expiration_date;
 
-  // Split the original date string into year, month, and day parts
-  const [year, month, day] = originalDate.split('-');
+    // Split the original date string into year, month, and day parts
+    const [year, month, day] = originalDate.split("-");
 
-  const formattedDate = `${day}/${month}/${year}`;
-  //const parsedFloat = parseFloat(tool.purchase_price);
+    const formattedDate = `${day}/${month}/${year}`;
+    //const parsedFloat = parseFloat(tool.purchase_price);
 
     const data: createMedicalEquipment = {
       name: tool.name,
       warranty_expiration_date: formattedDate,
       status: tool.status,
       purchase_price: tool.purchase_price,
-      warranty_history : [],
-    };                                                  
+      warranty_history: [],
+    };
     try {
       const response = await API.createMedicalEquipment(data);
-      console.log("response: ", response);
+      // console.log("response: ", response);
       if (response.error) {
         setMessage(response.message);
         onclick();
@@ -76,8 +76,8 @@ export default function Example() {
         });
         onclick();
       }
-    }catch (error: any){
-      console.log("Error creating tool: ",error);
+    } catch (error: any) {
+      console.log("Error creating tool: ", error);
     }
   };
   return (
@@ -119,7 +119,7 @@ export default function Example() {
                   htmlFor="ex_date"
                   className="text-gray-900 block text-sm font-medium leading-6"
                 >
-                 Expired Date:
+                  Expired Date:
                 </label>
                 <div className="mt-2">
                   <input
@@ -163,23 +163,21 @@ export default function Example() {
                 </label>
                 <div className="mt-2">
                   <select
-                      onChange={handleSelectChange}
-                      id="status"
-                      name="status"
-                      autoComplete=""
-                      value={tool.status}
-                      className="text-gray-900 ring-gray-300 block rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset min-w-full focus:ring-indigo-600"
-                    >
-                      <option>Choose one</option>
-                      <option>Good</option>
-                      <option>Normal</option>
-                      <option>Some error</option>
-                      <option>Broken</option>
+                    onChange={handleSelectChange}
+                    id="status"
+                    name="status"
+                    autoComplete=""
+                    value={tool.status}
+                    className="text-gray-900 ring-gray-300 block min-w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                  >
+                    <option>Choose one</option>
+                    <option>Good</option>
+                    <option>Normal</option>
+                    <option>Some error</option>
+                    <option>Broken</option>
                   </select>
                 </div>
               </div>
-
-              
             </div>
           </div>
         </div>
@@ -198,14 +196,11 @@ export default function Example() {
           >
             Save
           </button>
-           {openNotification ? (
-            <Notification
-              onclose={onclose}
-              data={message}
-            />
+          {openNotification ? (
+            <Notification onclose={onclose} data={message} />
           ) : (
             ""
-          )} 
+          )}
         </div>
       </div>
     </>

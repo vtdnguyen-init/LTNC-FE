@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
   }
   const handleDeleteRowsSelected = () => {
     table.getFilteredSelectedRowModel().rows.forEach((row) => {
-      console.log(row.original);
+      // console.log(row.original);
       // Chỗ này call API về sever để xóa nhân viên nè m
       //chỉ cần truyền row.original.id vào là được
     });

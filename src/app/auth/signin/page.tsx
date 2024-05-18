@@ -23,7 +23,7 @@ const SignIn = () => {
   };
 
   const handleFormSubmit = async () => {
-    console.log(formData); // Log form data to console
+    // console.log(formData); // Log form data to console
     const auth = new Authenticate();
     try {
       const Data: loginInfo = {
@@ -31,7 +31,7 @@ const SignIn = () => {
         password: formData.password,
       };
       const response = await auth.login(Data);
-      console.log(response);
+      // console.log(response);
       if (response.error) {
         setMessage("Invalid email or password");
       } else {

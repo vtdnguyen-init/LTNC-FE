@@ -49,9 +49,9 @@ export const OpenRecord: React.FC<PropsDetailMedicine> = ({
         cccd: dataInitial.cccd,
       };
       const response3 = await OJ.findRecords(date);
-      console.log("Detail3", response3);
+      // console.log("Detail3", response3);
       setRecord(response3.data);
-      console.log("Detail4", record);
+      // console.log("Detail4", record);
       //   return response3.data;
     } catch (err) {
       console.log(err);
@@ -62,7 +62,7 @@ export const OpenRecord: React.FC<PropsDetailMedicine> = ({
     handleFetchData();
   }, [dataInitial]);
   useEffect(() => {
-    console.log("Detail4", record);
+    // console.log("Detail4", record);
   }, [record]); // This will run whenever `record` changes
   return (
     <div

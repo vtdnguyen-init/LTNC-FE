@@ -20,7 +20,7 @@ const ECommerce: React.FC = () => {
     const OJ = new Patient();
     try {
       const response = await OJ.findPatientsInQueue();
-      console.log(response);
+      // console.log(response);
       setPatientInHospital(
         Object.keys(response.data.CAR).length +
           Object.keys(response.data.DERMA).length +
@@ -29,7 +29,7 @@ const ECommerce: React.FC = () => {
           Object.keys(response.data.OTO).length +
           Object.keys(response.data.OPH).length,
       );
-      console.log(patientInHospital);
+      // console.log(patientInHospital);
     } catch (e) {
       // console.log(e);
     }

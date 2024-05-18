@@ -31,7 +31,7 @@ export default function Example() {
     setOpenNotification(false);
   };
   const handlesubmit = async () => {
-    console.log(medicine);
+    // console.log(medicine);
     const OJ = new MedicalManage();
     const Form: createMedicine = {
       name: medicine.name,
@@ -45,7 +45,7 @@ export default function Example() {
     };
     try {
       const response = await OJ.createMedicine(Form);
-      console.log(response);
+      // console.log(response);
       if (response.error) {
         onclick(response.message);
         return;

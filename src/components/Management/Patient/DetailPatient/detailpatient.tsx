@@ -9,6 +9,8 @@ import {
   createRecords,
   queryRecords,
   testResult,
+  completeHhealing,
+  queryPatientInQueue,
   prescription,
 } from "@/api_library/managehospital";
 interface Treatment {
@@ -16,6 +18,7 @@ interface Treatment {
   name: string;
 }
 interface PatientData {
+  DBIdBytime: string;
   address: string;
   cccd: string;
   date_of_birth: string;
@@ -25,6 +28,7 @@ interface PatientData {
   name: string;
   phoneNumber: string;
   record: string;
+  faculty: string;
 }
 interface PropsDetailPatient {
   onclose: () => void;
@@ -67,6 +71,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setNotiOpen(false);
   };
   const [data, setData] = useState<PatientData>({
+    DBIdBytime: "",
     address: "",
     cccd: "",
     date_of_birth: "",
@@ -76,6 +81,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     name: "",
     phoneNumber: "",
     record: "",
+    faculty: "",
   });
   const [Treatment, setTreatment] = useState<Treatment[]>([]);
   const [dataTreatment, setDataTreatment] = useState([]);
@@ -120,13 +126,14 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
-
+  // console.log("dada", dataInitial);
   const [medicine, setMedicine] = useState<Medicine[]>([]);
   const handleSearchMedicine = () => {
     medicine.push({ name: searchValue, quantity: 0 });
     setMedicine([...medicine]);
   };
   const [updateTreatment, setUpdateTreatment] = useState(false);
+
   const [record, setRecord] = useState<createRecords>({
     date: "",
     description: "",
@@ -147,6 +154,24 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     // console.log("Prescription2", prescription);
     setIsModalOpen(false);
   };
+  const updateStatus = async () => {
+    const OJ = new Patient();
+    try {
+      const cpt: queryPatientInQueue = {
+        DBIdBytime: dataInitial.DBIdBytime,
+        faculty: dataInitial.faculty,
+      };
+      // console.log("CPT", cpt);
+      const response = await OJ.updateStatusAferRegister(cpt);
+      if (response.error) {
+        handleOpenNoti(response.message);
+      } else {
+        handleOpenNoti("Create Record Success");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleCreateRecord = async () => {
     const OJ = new Patient();
     try {
@@ -157,15 +182,17 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         prescription: prescription,
         testResult: record.testResult,
       };
+      console.log("Medicine", Medicine);
       const ID: queryPatient = {
         cccd: dataInitial.cccd,
       };
       // console.log("ID", ID);
       const response = await OJ.createRecords(Medicine, ID);
-      // console.log("Detail", response);
+      console.log("Detail", response);
       if (response.error) {
         handleOpenNoti(response.message);
       } else {
+        updateStatus();
         handleOpenNoti("Create Record Success");
       }
       // return response;
@@ -174,6 +201,26 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       return "error";
     }
     // setUpdateTreatment(false);
+  };
+  const completeTreatment = async () => {
+    const OJ = new Patient();
+    updateStatus();
+    try {
+      const cpt: completeHhealing = {
+        DBIdBytime: dataInitial.DBIdBytime,
+        faculty: dataInitial.faculty,
+      };
+      // console.log("CPT", cpt);
+      const response = await OJ.completeHealing(cpt);
+      if (response.error) {
+        handleOpenNoti(response.message);
+      } else {
+        handleOpenNoti("Create Record Success");
+        reloadData();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -460,6 +507,19 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
             <span className="font-bold">Update Treatment</span>
           </button>
         )}
+        <button
+          className=" delay-50  w-full rounded-lg border-2 border-black bg-yellow-500
+                      py-3   text-white  drop-shadow-md
+                      transition duration-200 
+                      ease-in-out hover:-translate-y-1 hover:scale-110 
+                      hover:bg-yellow-400 hover:shadow-md
+                      hover:drop-shadow-xl "
+          onClick={() => {
+            completeTreatment();
+          }}
+        >
+          <span className="font-bold">Complete Healing</span>
+        </button>
       </div>
     </div>
   );

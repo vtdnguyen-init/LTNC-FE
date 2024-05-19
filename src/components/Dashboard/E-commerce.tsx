@@ -22,16 +22,16 @@ const ECommerce: React.FC = () => {
       const response = await OJ.findPatientsInQueue();
       // console.log(response);
       setPatientInHospital(
-        Object.keys(response.data.CAR).length +
-          Object.keys(response.data.DERMA).length +
-          Object.keys(response.data.PED).length +
-          Object.keys(response.data.GEN).length +
-          Object.keys(response.data.OTO).length +
-          Object.keys(response.data.OPH).length,
+        Object.keys(response?.data?.CAR || {}).length +
+          Object.keys(response?.data?.DERMA || {}).length +
+          Object.keys(response?.data?.PED || {}).length +
+          Object.keys(response?.data?.GEN || {}).length +
+          Object.keys(response?.data?.OTO || {}).length +
+          Object.keys(response?.data?.OPH || {}).length,
       );
       // console.log(patientInHospital);
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
   useEffect(() => {
@@ -44,7 +44,7 @@ const ECommerce: React.FC = () => {
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
         <CardDataStats
-          title="Total patient"
+          title="Total patients in hospital"
           total={patientInHospital.toString()}
         >
           <svg

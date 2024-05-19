@@ -6,7 +6,16 @@ import {
   Patient,
   updatePatient,
   registerInfo,
+  queryRecords,
+  prescription,
+  createRecords,
 } from "@/api_library/managehospital";
+import { OpenRecord } from "@/components/Management/Patient/detailTreatment";
+interface Treatment {
+  date: string;
+  name: string;
+}
+
 interface PatientData {
   address: string;
   cccd: string;
@@ -41,9 +50,19 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
   const [isUpdate, setUpdate] = useState(false);
   const [openNoti, setOpenNoti] = useState(false);
   const [message, setMessage] = useState("");
+  const [RecordOpen, setRecordOpen] = useState(false);
+  const [dataRecord, setDataRecord] = useState<queryRecords>();
   const onclick = (data: string) => {
     setMessage(data);
     setOpenNoti(true);
+  };
+  const handleRecordOpen = (date: string, cccd: string) => {
+    setDataRecord({ date: date, cccd: cccd });
+
+    setRecordOpen(true);
+  };
+  const handleRecordClose = () => {
+    setRecordOpen(false);
   };
   const oncloseNoti = () => {
     setOpenNoti(false);
@@ -59,6 +78,7 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     phoneNumber: "",
     record: "",
   });
+  const [Treatment, setTreatment] = useState<Treatment[]>([]);
   const [updateData, setUpdateData] = useState({
     address: "",
     // email: "",
@@ -73,12 +93,18 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
       const ID: queryPatient = {
         cccd: dataInitial.cccd,
       };
+      const date: queryRecords = {
+        date: "2024-04-23",
+        cccd: dataInitial.cccd,
+      };
       const response = await OJ.findPatient(ID);
       // console.log("Detail", response);
       // const record = await OJ.findRecords({ date: "01/01/2004" });
-      const treatmnet = await OJ.findTreatment(ID);
+      const response2 = await OJ.findTreatment(ID);
+      const response3 = await OJ.findRecords(date);
       // console.log("Treatment", treatmnet);
       // console.log("Record", record);
+      setTreatment(response2.data);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -129,7 +155,19 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
     setDelete(true);
     setClicked(true);
   };
-
+  const [record, setRecord] = useState<createRecords>({
+    date: "",
+    description: "",
+    diagnosis: "",
+    prescription: [],
+    testResult: [
+      {
+        result: "",
+        testName: "",
+      },
+    ],
+  });
+  const [prescription, setPrescription] = useState<prescription[]>([]);
   const handleOptionSelect = (option: number) => {
     setSelectedOption(option);
   };
@@ -302,17 +340,41 @@ export const DetailPatient: React.FC<PropsDetailPatient> = ({
         <div className="grid md:grid-cols-2">
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">Medical history</div>
-            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {data?.medicalHistory}
+            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              {data?.record}
             </div>
           </div>
-
           <div className="mt-5 px-4">
             <div className="text-center text-xl font-bold">
               Treatment process
             </div>
-            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg  border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              {data?.record}
+            <div className="text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block min-h-20 w-full rounded-lg border-2 border-indigo-400 bg-gray-3 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              {Treatment?.map((item, index) => (
+                <div
+                  key={index}
+                  className="my-1 flex place-content-between gap-3"
+                >
+                  <div>STT: {index}</div>
+                  <span className="font-bold">Date:</span> {item.date}
+                  <br />
+                  <span className="font-bold">Name:</span> {item.name}
+                  <br />
+                  <button
+                    onClick={() => {
+                      handleRecordOpen(item.date, dataInitial.cccd);
+                    }}
+                    className="w-20 rounded-lg border-2 border-black bg-blue-500 py-1 text-center text-xs font-bold text-white drop-shadow-md transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-400 hover:shadow-md hover:drop-shadow-xl"
+                  >
+                    Open
+                  </button>
+                </div>
+              ))}
+              {RecordOpen && (
+                <OpenRecord
+                  onclose={handleRecordClose}
+                  dataInitial={dataRecord || { date: "", cccd: "" }}
+                />
+              )}
             </div>
           </div>
         </div>

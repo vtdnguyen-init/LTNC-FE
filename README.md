@@ -1,10 +1,4 @@
 <h1>Hi, this is our FrontEnd for assignment in Advanced programmer subject</h1>
-<h2>Guideline </h2>
-<h3>Step 1:</h3>
-<p>LIKE THIS VIDEO AND SUBCRIBE TO SON TUNG MTP</p>
-<a href="https://www.youtube.com/watch?v=zoEtcR5EW08">
-  <img src="https://i.ytimg.com/vi/zoEtcR5EW08/maxresdefault.jpg" width="50%">
-</a>
 <h3>Step 2:</h3>
 <p>Clone this git to local"</p>
 <h3>Step 3:</h3>

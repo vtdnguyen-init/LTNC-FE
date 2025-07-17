@@ -1,0 +1,6 @@
+{
+  "tools": [
+    { "name": "trivy" },
+    { "name": "checkov", "arguments": { "directory": "infra/" } }
+  ]
+}
